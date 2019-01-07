@@ -1,0 +1,6 @@
+/* Tables */
+
+create table Customer
+{
+    
+};
