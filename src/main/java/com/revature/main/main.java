@@ -1,4 +1,4 @@
-package main;
+package com.revature.main;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
