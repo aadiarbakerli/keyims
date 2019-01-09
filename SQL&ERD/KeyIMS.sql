@@ -62,7 +62,7 @@ add constraint FK_receiver foreign key (receiver) references userInfo(id) on del
 alter table auditLog
 add constraint FK_audit foreign key (userId) references userInfo(id) on delete cascade;
 
-/* Triggers & Sequence*/
+/* Sequence*/
 
 drop sequence user_seq;
 drop sequence key_seq;
@@ -73,54 +73,6 @@ create sequence user_seq;
 create sequence key_seq;
 create sequence msg_seq;
 create sequence audit_seq;
-
-create or replace trigger login_trigger
-before insert or update on userInfo
-for each row
-begin
-    if INSERTING then
-        select user_seq.nextVal into :new.id from dual;
-    elsif UPDATING then
-        select :old.id into :new.id from dual;
-    end if;
-end;
-/
-
-create or replace trigger key_trigger
-before insert or update on accessKey
-for each row
-begin
-    if INSERTING then
-        select key_seq.nextVal into :new.id from dual;
-    elsif UPDATING then
-        select :old.id into :new.id from dual;
-    end if;
-end;
-/
-
-create or replace trigger msg_trigger
-before insert or update on message
-for each row
-begin
-    if INSERTING then
-        select msg_seq.nextVal into :new.id from dual;
-    elsif UPDATING then
-        select :old.id into :new.id from dual;
-    end if;
-end;
-/
-
-create or replace trigger audit_trigger
-before insert or update on auditLog
-for each row
-begin
-    if INSERTING then
-        select audit_seq.nextVal into :new.id from dual;
-    elsif UPDATING then
-        select :old.id into :new.id from dual;
-    end if;
-end;
-/
 
 /* Procedures */
 
