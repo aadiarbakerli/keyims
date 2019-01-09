@@ -1,4 +1,4 @@
-package beans;
+package com.revature.beans;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,10 +11,12 @@ public class Key
 {
 	@Id
 	private int id;
+	@Column(name="keytype")
 	private String type;
+	@Column(name="keydesc")
 	private String desc;
 	private String material;
-	@Column(name="public")
+	@Column(name="pubkey")
 	private boolean pub;
 	private String image;
 	private int quantity;
