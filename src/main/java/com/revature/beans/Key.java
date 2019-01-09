@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="key")
+@Table(name="accesskey")
 public class Key
 {
 	@Id
