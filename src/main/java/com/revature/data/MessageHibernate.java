@@ -6,49 +6,35 @@ import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.revature.beans.User;
+import com.revature.beans.Message;
 import com.revature.util.HibernateUtil;
+
 @Component
-public class UserHibernate implements UserDao
+public class MessageHibernate implements MessageDao
 {
 	@Autowired
 	HibernateUtil hu;
-	@Override
-	public User login(String name, String pass) 
-	{
-        Session s = hu.getSession();
-        String query = "from User u where u.email=:username and u.pswd=:password";
-        Query<User> q = s.createQuery(query, User.class);
-        q.setParameter("username", name);
-        q.setParameter("password", pass);
-        User u = q.getSingleResult();
-        s.close();
-        return u;
-
-	}
-
-	@Override
-	public User getUser(int id) 
+	
+	public Message getMessage(int id) 
 	{
 		Session s = hu.getSession();
-		User u = s.get(User.class, id);
+		Message u = s.get(Message.class, id);
 		s.close();
 		return u;
 	}
 
 	@Override
-	public void addUser(User u) 
+	public void addMessage(Message k) 
 	{
 		Session s = hu.getSession();
 		Transaction t = s.beginTransaction();
 		
 		try
 		{
-			s.save(u);
+			s.save(k);
 		}
 		catch(HibernateException e)
 		{
@@ -62,23 +48,23 @@ public class UserHibernate implements UserDao
 	}
 
 	@Override
-	public ArrayList<User> getUsers() 
+	public ArrayList<Message> getMessages() 
 	{
         Session s = hu.getSession();
-        List<User> u = s.createQuery("From User", User.class).list();
+        List<Message> k = s.createQuery("From Message", Message.class).list();
         s.close();
-        return (ArrayList<User>) u;
+        return (ArrayList<Message>) k;
 	}
 
 	@Override
-	public void updateUser(User u)
+	public void updateMessage(Message k)
 	{
 		Session s = hu.getSession();
 		Transaction t = s.beginTransaction();
 		
 		try
 		{
-			s.update(u);
+			s.update(k);
 		}
 		catch(HibernateException e)
 		{
@@ -93,14 +79,14 @@ public class UserHibernate implements UserDao
 	}
 
 	@Override
-	public void deleteUser(User u) 
+	public void deleteMessage(Message k) 
 	{
 		Session s = hu.getSession();
 		Transaction t = s.beginTransaction();
 		
 		try
 		{
-			s.delete(u);
+			s.delete(k);
 		}
 		catch(HibernateException e)
 		{
@@ -113,5 +99,4 @@ public class UserHibernate implements UserDao
 		t.commit();
 		
 	}
-
 }

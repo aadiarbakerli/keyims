@@ -13,10 +13,9 @@
 		<property name="hibernate.format_sql">true</property>
 		<property name="use_sql_comments">true</property>
 		
-		<mapping class="com.revature.beans.User"></mapping>
-		<mapping class="com.revature.beans.Key"></mapping>
-		<mapping class="com.revature.beans.Message"></mapping>
-		<mapping class="com.revature.beans.Audit"></mapping>
+		<mapping class="beans.User"></mapping>
+		<mapping class="beans.Key"></mapping>
+		<mapping class="beans.Message"></mapping>
 	
 	</session-factory>
 </hibernate-configuration>
