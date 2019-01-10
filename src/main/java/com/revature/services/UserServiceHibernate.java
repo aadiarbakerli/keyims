@@ -15,12 +15,40 @@ public class UserServiceHibernate implements UserService{
 	private ArrayList<User> userList = users.getUsers();
 	
 	@Override
-	public User login(String user, String pass) {
+	public User login(String user, String pass) 
+	{
 		for (User u: userList) {
 			if (u.getEmail().equals(user) && u.getPswd().equals(pass))
 					return u;
 		}
 		return null;
+	}
+
+	@Override
+	public void editUser(User u) 
+	{
+		users.updateUser(u);
+		
+	}
+
+	@Override
+	public void deleteUser(User u) 
+	{
+		users.deleteUser(u);
+		
+	}
+
+	@Override
+	public void addUser(User u) 
+	{
+		users.addUser(u);
+		
+	}
+
+	@Override
+	public ArrayList<User> getUsers() 
+	{
+		return users.getUsers();
 	}
 
 }
