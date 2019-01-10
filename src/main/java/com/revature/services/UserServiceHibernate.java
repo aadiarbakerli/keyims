@@ -12,12 +12,11 @@ import com.revature.data.UserDao;
 public class UserServiceHibernate implements UserService{
 	@Autowired
 	private UserDao users;
-	private ArrayList<User> userList = users.getUsers();
 	
 	@Override
 	public User login(String user, String pass) 
 	{
-		for (User u: userList) {
+		for (User u: users.getUsers()) {
 			if (u.getEmail().equals(user) && u.getPswd().equals(pass))
 					return u;
 		}

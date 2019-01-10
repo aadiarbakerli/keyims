@@ -12,23 +12,29 @@ import com.revature.services.UserService;
 
 @Controller
 @RequestMapping(value="/login")
-public class LoginController {
+public class LoginController 
+{
 	@Autowired
 	private UserService us;
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public String goLogin(HttpSession sess) {
+	public String goLogin(HttpSession sess) 
+	{
 		if (sess.getAttribute("user") != null) // user ?
 			return "redirect:home";
-		return "static/login.html";
+		return "index.html";
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public String login(String username, String password, HttpSession session) {
+	public String login(String username, String password, HttpSession session) 
+	{
 		User u = us.login(username, password);
-		if (u == null) {
+		if (u == null) 
+		{
 			return "redirect:login";
-		}else {
+		}
+		else
+		{
 			session.setAttribute("user", u); // user ?
 			return "redirect:home";
 		}
