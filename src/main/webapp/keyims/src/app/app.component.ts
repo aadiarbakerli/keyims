@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { KeyComponent } from './key/key.component';
 
 @Component({
   selector: 'app-root',
