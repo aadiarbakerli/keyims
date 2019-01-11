@@ -14,5 +14,5 @@
         <mvc:annotation-driven></mvc:annotation-driven>
 
         <!-- Set up our resources folder -->
-        <mvc:resources location="/keyims/src/" mapping="/**"></mvc:resources>
+        <mvc:resources location="/keyims/dist/keyims/" mapping="/**"></mvc:resources>
 </beans>
