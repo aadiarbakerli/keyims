@@ -1,161 +1,156 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.revature</groupId>
-  <artifactId>keyims</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <packaging>war</packaging>
-  <name>keyims</name>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.revature</groupId>
+	<artifactId>keyims</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<name>keyims</name>
 
-  	<properties>
+	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-	    <repositories>
+	<repositories>
+		<repository>
+			<id>my-nexus</id>
+			<name>Nexus</name>
+			<url>http://nexus.revature.tech/nexus/content/groups/public</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
 
-        <repository>
+		</repository>
 
-            <id>my-nexus</id>
+	</repositories>
+	<pluginRepositories>
 
-            <name>Nexus</name>
+		<pluginRepository>
 
-            <url>http://nexus.revature.tech/nexus/content/groups/public</url>
+			<id>my-nexus</id>
 
-            <releases>
+			<name>Nexus</name>
 
-                <enabled>true</enabled>
+			<url>http://nexus.revature.tech/nexus/content/groups/public</url>
 
-            </releases>
+			<releases>
 
-            <snapshots>
+				<enabled>true</enabled>
 
-                <enabled>true</enabled>
+			</releases>
 
-            </snapshots>
+			<snapshots>
 
-        </repository>
+				<enabled>true</enabled>
 
-    </repositories>
-    <pluginRepositories>
+			</snapshots>
 
-        <pluginRepository>
+		</pluginRepository>
 
-            <id>my-nexus</id>
+	</pluginRepositories>
 
-            <name>Nexus</name>
+	<dependencyManagement>
 
-            <url>http://nexus.revature.tech/nexus/content/groups/public</url>
+		<dependencies>
 
-            <releases>
+			<dependency>
 
-                <enabled>true</enabled>
+				<groupId>org.springframework</groupId>
 
-            </releases>
+				<artifactId>spring-framework-bom</artifactId>
 
-            <snapshots>
+				<version>4.2.5.RELEASE</version>
 
-                <enabled>true</enabled>
+				<type>pom</type>
 
-            </snapshots>
+				<scope>import</scope>
 
-        </pluginRepository>
+			</dependency>
 
-    </pluginRepositories>
+		</dependencies>
 
-    <dependencyManagement>
+	</dependencyManagement>
 
-        <dependencies>
 
-            <dependency>
 
-                <groupId>org.springframework</groupId>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+		</dependency>
+		<dependency>
 
-                <artifactId>spring-framework-bom</artifactId>
+			<groupId>com.fasterxml.jackson.core</groupId>
 
-                <version>4.2.5.RELEASE</version>
+			<artifactId>jackson-databind</artifactId>
 
-                <type>pom</type>
+			<version>2.9.8</version>
 
-                <scope>import</scope>
+		</dependency>
 
-            </dependency>
+		<dependency>
 
-        </dependencies>
+			<groupId>com.fasterxml.jackson.core</groupId>
 
-    </dependencyManagement>
+			<artifactId>jackson-annotations</artifactId>
 
-    
+			<version>2.6.5</version>
 
-    <dependencies>
-<dependency><groupId>org.springframework</groupId><artifactId>spring-aspects</artifactId></dependency>
-        <dependency>
+		</dependency>
 
-            <groupId>com.fasterxml.jackson.core</groupId>
+		<dependency>
 
-            <artifactId>jackson-databind</artifactId>
+			<groupId>org.springframework</groupId>
 
-            <version>2.9.8</version>
+			<artifactId>spring-webmvc</artifactId>
 
-        </dependency>
+		</dependency>
 
-        <dependency>
+		<dependency>
 
-            <groupId>com.fasterxml.jackson.core</groupId>
+			<groupId>org.springframework</groupId>
 
-            <artifactId>jackson-annotations</artifactId>
+			<artifactId>spring-context-support</artifactId>
 
-            <version>2.6.5</version>
+		</dependency>
 
-        </dependency>
+		<dependency>
 
-        <dependency>
+			<groupId>org.apache.tomcat</groupId>
 
-            <groupId>org.springframework</groupId>
+			<artifactId>tomcat-catalina</artifactId>
 
-            <artifactId>spring-webmvc</artifactId>
+			<version>8.0.32</version>
 
-        </dependency>
+		</dependency>
 
-        <dependency>
+		<dependency>
 
-            <groupId>org.springframework</groupId>
+			<groupId>org.hibernate</groupId>
 
-            <artifactId>spring-context-support</artifactId>
+			<artifactId>hibernate-core</artifactId>
 
-        </dependency>
+			<version>5.2.12.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc6</artifactId>
+			<version>11.2.0</version>
+		</dependency>
+		<dependency>
 
-        <dependency>
+			<groupId>log4j</groupId>
 
-            <groupId>org.apache.tomcat</groupId>
+			<artifactId>log4j</artifactId>
 
-            <artifactId>tomcat-catalina</artifactId>
+			<version>1.2.17</version>
 
-            <version>8.0.32</version>
+		</dependency>
 
-        </dependency>
-
-        <dependency>
-
-            <groupId>org.hibernate</groupId>
-
-            <artifactId>hibernate-core</artifactId>
-
-            <version>5.2.12.Final</version>
-        </dependency>
-        <dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>ojdbc6</artifactId>
-            <version>11.2.0</version>
-        </dependency>
-        <dependency>
-
-            <groupId>log4j</groupId>
-
-            <artifactId>log4j</artifactId>
-
-            <version>1.2.17</version>
-
-        </dependency>
-
-    </dependencies>
+	</dependencies>
 </project>

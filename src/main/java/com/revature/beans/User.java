@@ -24,6 +24,10 @@ public class User
 	@JoinColumn(name="id")
 	private ArrayList<Key> keys;
 	
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@JoinColumn(name="id")
+	private ArrayList<Message> messages;
+	
 	public User()
 	{
 		System.out.println("user created");
@@ -75,6 +79,14 @@ public class User
 
 	public void setKeys(ArrayList<Key> keys) {
 		this.keys = keys;
+	}
+
+	public ArrayList<Message> getMessages() {
+		return messages;
+	}
+	
+	public void setMessages(ArrayList<Message> messages) {
+		this.messages = messages;
 	}
 
 	@Override
