@@ -12,15 +12,42 @@ import com.revature.data.UserDao;
 public class UserServiceHibernate implements UserService{
 	@Autowired
 	private UserDao users;
-	private ArrayList<User> userList = users.getUsers();
 	
 	@Override
-	public User login(String user, String pass) {
-		for (User u: userList) {
+	public User login(String user, String pass) 
+	{
+		for (User u: users.getUsers()) {
 			if (u.getEmail().equals(user) && u.getPswd().equals(pass))
 					return u;
 		}
 		return null;
+	}
+
+	@Override
+	public void editUser(User u) 
+	{
+		users.updateUser(u);
+		
+	}
+
+	@Override
+	public void deleteUser(User u) 
+	{
+		users.deleteUser(u);
+		
+	}
+
+	@Override
+	public void addUser(User u) 
+	{
+		users.addUser(u);
+		
+	}
+
+	@Override
+	public ArrayList<User> getUsers() 
+	{
+		return users.getUsers();
 	}
 
 }
