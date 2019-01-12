@@ -1,5 +1,0 @@
-INDEX VERSION 1.4+C:\Users\shado\GitRepos\keyims\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-3165206857.index
-1910373089.index
-4164049620.index
-1584714973.index
