@@ -1,5 +1,13 @@
+<<<<<<< HEAD
 Manifest-Version: 1.0
 Built-By: ThinkPad
 Build-Jdk: 1.8.0_191
 Created-By: Maven Integration for Eclipse
 
+=======
+Manifest-Version: 1.0
+Built-By: shado
+Build-Jdk: 1.8.0_191
+Created-By: Maven Integration for Eclipse
+
+>>>>>>> cb065056639056319e8f759b9a8dd78b524163bb
