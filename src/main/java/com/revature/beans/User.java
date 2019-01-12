@@ -1,13 +1,18 @@
 package com.revature.beans;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -15,14 +20,18 @@ import javax.persistence.Table;
 public class User
 {
 	@Id
+	@SequenceGenerator(name="user_seq", sequenceName="user_seq")
+	@GeneratedValue(generator="user_seq", strategy=GenerationType.AUTO)	
 	private int id;
 	private String name;
 	private String email;
 	private String pswd;
 	private int level;
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JoinColumn(name="id")
-	private ArrayList<Key> keys;
+	@ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@JoinTable(name="userkey",
+	joinColumns=@JoinColumn(name="userid"),
+	inverseJoinColumns=@JoinColumn(name="keyid"))
+	private List<Key> keys;
 	
 	public User()
 	{
@@ -69,7 +78,7 @@ public class User
 		this.level = level;
 	}
 	
-	public ArrayList<Key> getKeys() {
+	public List<Key> getKeys() {
 		return keys;
 	}
 

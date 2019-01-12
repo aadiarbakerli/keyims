@@ -1,12 +1,16 @@
 package com.revature.controllers;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.revature.beans.Key;
 import com.revature.services.KeyService;
 
 @Controller
@@ -17,8 +21,9 @@ public class KeyController
 	private KeyService ks;
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public String goLogin(HttpSession sess)
+	@ResponseBody
+	public List<Key> goLogin(HttpSession sess)
 	{
-		return "index.html";
+		return ks.getKeys();
 	}
 }
