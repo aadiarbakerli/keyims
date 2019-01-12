@@ -14,7 +14,7 @@ import com.revature.beans.Key;
 import com.revature.services.KeyService;
 
 @Controller
-@RequestMapping(value="/key")
+@RequestMapping(value="/keyserv")
 public class KeyController
 {
 	@Autowired
