@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-//import {KeyServiceService} from '../'
+import { EventManager } from '@angular/platform-browser'
 import { HttpClient } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 
@@ -12,7 +12,7 @@ export class KeyComponent implements OnInit
 {
 	keys: Array<any>;
 	keylist: any;  
-  constructor(private http: HttpClient) 
+  constructor(private http: HttpClient, private eventManager: EventManager) 
   {
   	this.keylist = document.getElementById("keylst"); 
   }
@@ -32,8 +32,6 @@ export class KeyComponent implements OnInit
     this.http.get<any>("/keyims/keyserv").
   	subscribe((data) =>{
   		this.keys = data;
-  		console.log(this.keys);
-  		console.log(data);
 
   		for(let i = 0; i < this.keys.length; i++)
   		{
@@ -41,8 +39,17 @@ export class KeyComponent implements OnInit
   			list.innerHTML = this.keys[i].id + ": " + this.keys[i].desc;
   			list.value = this.keys[i].id;
   			
+  			this.eventManager.addEventListener(list, 'click', this.showInfo);
+  			this.eventManager.addEventListener(list, 'mouseenter', ()=> list.style.backgroundColor = "blue");
+  			this.eventManager.addEventListener(list, 'mouseleave', ()=> list.style.backgroundColor = "lightblue");
+  			
   			this.keylist.appendChild(list);
   		}
   		})
   }
+  
+  	showInfo()
+  	{
+  		console.log("click");
+  	}
 }
