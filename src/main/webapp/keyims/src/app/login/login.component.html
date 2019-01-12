@@ -1,12 +1,8 @@
-<<<<<<< HEAD
+<ng-container>
 <div>
     <h1>Login</h1>
-    <label>Username: </label>
-    <br>
-    <label>Password: </label>
-</div>>
-=======
-<label>Email: </label> <input type="text" id="email"><br>
-<label>Password: </label> <input type="password" id="pass">
-
->>>>>>> 76af4c7a70a6fa20004efb14243188362109e4e7
+    <label>Email: </label> <input type="text" [(ngModel)]="username"><br>
+    <label>Password: </label> <input type="password" [(ngModel)]="password" (keyup.enter)="login()"><br>
+    <button class="btn btn-primary" (click)="login()">Login</button>
+</div>
+</ng-container>

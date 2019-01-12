@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, pipe, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { CurrentUser } from './user';
+import { CurrentUser } from './CurrentUser';
 import { UrlService } from '../url.service';
 
 @Injectable({
@@ -18,7 +18,7 @@ export class UserService {
 
   login(username: string, password: string): Observable<CurrentUser> {
       if (username && password) {
-          const body = 'user=${username}&pass=${password}';
+          const body = `user=${username}&pass=${password}`;
           console.log(body);
           return this.http.post(this.appUrl, body, {headers: this.headers, withCredentials: true})
           .pipe(map(resp => {
