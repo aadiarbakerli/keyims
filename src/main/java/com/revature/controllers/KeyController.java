@@ -14,15 +14,19 @@ import com.revature.beans.Key;
 import com.revature.services.KeyService;
 
 @Controller
-@RequestMapping(value="/keyserv")
 public class KeyController
 {
+	@RequestMapping(value="/key")
+	public String keyStat()
+	{
+		return "index.html";
+	}
+	
 	@Autowired
 	private KeyService ks;
-	
-	@RequestMapping(method=RequestMethod.GET)
+	@RequestMapping(value="/keyserv", method=RequestMethod.GET)
 	@ResponseBody
-	public List<Key> goLogin(HttpSession sess)
+	public List<Key> getKeys(HttpSession sess)
 	{
 		return ks.getKeys();
 	}
