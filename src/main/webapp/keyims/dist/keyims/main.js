@@ -257,11 +257,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+//import { HttpHeaders } from '@angular/common/http';
 var KeyComponent = /** @class */ (function () {
     function KeyComponent(http, eventManager) {
         this.http = http;
         this.eventManager = eventManager;
-        this.keylist = document.getElementById("keylst");
     }
     KeyComponent.prototype.ngOnInit = function () {
     };
@@ -318,6 +318,17 @@ var KeyComponent = /** @class */ (function () {
             keypub.checked = true;
         else
             keypub.checked = false;
+    };
+    KeyComponent.prototype.submit = function () {
+        var keyid = document.getElementById("keyid").innerHTML;
+        var keymat = document.getElementById("keymat").value;
+        var keydesc = document.getElementById("keydesc").value;
+        var keyqty = document.getElementById("keyqty").value;
+        var keypub = document.getElementById("keypub").value;
+        var keytype = document.getElementById("keytype").value;
+        console.log("Posting...");
+        this.http.post("/keyims/keyserv", '{ id: ' + keyid + ', type: ' + keytype + ', desc: ' + keydesc + ', material: ' + keymat + ', pub: ' + keypub + ', image: null, quantity: ' + keyqty + ' }').
+            subscribe(function (data) { console.log(data); });
     };
     KeyComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({

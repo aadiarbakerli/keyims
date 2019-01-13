@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EventManager } from '@angular/platform-browser'
 import { HttpClient } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
+//import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-key',
@@ -12,9 +13,8 @@ export class KeyComponent implements OnInit
 {
 	public keys : Array<any>;
 	keylist: any;  
-  constructor(private http: HttpClient, private eventManager: EventManager) 
+  constructor(private http: HttpClient, private eventManager: EventManager)
   {
-  	this.keylist = document.getElementById("keylst"); 
   }
 
   ngOnInit()
@@ -86,5 +86,19 @@ export class KeyComponent implements OnInit
   			keypub.checked = true;
   		else
   			keypub.checked = false;
+  	}
+  	
+ 		submit()
+  	{  		
+  		let keyid = document.getElementById("keyid").innerHTML;
+  		let keymat = (<HTMLInputElement>document.getElementById("keymat")).value;
+  		let keydesc = (<HTMLInputElement>document.getElementById("keydesc")).value;
+  		let keyqty = (<HTMLInputElement>document.getElementById("keyqty")).value;
+  		let keypub = (<HTMLInputElement>document.getElementById("keypub")).value;
+  		let keytype = (<HTMLInputElement>document.getElementById("keytype")).value;
+  	
+  		console.log("Posting...");
+  		this.http.post("/keyims/keyserv", '{ id: ' + keyid + ', type: ' + keytype + ', desc: ' + keydesc + ', material: ' + keymat + ', pub: ' + keypub + ', image: null, quantity: ' + keyqty + ' }').
+  			subscribe((data : any) =>{console.log(data)});
   	}
 }
