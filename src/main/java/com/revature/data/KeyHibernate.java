@@ -64,16 +64,20 @@ public class KeyHibernate implements KeyDao
 		try
 		{
 			s.update(k);
+			System.out.println("Here, commiting");
+			s.flush();
+			t.commit();
 		}
 		catch(HibernateException e)
 		{
+			System.out.println(e.getMessage());
 			t.rollback();
 		}
 		finally
 		{
 			s.close();
 		}
-		t.commit();
+
 		
 	}
 

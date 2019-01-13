@@ -314,7 +314,7 @@ var KeyComponent = /** @class */ (function () {
         keydesc.value = key.desc;
         keyqty.value = key.quantity;
         keytype.value = key.type;
-        if (key.pub == "true")
+        if (key.pub == "true" || key.pub == "on")
             keypub.checked = true;
         else
             keypub.checked = false;
@@ -326,8 +326,12 @@ var KeyComponent = /** @class */ (function () {
         var keyqty = document.getElementById("keyqty").value;
         var keypub = document.getElementById("keypub").value;
         var keytype = document.getElementById("keytype").value;
+        if (keypub == "on")
+            keypub = "true";
+        else
+            keypub = "false";
         console.log("Posting...");
-        this.http.post("/keyims/keyserv", '{ id: ' + keyid + ', type: ' + keytype + ', desc: ' + keydesc + ', material: ' + keymat + ', pub: ' + keypub + ', image: null, quantity: ' + keyqty + ' }').
+        this.http.post("/keyims/keyserv", '{ "id": "' + keyid + '", "type": "' + keytype + '", "desc": "' + keydesc + '", "material": "' + keymat + '", "pub": "' + keypub + '", "image": "null", "quantity": "' + keyqty + '" }').
             subscribe(function (data) { console.log(data); });
     };
     KeyComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([

@@ -82,7 +82,7 @@ export class KeyComponent implements OnInit
   		keydesc.value = key.desc;
   		keyqty.value = key.quantity;
   		keytype.value = key.type;
-  		if(key.pub == "true")
+  		if(key.pub == "true" || key.pub == "on")
   			keypub.checked = true;
   		else
   			keypub.checked = false;
@@ -96,9 +96,14 @@ export class KeyComponent implements OnInit
   		let keyqty = (<HTMLInputElement>document.getElementById("keyqty")).value;
   		let keypub = (<HTMLInputElement>document.getElementById("keypub")).value;
   		let keytype = (<HTMLInputElement>document.getElementById("keytype")).value;
-  	
+  		
+  		if(keypub == "on")
+  			keypub = "true";
+  		else
+  			keypub = "false";
+  		
   		console.log("Posting...");
-  		this.http.post("/keyims/keyserv", '{ id: ' + keyid + ', type: ' + keytype + ', desc: ' + keydesc + ', material: ' + keymat + ', pub: ' + keypub + ', image: null, quantity: ' + keyqty + ' }').
+  		this.http.post("/keyims/keyserv", '{ "id": "' + keyid + '", "type": "' + keytype + '", "desc": "' + keydesc + '", "material": "' + keymat + '", "pub": "' + keypub + '", "image": "null", "quantity": "' + keyqty + '" }').
   			subscribe((data : any) =>{console.log(data)});
   	}
 }
