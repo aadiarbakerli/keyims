@@ -104,13 +104,9 @@ export class KeyComponent implements OnInit
   		let keymat = (<HTMLInputElement>document.getElementById("keymat")).value;
   		let keydesc = (<HTMLInputElement>document.getElementById("keydesc")).value;
   		let keyqty = (<HTMLInputElement>document.getElementById("keyqty")).value;
-  		let keypub = (<HTMLInputElement>document.getElementById("keypub")).value;
+  		let keypub = (<HTMLSelectElement>document.getElementById("keypub")).options[(<HTMLSelectElement>document.getElementById("keypub")).selectedIndex].value;
   		let keytype = (<HTMLInputElement>document.getElementById("keytype")).value;
   		
-  		if(keypub == "on")
-  			keypub = "true";
-  		else
-  			keypub = "false";
   		if(keyid != "")
   		{
   		console.log("Posting...");
