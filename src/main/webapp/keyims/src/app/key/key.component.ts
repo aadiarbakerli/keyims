@@ -55,6 +55,16 @@ export class KeyComponent implements OnInit
   	})
   }
   
+  clear()
+  {
+    	document.getElementById("keyid").innerHTML = "";
+  		(<HTMLInputElement>document.getElementById("keymat")).value = "";
+  		(<HTMLInputElement>document.getElementById("keydesc")).value = "";
+  		(<HTMLInputElement>document.getElementById("keyqty")).value = "";
+  		(<HTMLInputElement>document.getElementById("keypub")).value = "";
+  		(<HTMLInputElement>document.getElementById("keytype")).value = "";
+  }
+  
   	showInfo(e)
   	{
 	  	let cheat = document.getElementById("cheat");
@@ -101,9 +111,17 @@ export class KeyComponent implements OnInit
   			keypub = "true";
   		else
   			keypub = "false";
-  		
+  		if(keyid != "")
+  		{
   		console.log("Posting...");
   		this.http.post("/keyims/keyserv", '{ "id": "' + keyid + '", "type": "' + keytype + '", "desc": "' + keydesc + '", "material": "' + keymat + '", "pub": "' + keypub + '", "image": "null", "quantity": "' + keyqty + '" }').
   			subscribe((data : any) =>{console.log(data)});
-  	}
+  		}
+  		else
+  		{
+   		console.log("Pootis...");
+  		this.http.put("/keyims/keyserv", '{ "id": "' + 0 + '", "type": "' + keytype + '", "desc": "' + keydesc + '", "material": "' + keymat + '", "pub": "' + keypub + '", "image": "null", "quantity": "' + keyqty + '" }').
+  			subscribe((data : any) =>{console.log(data)});
+  		} 		
+  		}  	
 }

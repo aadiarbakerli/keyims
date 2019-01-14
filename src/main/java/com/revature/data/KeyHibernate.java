@@ -34,6 +34,9 @@ public class KeyHibernate implements KeyDao
 		try
 		{
 			s.save(k);
+			System.out.println("Here, commiting");
+			s.flush();
+			t.commit();
 		}
 		catch(HibernateException e)
 		{
@@ -43,7 +46,7 @@ public class KeyHibernate implements KeyDao
 		{
 			s.close();
 		}
-		t.commit();
+
 	}
 
 	@Override

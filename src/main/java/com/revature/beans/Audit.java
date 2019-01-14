@@ -16,7 +16,7 @@ import javax.persistence.Table;
 public class Audit 
 {
 	@Id
-	@SequenceGenerator(name="audit_seq", sequenceName="audit_seq")
+	@SequenceGenerator(name="audit_seq", sequenceName="audit_seq", allocationSize=1)
 	@GeneratedValue(generator="audit_seq", strategy=GenerationType.AUTO)	
 	private int id;
 	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)

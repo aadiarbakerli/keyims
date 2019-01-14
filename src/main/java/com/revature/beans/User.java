@@ -20,7 +20,7 @@ import javax.persistence.Table;
 public class User
 {
 	@Id
-	@SequenceGenerator(name="user_seq", sequenceName="user_seq")
+	@SequenceGenerator(name="user_seq", sequenceName="user_seq", allocationSize=1)
 	@GeneratedValue(generator="user_seq", strategy=GenerationType.AUTO)	
 	private int id;
 	private String name;

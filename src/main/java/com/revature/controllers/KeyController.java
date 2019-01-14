@@ -46,4 +46,16 @@ public class KeyController
 		System.out.println(k.toString());
 		return "done";
 	}
+	
+	@RequestMapping(value="/keyserv", method=RequestMethod.PUT)
+	@ResponseBody
+	public String PutKey(@RequestBody String json) throws Exception
+	{
+		Key k = om.readValue(json, Key.class);
+		
+		ks.addKey(k);
+		
+		System.out.println(k.toString());
+		return "done";
+	}
 }

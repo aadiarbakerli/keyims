@@ -235,7 +235,7 @@ module.exports = "#keydet{\n\tposition: static;\n\tright: 20px;\n\ttop: 20px;\n}
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "Public Keys: <br>\n<ul id=\"keylst\">\n\n</ul>\n<button id=\"getKey\" (click)=\"getKey()\">Get Keys</button><br><br>\nCreate Key:\n<div id=\"keydet\">\nID: <span id=\"keyid\"></span><br>\nDescription: <input type=\"text\" id=\"keydesc\"><br>\nMaterial: <input type=\"text\" id=\"keymat\"><br>\nType: <input type=\"text\" id=\"keytype\"><br>\nQty: <input type=\"number\" id=\"keyqty\"><br> \nPublic: <input type=\"checkbox\" id=\"keypub\"><br>\nImage: <input type=\"file\" id=\"keyimg\"><br>\n<button id=\"sub\" (click)=\"submit()\">Submit</button>\n</div>\n"
+module.exports = "Public Keys: <br>\n<ul id=\"keylst\">\n\n</ul>\n<button id=\"getKey\" (click)=\"getKey()\">Get Keys</button><br><br>\nCreate Key:\n<div id=\"keydet\">\nID: <span id=\"keyid\"></span><br>\nDescription: <input type=\"text\" id=\"keydesc\"><br>\nMaterial: <input type=\"text\" id=\"keymat\"><br>\nType: <input type=\"text\" id=\"keytype\"><br>\nQty: <input type=\"number\" id=\"keyqty\"><br> \nPublic: <input type=\"checkbox\" id=\"keypub\"><br>\nImage: <input type=\"file\" id=\"keyimg\"><br>\n<button id=\"sub\" (click)=\"submit()\">Submit</button>\n<button id=\"clr\" (click)=\"clear()\">Clear</button>\n</div>\n"
 
 /***/ }),
 
@@ -293,6 +293,14 @@ var KeyComponent = /** @class */ (function () {
             console.log("complete");
         });
     };
+    KeyComponent.prototype.clear = function () {
+        document.getElementById("keyid").innerHTML = "";
+        document.getElementById("keymat").value = "";
+        document.getElementById("keydesc").value = "";
+        document.getElementById("keyqty").value = "";
+        document.getElementById("keypub").value = "";
+        document.getElementById("keytype").value = "";
+    };
     KeyComponent.prototype.showInfo = function (e) {
         var cheat = document.getElementById("cheat");
         this.keys = JSON.parse(cheat.innerHTML);
@@ -330,9 +338,16 @@ var KeyComponent = /** @class */ (function () {
             keypub = "true";
         else
             keypub = "false";
-        console.log("Posting...");
-        this.http.post("/keyims/keyserv", '{ "id": "' + keyid + '", "type": "' + keytype + '", "desc": "' + keydesc + '", "material": "' + keymat + '", "pub": "' + keypub + '", "image": "null", "quantity": "' + keyqty + '" }').
-            subscribe(function (data) { console.log(data); });
+        if (keyid != "") {
+            console.log("Posting...");
+            this.http.post("/keyims/keyserv", '{ "id": "' + keyid + '", "type": "' + keytype + '", "desc": "' + keydesc + '", "material": "' + keymat + '", "pub": "' + keypub + '", "image": "null", "quantity": "' + keyqty + '" }').
+                subscribe(function (data) { console.log(data); });
+        }
+        else {
+            console.log("Pootis...");
+            this.http.put("/keyims/keyserv", '{ "id": "' + 0 + '", "type": "' + keytype + '", "desc": "' + keydesc + '", "material": "' + keymat + '", "pub": "' + keypub + '", "image": "null", "quantity": "' + keyqty + '" }').
+                subscribe(function (data) { console.log(data); });
+        }
     };
     KeyComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
