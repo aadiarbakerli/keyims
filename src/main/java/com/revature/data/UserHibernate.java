@@ -21,7 +21,7 @@ public class UserHibernate implements UserDao
 	public User login(String name, String pass) 
 	{
         Session s = hu.getSession();
-        String query = "from User u where u.email=:username and u.pswd=:password";
+        String query = "from com.revature.beans.User where email=:username and pswd=:password";
         Query<User> q = s.createQuery(query, User.class);
         q.setParameter("username", name);
         q.setParameter("password", pass);
@@ -65,9 +65,10 @@ public class UserHibernate implements UserDao
 	public ArrayList<User> getUsers() 
 	{
         Session s = hu.getSession();
-        List<User> u = s.createQuery("From User", User.class).list();
+        Query<User> u = s.createQuery("From com.revature.beans.User", User.class);
+        List<User> uList = u.getResultList();
         s.close();
-        return (ArrayList<User>) u;
+        return (ArrayList<User>) uList;
 	}
 
 	@Override

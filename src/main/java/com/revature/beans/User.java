@@ -1,28 +1,37 @@
 package com.revature.beans;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Userinfo")
+@Table(name="userInfo")
 public class User
 {
 	@Id
+	@SequenceGenerator(name="user_seq", sequenceName="user_seq", allocationSize=1)
+	@GeneratedValue(generator="user_seq", strategy=GenerationType.AUTO)	
 	private int id;
 	private String name;
 	private String email;
 	private String pswd;
-	private int level;
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JoinColumn(name="id")
-	private ArrayList<Key> keys;
+	private int lvl;
+	@ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@JoinTable(name="userkey",
+	joinColumns=@JoinColumn(name="userid"),
+	inverseJoinColumns=@JoinColumn(name="keyid"))
+	private List<Key> keys;
 	
 	public User()
 	{
@@ -62,14 +71,14 @@ public class User
 	}
 
 	public int getLevel() {
-		return level;
+		return lvl;
 	}
 
 	public void setLevel(int level) {
-		this.level = level;
+		this.lvl = level;
 	}
 	
-	public ArrayList<Key> getKeys() {
+	public List<Key> getKeys() {
 		return keys;
 	}
 
@@ -82,7 +91,7 @@ public class User
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + level;
+		result = prime * result + lvl;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((pswd == null) ? 0 : pswd.hashCode());
 		return result;
@@ -102,7 +111,7 @@ public class User
 				return false;
 		} else if (!email.equals(other.email))
 			return false;
-		if (level != other.level)
+		if (lvl != other.lvl)
 			return false;
 		if (name == null) {
 			if (other.name != null)
@@ -119,7 +128,7 @@ public class User
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", email=" + email + ", pswd=" + pswd + ", level=" + level + "]";
+		return "User [id=" + id + ", name=" + name + ", email=" + email + ", pswd=" + pswd + ", level=" + lvl + "]";
 	}
 	
 	

@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,19 +30,21 @@ public class LoginController
 	
 	@RequestMapping(method=RequestMethod.POST)
 	@ResponseBody
-	public User login(HttpSession session) 
+	public User login(@RequestBody User u, HttpSession session) 
 	{
-		User u = new User();
 		User sessUser = (User) session.getAttribute("user");
 		if (sessUser == null) 
 		{
 			sessUser = us.login(u.getEmail(), u.getPswd());
+			System.out.println("username: "+u.getEmail()+" &pass: "+u.getPswd());
+			//sessUser = us.getUsers().get(0);
 			session.setAttribute("user",sessUser);
 			System.out.println(session.getAttribute("user"));
 			return sessUser;
 		}
 		else
 		{
+			System.out.println("null");
 			return sessUser;
 		}
 	}

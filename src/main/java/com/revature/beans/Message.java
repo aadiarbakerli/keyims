@@ -1,7 +1,14 @@
 package com.revature.beans;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -9,8 +16,14 @@ import javax.persistence.Table;
 public class Message
 {
 	@Id
+	@SequenceGenerator(name="msg_seq", sequenceName="msg_seq", allocationSize=1)
+	@GeneratedValue(generator="msg_seq", strategy=GenerationType.AUTO)	
 	private int id;
+	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@JoinColumn(name="id")
 	private User sender;
+	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@JoinColumn(name="id")
 	private User receiver;
 	private String content;
 	public int getId() {
