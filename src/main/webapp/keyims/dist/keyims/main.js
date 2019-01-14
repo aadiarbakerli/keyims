@@ -334,14 +334,21 @@ var KeyComponent = /** @class */ (function () {
         var keyqty = document.getElementById("keyqty").value;
         var keypub = document.getElementById("keypub").options[document.getElementById("keypub").selectedIndex].value;
         var keytype = document.getElementById("keytype").value;
+        var keyimg = document.getElementById("keyimg").files[0];
+        var imgurl = document.getElementById("imgdisp").src;
+        if (keyimg != null) {
+            var f = new FormData();
+            f.append('file_upload', keyimg, keyimg.name);
+            this.http.put("/keyims/file", f).subscribe(function (response) { return (console.log(response)); });
+        }
         if (keyid != "") {
             console.log("Posting...");
-            this.http.post("/keyims/keyserv", '{ "id": "' + keyid + '", "type": "' + keytype + '", "desc": "' + keydesc + '", "material": "' + keymat + '", "pub": "' + keypub + '", "image": "null", "quantity": "' + keyqty + '" }').
+            this.http.post("/keyims/keyserv", '{ "id": "' + keyid + '", "type": "' + keytype + '", "desc": "' + keydesc + '", "material": "' + keymat + '", "pub": "' + keypub + '", "image": "' + imgurl + '", "quantity": "' + keyqty + '" }').
                 subscribe(function (data) { console.log(data); });
         }
         else {
             console.log("Pootis...");
-            this.http.put("/keyims/keyserv", '{ "id": "' + 0 + '", "type": "' + keytype + '", "desc": "' + keydesc + '", "material": "' + keymat + '", "pub": "' + keypub + '", "image": "null", "quantity": "' + keyqty + '" }').
+            this.http.put("/keyims/keyserv", '{ "id": "' + 0 + '", "type": "' + keytype + '", "desc": "' + keydesc + '", "material": "' + keymat + '", "pub": "' + keypub + '", "image": ""' + imgurl + '"", "quantity": "' + keyqty + '" }').
                 subscribe(function (data) { console.log(data); });
         }
     };

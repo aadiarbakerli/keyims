@@ -106,17 +106,26 @@ export class KeyComponent implements OnInit
   		let keyqty = (<HTMLInputElement>document.getElementById("keyqty")).value;
   		let keypub = (<HTMLSelectElement>document.getElementById("keypub")).options[(<HTMLSelectElement>document.getElementById("keypub")).selectedIndex].value;
   		let keytype = (<HTMLInputElement>document.getElementById("keytype")).value;
+  		let keyimg = (<HTMLInputElement>document.getElementById("keyimg")).files[0];
+  		let imgurl = (<HTMLImageElement>document.getElementById("imgdisp")).src;
+  		
+  		if(keyimg != null)
+  		{
+  			let f:FormData = new FormData();
+  			f.append('file_upload', keyimg, keyimg.name);
+  			this.http.put("/keyims/file", f).subscribe((response)=> (console.log(response)));
+  		}
   		
   		if(keyid != "")
   		{
   		console.log("Posting...");
-  		this.http.post("/keyims/keyserv", '{ "id": "' + keyid + '", "type": "' + keytype + '", "desc": "' + keydesc + '", "material": "' + keymat + '", "pub": "' + keypub + '", "image": "null", "quantity": "' + keyqty + '" }').
+  		this.http.post("/keyims/keyserv", '{ "id": "' + keyid + '", "type": "' + keytype + '", "desc": "' + keydesc + '", "material": "' + keymat + '", "pub": "' + keypub + '", "image": "'+imgurl+'", "quantity": "' + keyqty + '" }').
   			subscribe((data : any) =>{console.log(data)});
   		}
   		else
   		{
    		console.log("Pootis...");
-  		this.http.put("/keyims/keyserv", '{ "id": "' + 0 + '", "type": "' + keytype + '", "desc": "' + keydesc + '", "material": "' + keymat + '", "pub": "' + keypub + '", "image": "null", "quantity": "' + keyqty + '" }').
+  		this.http.put("/keyims/keyserv", '{ "id": "' + 0 + '", "type": "' + keytype + '", "desc": "' + keydesc + '", "material": "' + keymat + '", "pub": "' + keypub + '", "image": ""'+imgurl+'"", "quantity": "' + keyqty + '" }').
   			subscribe((data : any) =>{console.log(data)});
   		} 		
   		}  	
