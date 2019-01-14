@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, pipe, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { CurrentUser } from './user';
+import { CurrentUser } from './current-user';
 import { UrlService } from '../url.service';
 
 @Injectable({
