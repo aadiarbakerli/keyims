@@ -12,13 +12,13 @@ import { UrlService } from '../url.service';
 })
 export class UserService {
     private appUrl = this.urlSource.getURL() + '/login';
-  private headers = new HttpHeaders({'Content-Type': 'application/x-www-form-urlencoded'});
+    private headers = new HttpHeaders({'Content-Type': 'application/json'});
 
   constructor(private urlSource: UrlService, private http: HttpClient) { }
 
   login(username: string, password: string): Observable<CurrentUser> {
       if (username && password) {
-          const body = `user=${username}&pass=${password}`;
+          const body = `{"email": "${username}", "pswd": "${password}"}`;
           console.log(body);
           return this.http.post(this.appUrl, body, {headers: this.headers, withCredentials: true})
           .pipe(map(resp => {

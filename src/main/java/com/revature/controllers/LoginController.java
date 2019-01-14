@@ -4,34 +4,51 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.beans.User;
 import com.revature.services.UserService;
 
-@Controller
+@RestController
 @RequestMapping(value="/login")
 public class LoginController 
 {
 	@Autowired
 	private UserService us;
 	
+	@RequestMapping(method=RequestMethod.GET)
+	public String goLogin(HttpSession session) 
+	{
+		System.out.println("GET");
+		return "redirect:index.html";
+	}
+	
 	@RequestMapping(method=RequestMethod.POST)
 	@ResponseBody
-	public String login(String username, String password, HttpSession session) 
+	public User login(HttpSession session) 
 	{
-		User u = us.login(username, password);
-		if (u == null) 
+		User u = new User();
+		User sessUser = (User) session.getAttribute("user");
+		if (sessUser == null) 
 		{
-			return "Failed";
+			sessUser = us.login(u.getEmail(), u.getPswd());
+			session.setAttribute("user",sessUser);
+			System.out.println(session.getAttribute("user"));
+			return sessUser;
 		}
 		else
 		{
-			session.setAttribute("user", u);
-			return "Welcome "+username;
+			return sessUser;
 		}
+	}
+	
+	@RequestMapping(method=RequestMethod.DELETE)
+	public void logout(HttpSession session){
+		session.invalidate();
 	}
 
 }

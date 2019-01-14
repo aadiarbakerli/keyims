@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
       this.userService.login(this.username, this.password).subscribe(
           user => {
               this.loggedUser = user;
+            console.log(user);
           });
   }
   logout(): void {
