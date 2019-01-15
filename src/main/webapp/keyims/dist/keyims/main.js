@@ -312,6 +312,7 @@ var KeyComponent = /** @class */ (function () {
         var keyqty = document.getElementById("keyqty");
         var keypub = document.getElementById("keypub");
         var keytype = document.getElementById("keytype");
+        var keyimg = document.getElementById("imgdisp");
         var key = this.keys[0];
         for (var x = 0; x < this.keys.length; x++)
             if (this.keys[x].id == e.target.value)
@@ -322,12 +323,14 @@ var KeyComponent = /** @class */ (function () {
         keydesc.value = key.desc;
         keyqty.value = key.quantity;
         keytype.value = key.type;
+        keyimg.src = key.image;
         if (key.pub == "true" || key.pub == "on")
-            keypub.checked = true;
+            keypub.selectedIndex = 0;
         else
-            keypub.checked = false;
+            keypub.selectedIndex = 1;
     };
     KeyComponent.prototype.submit = function () {
+        var _this = this;
         var keyid = document.getElementById("keyid").innerHTML;
         var keymat = document.getElementById("keymat").value;
         var keydesc = document.getElementById("keydesc").value;
@@ -338,18 +341,35 @@ var KeyComponent = /** @class */ (function () {
         var imgurl = document.getElementById("imgdisp").src;
         if (keyimg != null) {
             var f = new FormData();
-            f.append('file_upload', keyimg, keyimg.name);
-            this.http.put("/keyims/file", f).subscribe(function (response) { return (console.log(response)); });
+            f.append("file", keyimg);
+            f.append("keyid", keyid);
+            this.http.post("/keyims/file", f).subscribe(function (response) { return (console.log(response)); });
         }
         if (keyid != "") {
             console.log("Posting...");
             this.http.post("/keyims/keyserv", '{ "id": "' + keyid + '", "type": "' + keytype + '", "desc": "' + keydesc + '", "material": "' + keymat + '", "pub": "' + keypub + '", "image": "' + imgurl + '", "quantity": "' + keyqty + '" }').
-                subscribe(function (data) { console.log(data); });
+                subscribe(function (data) { console.log(data); }, function () {
+                console.log("complete");
+                if (keyimg != null) {
+                    var f = new FormData();
+                    f.append("file", keyimg);
+                    f.append("keyid", keyid);
+                    _this.http.post("/keyims/file", f).subscribe(function (response) { return (console.log(response)); }, function () { console.log(document.getElementById("imgdisp")); });
+                }
+            });
         }
         else {
             console.log("Pootis...");
             this.http.put("/keyims/keyserv", '{ "id": "' + 0 + '", "type": "' + keytype + '", "desc": "' + keydesc + '", "material": "' + keymat + '", "pub": "' + keypub + '", "image": ""' + imgurl + '"", "quantity": "' + keyqty + '" }').
-                subscribe(function (data) { console.log(data); });
+                subscribe(function (data) { console.log(data); }, function () {
+                console.log("complete");
+                if (keyimg != null) {
+                    var f = new FormData();
+                    f.append("file", keyimg);
+                    f.append("keyid", keyid);
+                    _this.http.post("/keyims/file", f).subscribe(function (response) { return (console.log(response)); }, function () { console.log(document.getElementById("imgdisp")); });
+                }
+            });
         }
     };
     KeyComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([

@@ -32,7 +32,14 @@ public class KeyController
 	@ResponseBody
 	public List<Key> getKeys()
 	{
-		return ks.getKeys();
+		List<Key> k = ks.getKeys();
+		
+		for(int i = 0; i < k.size() + 1; i++)
+		{
+			if(!k.get(i).isPub())
+				k.remove(i);
+		}
+		return k;
 	}
 	
 	@RequestMapping(value="/keyserv", method=RequestMethod.POST)

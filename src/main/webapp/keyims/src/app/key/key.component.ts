@@ -76,9 +76,9 @@ export class KeyComponent implements OnInit
   		let keymat = (<HTMLInputElement>document.getElementById("keymat"));
   		let keydesc = (<HTMLInputElement>document.getElementById("keydesc"));
   		let keyqty = (<HTMLInputElement>document.getElementById("keyqty"));
-  		let keypub = (<HTMLInputElement>document.getElementById("keypub"));
+  		let keypub = (<HTMLSelectElement>document.getElementById("keypub"));
   		let keytype = (<HTMLInputElement>document.getElementById("keytype"));
-  		
+  		let keyimg = (<HTMLImageElement>document.getElementById("imgdisp"));
   		let key = this.keys[0];
   		
   		for(let x = 0; x < this.keys.length; x++)
@@ -92,10 +92,11 @@ export class KeyComponent implements OnInit
   		keydesc.value = key.desc;
   		keyqty.value = key.quantity;
   		keytype.value = key.type;
+  		keyimg.src = key.image;
   		if(key.pub == "true" || key.pub == "on")
-  			keypub.checked = true;
+  			keypub.selectedIndex = 0;
   		else
-  			keypub.checked = false;
+  			keypub.selectedIndex = 1;
   	}
   	
  		submit()
@@ -112,21 +113,42 @@ export class KeyComponent implements OnInit
   		if(keyimg != null)
   		{
   			let f:FormData = new FormData();
-  			f.append('file_upload', keyimg, keyimg.name);
-  			this.http.put("/keyims/file", f).subscribe((response)=> (console.log(response)));
+  			f.append("file", keyimg );
+  			f.append("keyid", keyid)
+  			this.http.post("/keyims/file", f).subscribe((response)=> (console.log(response)));
   		}
   		
   		if(keyid != "")
   		{
   		console.log("Posting...");
   		this.http.post("/keyims/keyserv", '{ "id": "' + keyid + '", "type": "' + keytype + '", "desc": "' + keydesc + '", "material": "' + keymat + '", "pub": "' + keypub + '", "image": "'+imgurl+'", "quantity": "' + keyqty + '" }').
-  			subscribe((data : any) =>{console.log(data)});
+  			subscribe(data =>{console.log(data)}, ()=> {console.log("complete")
+
+  		if(keyimg != null)
+  		{
+  			let f:FormData = new FormData();
+  			f.append("file", keyimg );
+  			f.append("keyid", keyid)
+  			this.http.post("/keyims/file", f).subscribe((response)=> (console.log(response)), ()=>{console.log((<HTMLImageElement>document.getElementById("imgdisp")))});
+  		}  			
+  			
+  			});
   		}
   		else
   		{
    		console.log("Pootis...");
   		this.http.put("/keyims/keyserv", '{ "id": "' + 0 + '", "type": "' + keytype + '", "desc": "' + keydesc + '", "material": "' + keymat + '", "pub": "' + keypub + '", "image": ""'+imgurl+'"", "quantity": "' + keyqty + '" }').
-  			subscribe((data : any) =>{console.log(data)});
+  			  	subscribe(data =>{console.log(data)}, ()=> {console.log("complete")
+
+  		if(keyimg != null)
+  		{
+  			let f:FormData = new FormData();
+  			f.append("file", keyimg );
+  			f.append("keyid", keyid)
+  			this.http.post("/keyims/file", f).subscribe((response)=> (console.log(response)), ()=>{console.log((<HTMLImageElement>document.getElementById("imgdisp")))});
+  		}  			  	
+  			  	
+  			  	});
   		} 		
   		}  	
 }

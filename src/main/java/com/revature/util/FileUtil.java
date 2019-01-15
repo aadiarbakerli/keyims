@@ -14,15 +14,25 @@ import org.springframework.stereotype.Component;
 @Component
 public class FileUtil 
 {
-	private String server = "ec2-18-218-169-118.us-east-2.compute.amazonaws.com";
+	private String server = "18.218.169.118";
 	private int port = 21;
-	//private String user = "trms";
-	//private String password = "pass";
+	private String user = "keyims";
+	private String password = "pass";
 	private FTPClient ftp;
 	
 	public String getServer()
 	{
 		return server;
+	}
+	
+	public String getLogin()
+	{
+		return user + ":" + password;
+	}
+	
+	public int getPort()
+	{
+		return port;
 	}
 	
     public void open() throws IOException
@@ -38,8 +48,7 @@ public class FileUtil
             ftp.disconnect();
             throw new IOException("Exception in connecting to FTP Server");
         }
- 
-        //ftp.login(user, password);
+        ftp.login(user, password);
     }
  
     public void close() throws IOException
@@ -49,6 +58,7 @@ public class FileUtil
     
     public void putFileToPath(File file) throws IOException 
     {
+    	System.out.println("Pootis...");
     	ftp.setFileType(FTP.BINARY_FILE_TYPE);
         boolean d = ftp.storeFile(file.getName(), new FileInputStream(file));
         
@@ -62,4 +72,5 @@ public class FileUtil
     	ftp.deleteFile(f);
     	
     }
+
 }

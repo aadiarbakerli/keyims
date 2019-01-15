@@ -1,60 +1,73 @@
 package com.revature.controllers;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.http.HttpRequest;
 import java.util.Date;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
+import com.revature.beans.Key;
+import com.revature.services.KeyService;
 import com.revature.util.FileUtil;
 
 @Controller
 @RequestMapping(value="/file")
-public class FileController 
+public class FileController
 {
 	@Autowired
 	FileUtil util;
 	
-	String fname;
-	@RequestMapping(value="/file", method=RequestMethod.PUT)
+	@Autowired
+	KeyService ks;
+	
+	String fname = "";
+	
+	@RequestMapping(method=RequestMethod.POST)
 	@ResponseBody
-	public String addFile(final HttpServletResponse res, HttpServletRequest req) throws Exception
+	public String addFile(@RequestParam("file") MultipartFile mf, @RequestParam("keyid") String keyid) throws Exception
 	{
-		File f = getFile(req);
+		
+		System.out.println(mf.getOriginalFilename());
+		File f = new File(mf.getOriginalFilename());
+		mf.transferTo(f);
+		System.out.println(f.getPath());
+		System.out.println("Opening...");
 		util.open();
+		System.out.println("Posting...");
 		util.putFileToPath(f);
 		util.close();
-		return util.getServer() + "/" + fname;
+		
+		Key k = ks.getKey(Integer.parseInt(keyid));
+		k.setImage("ftp://" + util.getLogin() + "@" + util.getServer() + ":" + util.getPort() + "/" + mf.getOriginalFilename());
+		ks.editKey(k);
+		
+		System.out.println(k.getImage());
+		
+		return keyid;
 	}
 	
-	File getFile(HttpServletRequest req) throws IOException, ServletException
-	{
-		String ext = fname.substring(fname.lastIndexOf('.'), fname.length());
-		
-		Part filePart = req.getPart("file");
-		String fileName = String.valueOf(new Date().getTime() + ext);
-		File file = new File("/tmp/" + fileName);
-		FileOutputStream outFile = new FileOutputStream(file);
-		InputStream filecontent = filePart.getInputStream();
-		
-		int read = 0;
-		byte[] bytes = new byte[1024];
-		while ((read = filecontent.read(bytes)) != -1) 
-		{
-		    outFile.write(bytes, 0, read);
-		}
-		outFile.close();
-		return file;
+	@Bean(name = "multipartResolver")
+	public CommonsMultipartResolver multipartResolver() {
+	    CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+	    multipartResolver.setMaxUploadSize(100000);
+	    return multipartResolver;
 	}
 }
