@@ -12,9 +12,6 @@ import { UserService} from './shared/user/user.service';
 import { KeyServiceService } from './key-service.service';
 import { HttpClientModule } from '@angular/common/http';
 
-import { KeyServiceService } from './key-service.service';
-import { HttpClientModule } from '@angular/common/http';
-
 
 @NgModule({
   declarations: [
