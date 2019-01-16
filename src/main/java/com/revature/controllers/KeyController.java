@@ -11,21 +11,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+<<<<<<< HEAD
 import com.fasterxml.jackson.databind.ObjectMapper;
+=======
+>>>>>>> master
 import com.revature.beans.Key;
 import com.revature.services.KeyService;
 
 @Controller
+<<<<<<< HEAD
+=======
+@RequestMapping(value="/keyserv")
+>>>>>>> master
 public class KeyController
 {
 	@Autowired
 	private KeyService ks;
 	ObjectMapper om = new ObjectMapper();
 	
+<<<<<<< HEAD
 	@RequestMapping(value="/key")
 	public String keyStat()
+=======
+	@RequestMapping(method=RequestMethod.GET)
+	@ResponseBody
+	public List<Key> goLogin(HttpSession sess)
+>>>>>>> master
 	{
-		return "index.html";
+		return ks.getKeys();
 	}
 	
 	@RequestMapping(value="/keyserv", method=RequestMethod.GET)
