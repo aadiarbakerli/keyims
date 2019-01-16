@@ -20,12 +20,12 @@
 <nav class="navbar navbar-inverse">
   		<div class="container-fluid">
     		<div class="navbar-header">
-      			<a class="navbar-brand" href="#">Reimbursement Management</a>
+      			<a class="navbar-brand" href="#">Key IMS</a>
     		</div>
     		<ul class="nav navbar-nav">
       			<li><a href="goHome">Home</a></li>
       			<li><a href="createUser">Apply for New User Account</a></li>
-      			<li><a href="editUser">Edit Reimbursements</a></li>
+      			<li><a href="editUser">Edit User Account</a></li>
     		</ul>
     		<ul class="nav navbar-nav navbar-right">
       			<form action="logout" method="post">
@@ -35,7 +35,7 @@
   		</div>
 </nav>
 
-<h3 class = "h3 text-center">Reimbursement Submission Form</h3>
+<h3 class = "h3 text-center">KeyIMS Account Application Form</h3>
 <form action="createUser" method = "post">
   <div class="form-row">
     <div class="form-group col-md-6">
@@ -43,7 +43,7 @@
       <input name = "email" type="text" class="form-control" id="inputEmail" placeholder="Email">
     </div>
     <div class="form-group col-md-6">
-      <label for="inputPassword">Phone</label>
+      <label for="inputPassword">Password</label>
       <input name = "password" type="text" class="form-control" id="inputPassword" placeholder="Password">
 
     </div>
@@ -58,8 +58,11 @@
     	<input name = "lastName" type="text" class="form-control" id="inputLastName" placeholder="Last Name">
   	</div>
   
-  </div>
-  <button id = "submit" type="submit" class="btn btn-secondary">Apply for Account</button>
+	</div>
+	<div class = text-center>
+		<button id = "submit" type="submit" class="btn btn-secondary">Apply for Account</button>
+	</div>
+  
 </form>
 </body>
 </html>
