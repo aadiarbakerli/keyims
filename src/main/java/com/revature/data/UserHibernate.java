@@ -49,6 +49,8 @@ public class UserHibernate implements UserDao
 		try
 		{
 			s.save(u);
+			s.flush();
+			t.commit();
 		}
 		catch(HibernateException e)
 		{
@@ -58,7 +60,7 @@ public class UserHibernate implements UserDao
 		{
 			s.close();
 		}
-		t.commit();
+
 	}
 
 	@Override
@@ -80,6 +82,8 @@ public class UserHibernate implements UserDao
 		try
 		{
 			s.update(u);
+			s.flush();
+			t.commit();
 		}
 		catch(HibernateException e)
 		{

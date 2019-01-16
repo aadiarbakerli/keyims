@@ -6,8 +6,12 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { KeyComponent } from './key/key.component';
 import { LoginComponent } from './login/login.component';
+
 import { UrlService } from './shared/url.service';
 import { UserService} from './shared/user/user.service';
+import { KeyServiceService } from './key-service.service';
+import { HttpClientModule } from '@angular/common/http';
+
 import { KeyServiceService } from './key-service.service';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -30,6 +34,5 @@ import { HttpClientModule } from '@angular/common/http';
       UserService,
       KeyServiceService
   ],
-  bootstrap: [AppComponent]
 })
 export class AppModule { }
