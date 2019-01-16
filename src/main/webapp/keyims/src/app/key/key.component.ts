@@ -24,6 +24,7 @@ export class KeyComponent implements OnInit
   
   getKey() : void
   {
+  (<HTMLButtonElement>document.getElementById("getKey")).disabled = true;
     this.keylist = document.getElementById("keylst");
     	while(this.keylist.hasChildNodes())
     		this.keylist.removeChild(this.keylist.childNodes[0]);
@@ -51,7 +52,8 @@ export class KeyComponent implements OnInit
   			
   			this.keylist.appendChild(list);
   		}
-  		console.log("complete"); 		
+  		console.log("complete"); 
+  		   (<HTMLButtonElement>document.getElementById("getKey")).disabled = false;	
   	})
   }
   
@@ -100,7 +102,8 @@ export class KeyComponent implements OnInit
   	}
   	
  		submit()
-  	{  		
+  	{  	
+  		(<HTMLButtonElement>document.getElementById("sub")).disabled = true;		
   		let keyid = document.getElementById("keyid").innerHTML;
   		let keymat = (<HTMLInputElement>document.getElementById("keymat")).value;
   		let keydesc = (<HTMLInputElement>document.getElementById("keydesc")).value;
@@ -109,14 +112,6 @@ export class KeyComponent implements OnInit
   		let keytype = (<HTMLInputElement>document.getElementById("keytype")).value;
   		let keyimg = (<HTMLInputElement>document.getElementById("keyimg")).files[0];
   		let imgurl = (<HTMLImageElement>document.getElementById("imgdisp")).src;
-  		
-  		if(keyimg != null)
-  		{
-  			let f:FormData = new FormData();
-  			f.append("file", keyimg );
-  			f.append("keyid", keyid)
-  			this.http.post("/keyims/file", f).subscribe((response)=> (console.log(response)));
-  		}
   		
   		if(keyid != "")
   		{
@@ -129,8 +124,10 @@ export class KeyComponent implements OnInit
   			let f:FormData = new FormData();
   			f.append("file", keyimg );
   			f.append("keyid", keyid)
-  			this.http.post("/keyims/file", f).subscribe((response)=> (console.log(response)), ()=>{console.log((<HTMLImageElement>document.getElementById("imgdisp")))});
-  		}  			
+  			this.http.post("/keyims/file", f).subscribe((response)=> ((<HTMLButtonElement>document.getElementById("sub")).disabled = false), ()=>{(<HTMLButtonElement>document.getElementById("sub")).disabled = false;});
+  		}
+  		else
+  			(<HTMLButtonElement>document.getElementById("sub")).disabled = false;  			
   			
   			});
   		}
@@ -145,8 +142,10 @@ export class KeyComponent implements OnInit
   			let f:FormData = new FormData();
   			f.append("file", keyimg );
   			f.append("keyid", keyid)
-  			this.http.post("/keyims/file", f).subscribe((response)=> (console.log(response)), ()=>{console.log((<HTMLImageElement>document.getElementById("imgdisp")))});
-  		}  			  	
+  			this.http.post("/keyims/file", f).subscribe((response)=> ((<HTMLButtonElement>document.getElementById("sub")).disabled = false), ()=>{(<HTMLButtonElement>document.getElementById("sub")).disabled = false;});
+  		}
+  		else
+  		(<HTMLButtonElement>document.getElementById("sub")).disabled = false;  			  	
   			  	
   			  	});
   		} 		
