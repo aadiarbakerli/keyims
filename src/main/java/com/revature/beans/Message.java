@@ -16,7 +16,7 @@ import javax.persistence.Table;
 public class Message
 {
 	@Id
-	@SequenceGenerator(name="msg_seq", sequenceName="msg_seq")
+	@SequenceGenerator(name="msg_seq", sequenceName="msg_seq", allocationSize=1)
 	@GeneratedValue(generator="msg_seq", strategy=GenerationType.AUTO)	
 	private int id;
 	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)

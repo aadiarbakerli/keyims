@@ -13,7 +13,7 @@ import javax.persistence.Table;
 public class Key
 {
 	@Id
-	@SequenceGenerator(name="key_seq", sequenceName="key_seq")
+	@SequenceGenerator(name="key_seq", sequenceName="key_seq", allocationSize=1)
 	@GeneratedValue(generator="key_seq", strategy=GenerationType.AUTO)	
 	private int id;
 	@Column(name="keytype")

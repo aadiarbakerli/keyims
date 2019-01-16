@@ -6,18 +6,17 @@ import { KeyComponent } from './key/key.component';
 
 const routes: Routes = [
   {
-  	path: 'login', 
-	component: LoginComponent
+    path: 'login',
+    component: LoginComponent
   },
   {
-  	path: 'key', 
-	component: KeyComponent
+    path: 'key',
+    component: KeyComponent
   }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
-  
 })
 export class AppRoutingModule { }
