@@ -23,6 +23,7 @@ public class LoginController
 		if (sess.getAttribute("user") != null)
 			return "redirect:home";
 		return "index.html";
+//		return "static/login.html";
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
