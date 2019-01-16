@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CurrentUser } from 'src/app/shared/user/CurrentUser';
 import { UserService } from 'src/app/shared/user/user.service';
 import { User } from '../shared/user/user';
 

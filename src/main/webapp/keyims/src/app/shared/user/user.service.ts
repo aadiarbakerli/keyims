@@ -4,7 +4,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, pipe, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { CurrentUser } from './CurrentUser';
 import { User } from './user';
 import { UrlService } from '../url.service';
 
