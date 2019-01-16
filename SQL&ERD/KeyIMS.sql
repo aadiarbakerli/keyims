@@ -104,4 +104,8 @@ insert into accessKey (id,keyType,keyDesc,material,pubKey,image,quantity) values
 insert into accessKey (id,keyType,keyDesc,material,pubKey,image,quantity) values (3,'Password','Facebook','Digital','0','password',1);
 insert into accessKey (id,keyType,keyDesc,material,pubKey,image,quantity) values (4,'Locker Key','Key to a locker','Silver','0',null,1);
 
+insert into userKey (userId, keyId) values (1,1);
+insert into userKey (userId, keyId) values (1,4);
+insert into userKey (userId, keyId) values (2,3);
+
 commit;
