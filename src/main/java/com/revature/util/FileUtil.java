@@ -42,6 +42,7 @@ public class FileUtil
         ftp.addProtocolCommandListener(new PrintCommandListener(new PrintWriter(System.out)));
  
         ftp.connect(server, port);
+        ftp.setSoTimeout(10000);
         int reply = ftp.getReplyCode();
         if (!FTPReply.isPositiveCompletion(reply)) 
         {

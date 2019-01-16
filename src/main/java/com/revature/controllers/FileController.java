@@ -56,7 +56,7 @@ public class FileController
 		util.close();
 		
 		Key k = ks.getKey(Integer.parseInt(keyid));
-		k.setImage("ftp://" + util.getLogin() + "@" + util.getServer() + ":" + util.getPort() + "/" + mf.getOriginalFilename());
+		k.setImage("http://" + util.getServer() + "/" + mf.getOriginalFilename());
 		ks.editKey(k);
 		
 		System.out.println(k.getImage());
