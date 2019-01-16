@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" 
+	crossorigin="anonymous">
+	<style> 
+	button.btn {
+		padding-top:20px;
+		padding-bottom:20px;
+	}
+	body {
+		background-color: silver;
+	}
+	</style>
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+  		<div class="container-fluid">
+    		<div class="navbar-header">
+      			<a class="navbar-brand" href="#">Reimbursement Management</a>
+    		</div>
+    		<ul class="nav navbar-nav">
+      			<li><a href="goHome">Home</a></li>
+      			<li><a href="createUser">Apply for New User Account</a></li>
+      			<li><a href="editUser">Edit Reimbursements</a></li>
+    		</ul>
+    		<ul class="nav navbar-nav navbar-right">
+      			<form action="logout" method="post">
+    				<input type="submit" class="btn btn-primary navbar-btn" value="Logout"/>
+				</form>
+    		</ul>
+  		</div>
+</nav>
+
+<h3 class = "h3 text-center">Reimbursement Submission Form</h3>
+<form action="createUser" method = "post">
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail">Email</label>
+      <input name = "email" type="text" class="form-control" id="inputEmail" placeholder="Email">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword">Phone</label>
+      <input name = "password" type="text" class="form-control" id="inputPassword" placeholder="Password">
+
+    </div>
+  </div>
+  <div class="form-row">
+  	<div class="form-group col-md-6">
+    	<label for="inputFirstName">First Name</label>
+    	<input name = "firstName" type="text" class="form-control" id="inputFirstName" placeholder="First Name">
+  	</div>
+  	<div class="form-group col-md-6">
+    	<label for="inputLastName">Last Name</label>
+    	<input name = "lastName" type="text" class="form-control" id="inputLastName" placeholder="Last Name">
+  	</div>
+  
+  </div>
+  <button id = "submit" type="submit" class="btn btn-secondary">Apply for Account</button>
+</form>
+</body>
+</html>
+
