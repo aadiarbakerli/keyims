@@ -1,4 +1,4 @@
-<ng-container>
+<ng-container *ngIf="!loggedUser; else display">
 <div>
     <h1>Login</h1>
     <label>Email: </label> <input type="text" [(ngModel)]="username"><br>
@@ -6,3 +6,11 @@
     <button class="btn btn-primary" (click)="login()">Login</button>
 </div>
 </ng-container>
+
+<ng-template #display>
+<div>
+    <span id="welcome">Welcome {{getUser().name}}</span> <br>
+    <button class="btn btn-dasnger" (click)="logout()">Logout</button>
+</div>
+
+</ng-template>

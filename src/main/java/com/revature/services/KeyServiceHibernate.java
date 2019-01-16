@@ -39,4 +39,10 @@ public class KeyServiceHibernate implements KeyService
 		return kd.getKeys();
 	}
 
+	@Override
+	public Key getKey(int i) {
+		
+		return kd.getKey(i);
+	}
+
 }

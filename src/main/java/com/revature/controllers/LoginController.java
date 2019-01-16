@@ -25,7 +25,7 @@ public class LoginController
 	public String goLogin(HttpSession session) 
 	{
 		System.out.println("GET");
-		return "redirect:index.html";
+		return "redirect:key.component.html";
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)

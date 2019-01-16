@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CurrentUser } from 'src/app/shared/user/CurrentUser';
 import { UserService } from 'src/app/shared/user/user.service';
+import { User } from '../shared/user/user';
 
 @Component({
   selector: 'app-login',
@@ -8,7 +9,7 @@ import { UserService } from 'src/app/shared/user/user.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-    public loggedUser: CurrentUser;
+    public loggedUser: User;
     public username: string;
     public password: string;
 
@@ -17,6 +18,8 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
       this.userService.login(null, null).subscribe( user => {
           this.loggedUser = user;
+          console.log('ngOnInit');
+          console.log(user);
       });
   }
   login(): void {
@@ -24,6 +27,8 @@ export class LoginComponent implements OnInit {
       this.userService.login(this.username, this.password).subscribe(
           user => {
               this.loggedUser = user;
+              console.log(this.loggedUser);
+              console.log('login');
             console.log(user);
           });
   }
@@ -34,4 +39,7 @@ export class LoginComponent implements OnInit {
       this.password = null;
   }
 
+  getUser(): User {
+      return this.userService.getUser();
+  }
 }

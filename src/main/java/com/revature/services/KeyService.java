@@ -6,6 +6,7 @@ import com.revature.beans.Key;
 
 public interface KeyService 
 {
+	public Key getKey(int i);
 	public void editKey(Key k);
 	public void deleteKey(Key k);
 	public void addKey(Key k);
