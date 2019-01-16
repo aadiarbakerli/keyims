@@ -2,7 +2,10 @@ package com.revature.beans;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -10,6 +13,8 @@ import javax.persistence.Table;
 public class Key
 {
 	@Id
+	@SequenceGenerator(name="key_seq", sequenceName="key_seq", allocationSize=1)
+	@GeneratedValue(generator="key_seq", strategy=GenerationType.AUTO)	
 	private int id;
 	@Column(name="keytype")
 	private String type;
