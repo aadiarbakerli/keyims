@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
               this.loggedUser = user;
               console.log(this.loggedUser);
               console.log('login');
-            console.log(user);
+              console.log(user);
           });
   }
   logout(): void {

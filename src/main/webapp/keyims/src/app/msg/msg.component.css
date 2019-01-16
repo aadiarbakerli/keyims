@@ -1,0 +1,9 @@
+#msg {
+    border: 2px solid black;
+    background-color: white;
+}
+
+#message {
+    width: 250px;
+    height: 200px;
+}
