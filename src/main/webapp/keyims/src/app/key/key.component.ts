@@ -78,7 +78,7 @@ export class KeyComponent implements OnInit
   		let keyqty = (<HTMLInputElement>document.getElementById("keyqty"));
   		let keypub = (<HTMLSelectElement>document.getElementById("keypub"));
   		let keytype = (<HTMLInputElement>document.getElementById("keytype"));
-  		let keyimg = (<HTMLImageElement>document.getElementById("imgdisp"));
+  		let keyimg = (<HTMLAnchorElement>document.getElementById("imgdisp"));
   		let key = this.keys[0];
   		
   		for(let x = 0; x < this.keys.length; x++)
@@ -92,8 +92,8 @@ export class KeyComponent implements OnInit
   		keydesc.value = key.desc;
   		keyqty.value = key.quantity;
   		keytype.value = key.type;
-  		keyimg.src = key.image;
-  		if(key.pub == "true" || key.pub == "on")
+  		keyimg.href = key.image;
+  		if(String(key.pub) == "true" || String(key.pub) == "on")
   			keypub.selectedIndex = 0;
   		else
   			keypub.selectedIndex = 1;
@@ -108,7 +108,7 @@ export class KeyComponent implements OnInit
   		let keypub = (<HTMLSelectElement>document.getElementById("keypub")).options[(<HTMLSelectElement>document.getElementById("keypub")).selectedIndex].value;
   		let keytype = (<HTMLInputElement>document.getElementById("keytype")).value;
   		let keyimg = (<HTMLInputElement>document.getElementById("keyimg")).files[0];
-  		let imgurl = (<HTMLImageElement>document.getElementById("imgdisp")).src;
+  		let imgurl = (<HTMLAnchorElement>document.getElementById("imgdisp")).href;
   		
   		if(keyimg != null)
   		{

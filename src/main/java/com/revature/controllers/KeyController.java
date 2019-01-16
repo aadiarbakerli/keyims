@@ -1,5 +1,6 @@
 package com.revature.controllers;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -34,11 +35,14 @@ public class KeyController
 	{
 		List<Key> k = ks.getKeys();
 		
-		for(int i = 0; i < k.size() + 1; i++)
+		Iterator<Key> i = k.iterator();
+		
+		while(i.hasNext())
 		{
-			if(!k.get(i).isPub())
-				k.remove(i);
+			if(!i.next().isPub())
+				i.remove();
 		}
+
 		return k;
 	}
 	

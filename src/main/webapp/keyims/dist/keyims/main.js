@@ -235,7 +235,7 @@ module.exports = "#keydet{\n\tposition: static;\n\tright: 20px;\n\ttop: 20px;\n}
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "Public Keys: <br>\n<ul id=\"keylst\">\n\n</ul>\n<button id=\"getKey\" (click)=\"getKey()\">Get Keys</button><br><br>\nCreate Key:\n<div id=\"keydet\">\n<img src=\"\" alt=\"Key Image\" id=\"imgdisp\" height=\"500\" width=\"500\"><br>\nID: <span id=\"keyid\"></span><br>\nDescription: <input type=\"text\" id=\"keydesc\"><br>\nMaterial: <input type=\"text\" id=\"keymat\"><br>\nType: <input type=\"text\" id=\"keytype\"><br>\nQty: <input type=\"number\" id=\"keyqty\"><br> \nPublic: <select id=\"keypub\">\n<option value=\"true\">True</option>\n<option value=\"false\">False</option>\n</select><br>\nImage: <input type=\"file\" id=\"keyimg\"><br>\n<button id=\"sub\" (click)=\"submit()\">Submit</button>\n<button id=\"clr\" (click)=\"clear()\">Clear</button>\n</div>\n"
+module.exports = "Public Keys: <br>\n<ul id=\"keylst\">\n\n</ul>\n<button id=\"getKey\" (click)=\"getKey()\">Get Keys</button><br><br>\nCreate Key:\n<div id=\"keydet\">\n<!--<img src=\"\" alt=\"Key Image\" id=\"imgdisp\" height=\"500\" width=\"500\">-->\n<a id=\"imgdisp\" href=\"\">Image</a><br>\nID: <span id=\"keyid\"></span><br>\nDescription: <input type=\"text\" id=\"keydesc\"><br>\nMaterial: <input type=\"text\" id=\"keymat\"><br>\nType: <input type=\"text\" id=\"keytype\"><br>\nQty: <input type=\"number\" id=\"keyqty\"><br> \nPublic: <select id=\"keypub\">\n<option value=\"true\">True</option>\n<option value=\"false\">False</option>\n</select><br>\nImage: <input type=\"file\" id=\"keyimg\"><br>\n<button id=\"sub\" (click)=\"submit()\">Submit</button>\n<button id=\"clr\" (click)=\"clear()\">Clear</button>\n</div>\n"
 
 /***/ }),
 
@@ -323,8 +323,8 @@ var KeyComponent = /** @class */ (function () {
         keydesc.value = key.desc;
         keyqty.value = key.quantity;
         keytype.value = key.type;
-        keyimg.src = key.image;
-        if (key.pub == "true" || key.pub == "on")
+        keyimg.href = key.image;
+        if (String(key.pub) == "true" || String(key.pub) == "on")
             keypub.selectedIndex = 0;
         else
             keypub.selectedIndex = 1;
@@ -338,7 +338,7 @@ var KeyComponent = /** @class */ (function () {
         var keypub = document.getElementById("keypub").options[document.getElementById("keypub").selectedIndex].value;
         var keytype = document.getElementById("keytype").value;
         var keyimg = document.getElementById("keyimg").files[0];
-        var imgurl = document.getElementById("imgdisp").src;
+        var imgurl = document.getElementById("imgdisp").href;
         if (keyimg != null) {
             var f = new FormData();
             f.append("file", keyimg);
