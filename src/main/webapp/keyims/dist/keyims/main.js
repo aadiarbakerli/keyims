@@ -246,7 +246,7 @@ module.exports = "#keydet{\n\tposition: static;\n\tright: 20px;\n\ttop: 20px;\n}
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "Public Keys: <br>\n<ul id=\"keylst\">\n\n</ul>\n<button id=\"getKey\" (click)=\"getKey()\">Get Keys</button><br><br>\nCreate Key:\n<div id=\"keydet\">\n<img src=\"\" alt=\"Key Image\" id=\"imgdisp\" height=\"250\" width=\"250\"><br>\nID: <span id=\"keyid\"></span><br>\nDescription: <input type=\"text\" id=\"keydesc\"><br>\nMaterial: <input type=\"text\" id=\"keymat\"><br>\nType: <input type=\"text\" id=\"keytype\"><br>\nQty: <input type=\"number\" id=\"keyqty\"><br> \nPublic: <select id=\"keypub\">\n<option value=\"true\">True</option>\n<option value=\"false\">False</option>\n</select><br>\nImage: <input type=\"file\" id=\"keyimg\"><br>\n<button id=\"sub\" (click)=\"submit()\">Submit</button>\n<button id=\"clr\" (click)=\"clear()\">Clear</button>\n<button disabled=\"true\" id=\"del\" (click)=\"delete()\">Delete</button>\n</div>\n"
+module.exports = "Public Keys: <br>\n<ul id=\"keylst\">\n\n</ul>\n\nYour Keys: <br>\n<ul id=\"keylstp\">\n\n</ul>\n\n<button id=\"getKey\" (click)=\"getKey()\">Get Keys</button><br><br>\nCreate Key:\n<div id=\"keydet\">\n<img src=\"\" alt=\"Key Image\" id=\"imgdisp\" height=\"250\" width=\"250\"><br>\nID: <span id=\"keyid\"></span><br>\nDescription: <input type=\"text\" id=\"keydesc\"><br>\n<span id=\"matpass\">Material: </span><input type=\"text\" id=\"keymat\"><br>\nType: <input type=\"text\" id=\"keytype\"><br>\nQty: <input type=\"number\" id=\"keyqty\"><br> \nPublic: <select id=\"keypub\">\n<option value=\"true\">True</option>\n<option value=\"false\">False</option>\n</select><br>\nImage: <input type=\"file\" id=\"keyimg\"><br>\n<button id=\"sub\" (click)=\"submit()\">Submit</button>\n<button id=\"clr\" (click)=\"clear()\">Clear</button>\n<button disabled=\"true\" id=\"del\" (click)=\"delete()\">Delete</button>\n</div>\n\n\n"
 
 /***/ }),
 
@@ -287,6 +287,26 @@ var KeyComponent = /** @class */ (function () {
         this.keylist = document.getElementById("keylst");
         while (this.keylist.hasChildNodes())
             this.keylist.removeChild(this.keylist.childNodes[0]);
+        this.curruser = JSON.parse(document.getElementById("logout").innerHTML);
+        if (this.curruser != null && this.curruser.keys != null) {
+            var keylistp = document.getElementById("keylstp");
+            while (keylistp.hasChildNodes())
+                keylistp.removeChild(keylistp.childNodes[0]);
+            var keysp = this.curruser.keys;
+            var _loop_1 = function (i) {
+                var list = document.createElement("li");
+                list.innerHTML = keysp[i].id + ": " + keysp[i].desc + "<br> Type: " + keysp[i].type + "<br> Material: " + keysp[i].material + "<br> Qty: " + keysp[i].quantity + "<br> Public: " + keysp[i].pub;
+                list.value = keysp[i].id;
+                this_1.eventManager.addEventListener(list, 'click', this_1.showInfop);
+                this_1.eventManager.addEventListener(list, 'mouseenter', function () { return list.style.backgroundColor = "red"; });
+                this_1.eventManager.addEventListener(list, 'mouseleave', function () { return list.style.backgroundColor = "pink"; });
+                keylistp.appendChild(list);
+            };
+            var this_1 = this;
+            for (var i = 0; i < keysp.length; i++) {
+                _loop_1(i);
+            }
+        }
         this.http.get("/keyims/keyserv").
             subscribe(function (data) {
             _this.keys = data;
@@ -295,7 +315,7 @@ var KeyComponent = /** @class */ (function () {
             cheat.style.display = "none";
             cheat.innerHTML = JSON.stringify(_this.keys);
             _this.keylist.appendChild(cheat);
-            var _loop_1 = function (i) {
+            var _loop_2 = function (i) {
                 var list = document.createElement("li");
                 list.innerHTML = _this.keys[i].id + ": " + _this.keys[i].desc + "<br> Type: " + _this.keys[i].type + "<br> Material: " + _this.keys[i].material + "<br> Qty: " + _this.keys[i].quantity + "<br> Public: " + _this.keys[i].pub;
                 list.value = _this.keys[i].id;
@@ -305,7 +325,7 @@ var KeyComponent = /** @class */ (function () {
                 _this.keylist.appendChild(list);
             };
             for (var i = 0; i < _this.keys.length; i++) {
-                _loop_1(i);
+                _loop_2(i);
             }
             console.log("complete");
             document.getElementById("getKey").disabled = false;
@@ -332,6 +352,8 @@ var KeyComponent = /** @class */ (function () {
         document.getElementById("keyqty").value = "";
         document.getElementById("keypub").value = "";
         document.getElementById("keytype").value = "";
+        document.getElementById("del").disabled = true;
+        var keyimg = document.getElementById("imgdisp").src = "";
     };
     KeyComponent.prototype.showInfo = function (e) {
         this.curruser = JSON.parse(document.getElementById("logout").innerHTML);
@@ -343,6 +365,7 @@ var KeyComponent = /** @class */ (function () {
         console.log(cheat);
         console.log(this.keys);
         var keyid = document.getElementById("keyid");
+        var matpass = document.getElementById("matpass");
         var keymat = document.getElementById("keymat");
         var keydesc = document.getElementById("keydesc");
         var keyqty = document.getElementById("keyqty");
@@ -354,6 +377,12 @@ var KeyComponent = /** @class */ (function () {
             if (this.keys[x].id == e.target.value)
                 key = this.keys[x];
         console.log(key);
+        if (key.type.toLowerCase() == "password") {
+            matpass.innerHTML = "Password: ";
+        }
+        else {
+            matpass.innerHTML = "Material: ";
+        }
         keyid.innerHTML = e.target.value;
         keymat.value = key.material;
         keydesc.value = key.desc;
@@ -387,16 +416,20 @@ var KeyComponent = /** @class */ (function () {
                     f.append("file", keyimg);
                     f.append("keyid", keyid);
                     _this.http.post("/keyims/file", f).subscribe(function (response) { return (document.getElementById("sub").disabled = false); }, function () { document.getElementById("sub").disabled = false; });
+                    _this.clear();
+                    _this.getKey();
                 }
                 else
                     document.getElementById("sub").disabled = false;
                 if (_this.curruser != null && _this.curruser.lvl >= 1)
                     document.getElementById("del").disabled = false;
+                _this.clear();
+                _this.getKey();
             });
         }
         else {
             console.log("Pootis...");
-            this.http.put("/keyims/keyserv", '{ "id": "' + 0 + '", "type": "' + keytype + '", "desc": "' + keydesc + '", "material": "' + keymat + '", "pub": "' + keypub + '", "image": ""' + imgurl + '"", "quantity": "' + keyqty + '" }').
+            this.http.put("/keyims/keyserv", '{ "id": "' + 0 + '", "type": "' + keytype + '", "desc": "' + keydesc + '", "material": "' + keymat + '", "pub": "' + keypub + '", "image": "' + imgurl + '", "quantity": "' + keyqty + '" }').
                 subscribe(function (data) { console.log(data); }, function () {
                 console.log("complete");
                 if (keyimg != null) {
@@ -404,13 +437,50 @@ var KeyComponent = /** @class */ (function () {
                     f.append("file", keyimg);
                     f.append("keyid", keyid);
                     _this.http.post("/keyims/file", f).subscribe(function (response) { return (document.getElementById("sub").disabled = false); }, function () { document.getElementById("sub").disabled = false; });
+                    _this.clear();
+                    _this.getKey();
                 }
                 else
                     document.getElementById("sub").disabled = false;
                 if (_this.curruser != null && _this.curruser.lvl >= 1)
                     document.getElementById("del").disabled = false;
+                _this.clear();
+                _this.getKey();
             });
         }
+    };
+    KeyComponent.prototype.showInfop = function (e) {
+        this.curruser = JSON.parse(document.getElementById("logout").innerHTML);
+        document.getElementById("del").disabled = false;
+        var keyid = document.getElementById("keyid");
+        var matpass = document.getElementById("matpass");
+        var keymat = document.getElementById("keymat");
+        var keydesc = document.getElementById("keydesc");
+        var keyqty = document.getElementById("keyqty");
+        var keypub = document.getElementById("keypub");
+        var keytype = document.getElementById("keytype");
+        var keyimg = document.getElementById("imgdisp");
+        var key = this.curruser.keys[0];
+        for (var x = 0; x < this.curruser.keys.length; x++)
+            if (this.curruser.keys[x].id == e.target.value)
+                key = this.curruser.keys[x];
+        console.log(key);
+        if (key.type.toLowerCase() == "password") {
+            matpass.innerHTML = "Password: ";
+        }
+        else {
+            matpass.innerHTML = "Material: ";
+        }
+        keyid.innerHTML = e.target.value;
+        keymat.value = key.material;
+        keydesc.value = key.desc;
+        keyqty.value = key.quantity;
+        keytype.value = key.type;
+        keyimg.src = key.image;
+        if (String(key.pub) == "true" || String(key.pub) == "on")
+            keypub.selectedIndex = 0;
+        else
+            keypub.selectedIndex = 1;
     };
     KeyComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({

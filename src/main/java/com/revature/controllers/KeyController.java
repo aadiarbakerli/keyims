@@ -17,12 +17,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.beans.Key;
 import com.revature.beans.User;
 import com.revature.services.KeyService;
+import com.revature.services.UserService;
 
 @Controller
 public class KeyController
 {
 	@Autowired
 	private KeyService ks;
+	
+	@Autowired
+	private UserService us;
+	
 	ObjectMapper om = new ObjectMapper();
 	
 	@RequestMapping(value="/key")
@@ -65,9 +70,18 @@ public class KeyController
 	
 	@RequestMapping(value="/keyserv", method=RequestMethod.PUT)
 	@ResponseBody
-	public String PutKey(@RequestBody String json) throws Exception
+	public String PutKey(@RequestBody String json, HttpSession sess) throws Exception
 	{
 		Key k = om.readValue(json, Key.class);
+		
+		User u =  (User)sess.getAttribute("user");
+		
+		if(u != null)
+		{
+			u.getKeys().add(k);
+			
+			us.editUser(u);
+		}
 		
 		ks.addKey(k);
 		
