@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { EventManager } from '@angular/platform-browser'
 import { HttpClient } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
-//import { HttpHeaders } from '@angular/common/http';
+import { UserService } from 'src/app/shared/user/user.service';
+import { User } from '../shared/user/user';
 
 @Component({
   selector: 'app-key',
@@ -14,8 +15,11 @@ export class KeyComponent implements OnInit
 	public keys : Array<any>;
 	public keylist: any;
 	public curruser: any;  
-  constructor(private http: HttpClient, private eventManager: EventManager)
+	
+  constructor(private http: HttpClient, private eventManager: EventManager, private userService: UserService)
   {
+  
+  
   }
 
   ngOnInit()
@@ -25,6 +29,14 @@ export class KeyComponent implements OnInit
 		console.log(document.getElementById("logout"));
 		this.curruser = JSON.parse(document.getElementById("logout").innerHTML);
 		console.log(this.curruser);
+	}
+	else
+	{
+	   this.userService.login(null, null).subscribe( user => {
+       this.curruser = user;
+       console.log(this.curruser);
+
+      });
 	}
   }
   
@@ -36,9 +48,11 @@ export class KeyComponent implements OnInit
   (<HTMLButtonElement>document.getElementById("getKey")).disabled = true;
     this.keylist = document.getElementById("keylst");
     	while(this.keylist.hasChildNodes())
-    		this.keylist.removeChild(this.keylist.childNodes[0]);
-    		
-    this.curruser = JSON.parse(document.getElementById("logout").innerHTML);
+    	
+   this.keylist.removeChild(this.keylist.childNodes[0]);
+   
+    if(document.getElementById("logout").innerHTML.length > 10)		
+    	this.curruser = JSON.parse(document.getElementById("logout").innerHTML);
     
     if(this.curruser != null && this.curruser.keys != null)
     {
@@ -62,8 +76,7 @@ export class KeyComponent implements OnInit
   			keylistp.appendChild(list);
   		}
     }
-    		
-    		
+    				
     this.http.get<any>("/keyims/keyserv").
   	subscribe((data : Array<any>) =>{
   		this.keys = data;
@@ -93,7 +106,7 @@ export class KeyComponent implements OnInit
   }
   delete()
   {
-  		 (<HTMLButtonElement>document.getElementById("sub")).disabled = true;
+  		(<HTMLButtonElement>document.getElementById("sub")).disabled = true;
   		(<HTMLButtonElement>document.getElementById("del")).disabled = true;			
   		let keyid = document.getElementById("keyid").innerHTML;
   
@@ -227,10 +240,10 @@ export class KeyComponent implements OnInit
   			this.getKey();	
   			  	});
   		} 		
-  		}
+  	}
   		
-  showInfop(e)
-  	{	
+  showInfop(e) : void
+  	{		
 		this.curruser = JSON.parse(document.getElementById("logout").innerHTML);  
 		(<HTMLButtonElement>document.getElementById("del")).disabled = false;
 			
@@ -269,6 +282,6 @@ export class KeyComponent implements OnInit
   		if(String(key.pub) == "true" || String(key.pub) == "on")
   			keypub.selectedIndex = 0;
   		else
-  			keypub.selectedIndex = 1;
+  			keypub.selectedIndex = 1;			
   	}  	
 }

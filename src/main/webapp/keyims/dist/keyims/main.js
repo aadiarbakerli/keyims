@@ -87,7 +87,7 @@ module.exports = "button{\n\tcolor: \"red\";\n\tfont-weight: 400px;\n}\n\n/*# so
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<button routerLink=\"/login\" routerLinkActive=\"active\">Home</button> <button routerLink=\"/key\" routerLinkActive=\"active\">Keys </button> <button>User</button><button id=\"logout\" hidden=\"true\" id=\"logout\" (click)=\"logout()\">Logout</button>\n<div style=\"text-align:center\">\n  <h1>\n    Welcome to {{ title }}!\n  </h1>\n<h2>\n\tThe IMS system for keys, by keys\n</h2>\n</div>\n<router-outlet></router-outlet>\n"
+module.exports = "<button routerLink=\"/login\" routerLinkActive=\"active\">Home</button> <button routerLink=\"/key\" routerLinkActive=\"active\">Keys </button> <button>User</button><button id=\"logout\" hidden=\"true\" id=\"logout\" (click)=\"logout()\"></button>\n<div style=\"text-align:center\">\n  <h1>\n    Welcome to {{ title }}!\n  </h1>\n<h2>\n\tThe IMS system for keys, by keys\n</h2>\n</div>\n<router-outlet></router-outlet>\n"
 
 /***/ }),
 
@@ -264,21 +264,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var src_app_shared_user_user_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/shared/user/user.service */ "./src/app/shared/user/user.service.ts");
 
 
 
 
-//import { HttpHeaders } from '@angular/common/http';
+
 var KeyComponent = /** @class */ (function () {
-    function KeyComponent(http, eventManager) {
+    function KeyComponent(http, eventManager, userService) {
         this.http = http;
         this.eventManager = eventManager;
+        this.userService = userService;
     }
     KeyComponent.prototype.ngOnInit = function () {
+        var _this = this;
         if (document.getElementById("logout").innerHTML != null) {
             console.log(document.getElementById("logout"));
             this.curruser = JSON.parse(document.getElementById("logout").innerHTML);
             console.log(this.curruser);
+        }
+        else {
+            this.userService.login(null, null).subscribe(function (user) {
+                _this.curruser = user;
+                console.log(_this.curruser);
+            });
         }
     };
     KeyComponent.prototype.getKey = function () {
@@ -287,7 +296,8 @@ var KeyComponent = /** @class */ (function () {
         this.keylist = document.getElementById("keylst");
         while (this.keylist.hasChildNodes())
             this.keylist.removeChild(this.keylist.childNodes[0]);
-        this.curruser = JSON.parse(document.getElementById("logout").innerHTML);
+        if (document.getElementById("logout").innerHTML.length > 10)
+            this.curruser = JSON.parse(document.getElementById("logout").innerHTML);
         if (this.curruser != null && this.curruser.keys != null) {
             var keylistp = document.getElementById("keylstp");
             while (keylistp.hasChildNodes())
@@ -488,7 +498,7 @@ var KeyComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./key.component.html */ "./src/app/key/key.component.html"),
             styles: [__webpack_require__(/*! ./key.component.css */ "./src/app/key/key.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"], _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["EventManager"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"], _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["EventManager"], src_app_shared_user_user_service__WEBPACK_IMPORTED_MODULE_4__["UserService"]])
     ], KeyComponent);
     return KeyComponent;
 }());
@@ -543,7 +553,7 @@ var LoginComponent = /** @class */ (function () {
         var _this = this;
         this.userService.login(null, null).subscribe(function (user) {
             _this.loggedUser = user;
-            console.log('ngOnInit');
+            console.log(_this.loggedUser);
         });
     };
     LoginComponent.prototype.login = function () {
