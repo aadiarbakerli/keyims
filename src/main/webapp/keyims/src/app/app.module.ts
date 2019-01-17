@@ -9,13 +9,14 @@ import { UserService} from './shared/user/user.service';
 import { KeyComponent } from './key/key.component';
 import { KeyServiceService } from './key-service.service';
 import { HttpClientModule } from '@angular/common/http';
+import { CreateuserComponent } from './createuser/createuser.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     KeyComponent,
-    UserComponent
+    CreateuserComponent
   ],
   imports: [
   RouterModule,
