@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.beans.Key;
+import com.revature.beans.User;
 import com.revature.services.KeyService;
 
 @Controller
@@ -31,18 +33,21 @@ public class KeyController
 	
 	@RequestMapping(value="/keyserv", method=RequestMethod.GET)
 	@ResponseBody
-	public List<Key> getKeys()
+	public List<Key> getKeys(HttpSession sess)
 	{
 		List<Key> k = ks.getKeys();
+		User u =  (User)sess.getAttribute("user");
 		
-		Iterator<Key> i = k.iterator();
-		
-		while(i.hasNext())
+		if(u == null || u.getlvl() == 0)
 		{
-			if(!i.next().isPub())
-				i.remove();
+			Iterator<Key> i = k.iterator();
+		
+			while(i.hasNext())
+			{
+				if(!i.next().isPub())
+					i.remove();
+			}
 		}
-
 		return k;
 	}
 	
@@ -67,6 +72,17 @@ public class KeyController
 		ks.addKey(k);
 		
 		System.out.println(k.toString());
+		return "done";
+	}
+	
+	@RequestMapping(value="/keyserv/{id}", method=RequestMethod.DELETE)
+	@ResponseBody
+	public String DeleteKey(@PathVariable String id) throws Exception
+	{
+		System.out.println(id);
+		Key k = ks.getKey(Integer.parseInt(id));
+		System.out.println(k);
+		ks.deleteKey(k);
 		return "done";
 	}
 }

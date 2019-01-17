@@ -12,18 +12,25 @@ import { catchError, map, tap } from 'rxjs/operators';
 export class KeyComponent implements OnInit 
 {
 	public keys : Array<any>;
-	keylist: any;  
+	public keylist: any;
+	public curruser: any;  
   constructor(private http: HttpClient, private eventManager: EventManager)
   {
   }
 
   ngOnInit()
   {
-
+  	if(document.getElementById("logout").innerHTML != null)
+  	{
+		console.log(document.getElementById("logout"));
+		this.curruser = JSON.parse(document.getElementById("logout").innerHTML);
+		console.log(this.curruser);
+	}
   }
   
   getKey() : void
   {
+  
   (<HTMLButtonElement>document.getElementById("getKey")).disabled = true;
     this.keylist = document.getElementById("keylst");
     	while(this.keylist.hasChildNodes())
@@ -56,7 +63,20 @@ export class KeyComponent implements OnInit
   		   (<HTMLButtonElement>document.getElementById("getKey")).disabled = false;	
   	})
   }
+  delete()
+  {
+  		 (<HTMLButtonElement>document.getElementById("sub")).disabled = true;
+  		(<HTMLButtonElement>document.getElementById("del")).disabled = true;			
+  		let keyid = document.getElementById("keyid").innerHTML;
   
+  	  	console.log("Deleting..");
+  		this.http.delete("/keyims/keyserv/" + keyid).
+  			subscribe(data =>{}, ()=> {
+  			console.log("complete")
+  			this.clear(); 
+  			this.getKey();
+  			(<HTMLButtonElement>document.getElementById("sub")).disabled = false;});
+  }
   clear()
   {
     	document.getElementById("keyid").innerHTML = "";
@@ -69,6 +89,11 @@ export class KeyComponent implements OnInit
   
   	showInfo(e)
   	{
+  		this.curruser = JSON.parse(document.getElementById("logout").innerHTML);
+  		console.log(this.curruser.lvl);
+  		if(this.curruser != null && this.curruser.lvl >=1)
+  			(<HTMLButtonElement>document.getElementById("del")).disabled = false;
+  	
 	  	let cheat = document.getElementById("cheat");
 	  	this.keys = JSON.parse(cheat.innerHTML);
   		console.log(cheat);
@@ -103,7 +128,8 @@ export class KeyComponent implements OnInit
   	
  		submit()
   	{  	
-  		(<HTMLButtonElement>document.getElementById("sub")).disabled = true;		
+  		(<HTMLButtonElement>document.getElementById("sub")).disabled = true;
+  		(<HTMLButtonElement>document.getElementById("del")).disabled = true;			
   		let keyid = document.getElementById("keyid").innerHTML;
   		let keymat = (<HTMLInputElement>document.getElementById("keymat")).value;
   		let keydesc = (<HTMLInputElement>document.getElementById("keydesc")).value;
@@ -127,7 +153,9 @@ export class KeyComponent implements OnInit
   			this.http.post("/keyims/file", f).subscribe((response)=> ((<HTMLButtonElement>document.getElementById("sub")).disabled = false), ()=>{(<HTMLButtonElement>document.getElementById("sub")).disabled = false;});
   		}
   		else
-  			(<HTMLButtonElement>document.getElementById("sub")).disabled = false;  			
+  			(<HTMLButtonElement>document.getElementById("sub")).disabled = false;
+  			 if(this.curruser != null && this.curruser.lvl >=1)
+  				(<HTMLButtonElement>document.getElementById("del")).disabled = false;  			
   			
   			});
   		}
@@ -145,7 +173,10 @@ export class KeyComponent implements OnInit
   			this.http.post("/keyims/file", f).subscribe((response)=> ((<HTMLButtonElement>document.getElementById("sub")).disabled = false), ()=>{(<HTMLButtonElement>document.getElementById("sub")).disabled = false;});
   		}
   		else
-  		(<HTMLButtonElement>document.getElementById("sub")).disabled = false;  			  	
+  		(<HTMLButtonElement>document.getElementById("sub")).disabled = false;
+  		if(this.curruser != null && this.curruser.lvl >=1)
+  			(<HTMLButtonElement>document.getElementById("del")).disabled = false;
+  		  			  	
   			  	
   			  	});
   		} 		

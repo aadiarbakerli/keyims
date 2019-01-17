@@ -93,6 +93,8 @@ public class KeyHibernate implements KeyDao
 		try
 		{
 			s.delete(k);
+			s.flush();
+			t.commit();
 		}
 		catch(HibernateException e)
 		{
@@ -102,7 +104,6 @@ public class KeyHibernate implements KeyDao
 		{
 			s.close();
 		}
-		t.commit();
 		
 	}
 }

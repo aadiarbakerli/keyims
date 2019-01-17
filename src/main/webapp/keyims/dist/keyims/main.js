@@ -87,7 +87,7 @@ module.exports = "button{\n\tcolor: \"red\";\n\tfont-weight: 400px;\n}\n\n/*# so
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<button routerLink=\"/login\" routerLinkActive=\"active\">Home</button> <button routerLink=\"/key\" routerLinkActive=\"active\">Keys </button> <button>User</button>\n<div style=\"text-align:center\">\n  <h1>\n    Welcome to {{ title }}!\n  </h1>\n<h2>\n\tThe IMS system for keys, by keys\n</h2>\n</div>\n<router-outlet></router-outlet>\n"
+module.exports = "<button routerLink=\"/login\" routerLinkActive=\"active\">Home</button> <button routerLink=\"/key\" routerLinkActive=\"active\">Keys </button> <button>User</button><button id=\"logout\" hidden=\"true\" id=\"logout\" (click)=\"logout()\">Logout</button>\n<div style=\"text-align:center\">\n  <h1>\n    Welcome to {{ title }}!\n  </h1>\n<h2>\n\tThe IMS system for keys, by keys\n</h2>\n</div>\n<router-outlet></router-outlet>\n"
 
 /***/ }),
 
@@ -143,6 +143,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _key_key_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./key/key.component */ "./src/app/key/key.component.ts");
 /* harmony import */ var _key_service_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./key-service.service */ "./src/app/key-service.service.ts");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _shared_url_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./shared/url.service */ "./src/app/shared/url.service.ts");
+/* harmony import */ var _shared_user_user_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./shared/user/user.service */ "./src/app/shared/user/user.service.ts");
+
+
+
 
 
 
@@ -167,9 +173,14 @@ var AppModule = /** @class */ (function () {
                 _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"],
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
                 _app_routing_module__WEBPACK_IMPORTED_MODULE_4__["AppRoutingModule"],
-                _angular_common_http__WEBPACK_IMPORTED_MODULE_9__["HttpClientModule"]
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_9__["HttpClientModule"],
+                _angular_forms__WEBPACK_IMPORTED_MODULE_10__["FormsModule"]
             ],
-            providers: [_key_service_service__WEBPACK_IMPORTED_MODULE_8__["KeyServiceService"]],
+            providers: [
+                _shared_url_service__WEBPACK_IMPORTED_MODULE_11__["UrlService"],
+                _shared_user_user_service__WEBPACK_IMPORTED_MODULE_12__["UserService"],
+                _key_service_service__WEBPACK_IMPORTED_MODULE_8__["KeyServiceService"]
+            ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]]
         })
     ], AppModule);
@@ -235,7 +246,7 @@ module.exports = "#keydet{\n\tposition: static;\n\tright: 20px;\n\ttop: 20px;\n}
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "Public Keys: <br>\n<ul id=\"keylst\">\n\n</ul>\n<button id=\"getKey\" (click)=\"getKey()\">Get Keys</button><br><br>\nCreate Key:\n<div id=\"keydet\">\n<img src=\"\" alt=\"Key Image\" id=\"imgdisp\" height=\"250\" width=\"250\"><br>\nID: <span id=\"keyid\"></span><br>\nDescription: <input type=\"text\" id=\"keydesc\"><br>\nMaterial: <input type=\"text\" id=\"keymat\"><br>\nType: <input type=\"text\" id=\"keytype\"><br>\nQty: <input type=\"number\" id=\"keyqty\"><br> \nPublic: <select id=\"keypub\">\n<option value=\"true\">True</option>\n<option value=\"false\">False</option>\n</select><br>\nImage: <input type=\"file\" id=\"keyimg\"><br>\n<button id=\"sub\" (click)=\"submit()\">Submit</button>\n<button id=\"clr\" (click)=\"clear()\">Clear</button>\n</div>\n"
+module.exports = "Public Keys: <br>\n<ul id=\"keylst\">\n\n</ul>\n<button id=\"getKey\" (click)=\"getKey()\">Get Keys</button><br><br>\nCreate Key:\n<div id=\"keydet\">\n<img src=\"\" alt=\"Key Image\" id=\"imgdisp\" height=\"250\" width=\"250\"><br>\nID: <span id=\"keyid\"></span><br>\nDescription: <input type=\"text\" id=\"keydesc\"><br>\nMaterial: <input type=\"text\" id=\"keymat\"><br>\nType: <input type=\"text\" id=\"keytype\"><br>\nQty: <input type=\"number\" id=\"keyqty\"><br> \nPublic: <select id=\"keypub\">\n<option value=\"true\">True</option>\n<option value=\"false\">False</option>\n</select><br>\nImage: <input type=\"file\" id=\"keyimg\"><br>\n<button id=\"sub\" (click)=\"submit()\">Submit</button>\n<button id=\"clr\" (click)=\"clear()\">Clear</button>\n<button disabled=\"true\" id=\"del\" (click)=\"delete()\">Delete</button>\n</div>\n"
 
 /***/ }),
 
@@ -264,6 +275,11 @@ var KeyComponent = /** @class */ (function () {
         this.eventManager = eventManager;
     }
     KeyComponent.prototype.ngOnInit = function () {
+        if (document.getElementById("logout").innerHTML != null) {
+            console.log(document.getElementById("logout"));
+            this.curruser = JSON.parse(document.getElementById("logout").innerHTML);
+            console.log(this.curruser);
+        }
     };
     KeyComponent.prototype.getKey = function () {
         var _this = this;
@@ -295,6 +311,20 @@ var KeyComponent = /** @class */ (function () {
             document.getElementById("getKey").disabled = false;
         });
     };
+    KeyComponent.prototype.delete = function () {
+        var _this = this;
+        document.getElementById("sub").disabled = true;
+        document.getElementById("del").disabled = true;
+        var keyid = document.getElementById("keyid").innerHTML;
+        console.log("Deleting..");
+        this.http.delete("/keyims/keyserv/" + keyid).
+            subscribe(function (data) { }, function () {
+            console.log("complete");
+            _this.clear();
+            _this.getKey();
+            document.getElementById("sub").disabled = false;
+        });
+    };
     KeyComponent.prototype.clear = function () {
         document.getElementById("keyid").innerHTML = "";
         document.getElementById("keymat").value = "";
@@ -304,6 +334,10 @@ var KeyComponent = /** @class */ (function () {
         document.getElementById("keytype").value = "";
     };
     KeyComponent.prototype.showInfo = function (e) {
+        this.curruser = JSON.parse(document.getElementById("logout").innerHTML);
+        console.log(this.curruser.lvl);
+        if (this.curruser != null && this.curruser.lvl >= 1)
+            document.getElementById("del").disabled = false;
         var cheat = document.getElementById("cheat");
         this.keys = JSON.parse(cheat.innerHTML);
         console.log(cheat);
@@ -334,6 +368,7 @@ var KeyComponent = /** @class */ (function () {
     KeyComponent.prototype.submit = function () {
         var _this = this;
         document.getElementById("sub").disabled = true;
+        document.getElementById("del").disabled = true;
         var keyid = document.getElementById("keyid").innerHTML;
         var keymat = document.getElementById("keymat").value;
         var keydesc = document.getElementById("keydesc").value;
@@ -355,6 +390,8 @@ var KeyComponent = /** @class */ (function () {
                 }
                 else
                     document.getElementById("sub").disabled = false;
+                if (_this.curruser != null && _this.curruser.lvl >= 1)
+                    document.getElementById("del").disabled = false;
             });
         }
         else {
@@ -370,6 +407,8 @@ var KeyComponent = /** @class */ (function () {
                 }
                 else
                     document.getElementById("sub").disabled = false;
+                if (_this.curruser != null && _this.curruser.lvl >= 1)
+                    document.getElementById("del").disabled = false;
             });
         }
     };
@@ -406,7 +445,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n<div>\n    <h1>Login</h1>\n    <label>Username: </label>\n    <br>\n    <label>Password: </label>\n</div>\n<label>Email: </label> <input type=\"text\" id=\"email\"><br>\n<label>Password: </label> <input type=\"password\" id=\"pass\">\n\n"
+module.exports = "<ng-container *ngIf=\"!loggedUser; else display\">\n<div>\n    <h1>Login</h1>\n    <label>Email: </label> <input type=\"text\" [(ngModel)]=\"username\"><br>\n    <label>Password: </label> <input type=\"password\" [(ngModel)]=\"password\" (keyup.enter)=\"login()\"><br>\n    <button class=\"btn btn-primary\" (click)=\"login()\">Login</button>\n</div>\n</ng-container>\n\n<ng-template #display>\n<div>\n    <span id=\"welcome\">Welcome {{getUser().name}}</span> <br>\n    <br>\n    <!-- Edit button to route to key component? logout function works so was just test-->\n    <button class=\"btn btn-dasnger\" (click)=\"logout()\">Logout</button>\n</div>\n\n</ng-template>"
 
 /***/ }),
 
@@ -422,12 +461,39 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LoginComponent", function() { return LoginComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_shared_user_user_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/shared/user/user.service */ "./src/app/shared/user/user.service.ts");
+
 
 
 var LoginComponent = /** @class */ (function () {
-    function LoginComponent() {
+    function LoginComponent(userService) {
+        this.userService = userService;
     }
     LoginComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.userService.login(null, null).subscribe(function (user) {
+            _this.loggedUser = user;
+            console.log('ngOnInit');
+        });
+    };
+    LoginComponent.prototype.login = function () {
+        var _this = this;
+        console.log(this.username + ' ' + this.password);
+        this.userService.login(this.username, this.password).subscribe(function (user) {
+            _this.loggedUser = user;
+            document.getElementById("logout").innerHTML = JSON.stringify(user);
+            console.log(document.getElementById("logout"));
+            console.log(user);
+        });
+    };
+    LoginComponent.prototype.logout = function () {
+        this.userService.logout().subscribe();
+        this.loggedUser = null;
+        this.username = null;
+        this.password = null;
+    };
+    LoginComponent.prototype.getUser = function () {
+        return this.userService.getUser();
     };
     LoginComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -435,9 +501,125 @@ var LoginComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./login.component.html */ "./src/app/login/login.component.html"),
             styles: [__webpack_require__(/*! ./login.component.css */ "./src/app/login/login.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_shared_user_user_service__WEBPACK_IMPORTED_MODULE_2__["UserService"]])
     ], LoginComponent);
     return LoginComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shared/url.service.ts":
+/*!***************************************!*\
+  !*** ./src/app/shared/url.service.ts ***!
+  \***************************************/
+/*! exports provided: UrlService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UrlService", function() { return UrlService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+var UrlService = /** @class */ (function () {
+    function UrlService() {
+    }
+    UrlService_1 = UrlService;
+    UrlService.prototype.getURL = function () {
+        return UrlService_1.MONOLITH_URL;
+    };
+    var UrlService_1;
+    UrlService.MONOLITH_URL = '/keyims';
+    UrlService = UrlService_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], UrlService);
+    return UrlService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shared/user/user.service.ts":
+/*!*********************************************!*\
+  !*** ./src/app/shared/user/user.service.ts ***!
+  \*********************************************/
+/*! exports provided: UserService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserService", function() { return UserService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+/* harmony import */ var _url_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../url.service */ "./src/app/shared/url.service.ts");
+
+
+
+
+
+var UserService = /** @class */ (function () {
+    function UserService(urlSource, http) {
+        this.urlSource = urlSource;
+        this.http = http;
+        this.appUrl = this.urlSource.getURL() + '/login';
+        this.headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpHeaders"]({ 'Content-Type': 'application/json' });
+    }
+    UserService.prototype.login = function (username, password) {
+        var _this = this;
+        if (username && password) {
+            var body = "{\"email\": \"" + username + "\", \"pswd\": \"" + password + "\"}";
+            console.log(body);
+            return this.http.post(this.appUrl, body, { headers: this.headers, withCredentials: true })
+                .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (resp) {
+                var user = resp;
+                if (user) {
+                    _this.current = user;
+                    console.log('userservice login');
+                    console.log(_this.current);
+                }
+                return user;
+            }));
+        }
+        else { // check if logged in
+            return this.http.get(this.appUrl, { withCredentials: true })
+                .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (resp) {
+                var user = resp;
+                if (user) {
+                    _this.current = user;
+                }
+                return user;
+            }));
+        }
+    };
+    UserService.prototype.logout = function () {
+        var _this = this;
+        return this.http.delete(this.appUrl, { withCredentials: true }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (success) {
+            _this.current = null;
+            return success;
+        }));
+    };
+    UserService.prototype.getUser = function () {
+        return this.current;
+    };
+    UserService.prototype.isUser = function () {
+        return (this.current !== undefined && this.current !== null);
+    };
+    UserService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_url_service__WEBPACK_IMPORTED_MODULE_4__["UrlService"], _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
+    ], UserService);
+    return UserService;
 }());
 
 
