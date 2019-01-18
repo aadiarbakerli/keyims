@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import { UserService } from 'src/app/shared/user/user.service';
 import { User } from '../shared/user/user';
+import {Router} from "@angular/router"
 
 @Component({
   selector: 'app-key',
@@ -16,7 +17,7 @@ export class KeyComponent implements OnInit
 	public keylist: any;
 	public curruser: any;  
 	
-  constructor(private http: HttpClient, private eventManager: EventManager, private userService: UserService)
+  constructor(private http: HttpClient, private eventManager: EventManager, private userService: UserService, private router:Router)
   {
   
   
@@ -24,18 +25,22 @@ export class KeyComponent implements OnInit
 
   ngOnInit()
   {
-  	if(document.getElementById("logout").innerHTML != null)
+  	if(document.getElementById("logout").innerHTML.length > 10)
   	{
 		console.log(document.getElementById("logout"));
 		this.curruser = JSON.parse(document.getElementById("logout").innerHTML);
-		console.log(this.curruser);
 	}
 	else
 	{
-	   this.userService.login(null, null).subscribe( user => {
-       this.curruser = user;
-       console.log(this.curruser);
-
+    this.http.get("/keyims/logincheck").subscribe(user=> {
+       	this.curruser = user;
+       	
+       	if(this.curruser == null)
+       	{
+       		console.log("Null user, redirecting");
+			this.router.navigate(['/login']);
+			
+		}
       });
 	}
   }
@@ -47,13 +52,21 @@ export class KeyComponent implements OnInit
   
   (<HTMLButtonElement>document.getElementById("getKey")).disabled = true;
     this.keylist = document.getElementById("keylst");
-    	while(this.keylist.hasChildNodes())
-    	
-   this.keylist.removeChild(this.keylist.childNodes[0]);
+    	while(this.keylist.hasChildNodes())	
+   			this.keylist.removeChild(this.keylist.childNodes[0]);
    
-    if(document.getElementById("logout").innerHTML.length > 10)		
-    	this.curruser = JSON.parse(document.getElementById("logout").innerHTML);
-    
+    this.http.get("/keyims/logincheck").subscribe(user=> {
+       	this.curruser = user;
+       	
+       	if(this.curruser == null)
+       	{
+       		console.log("Null user, redirecting");
+			this.router.navigate(['/login']);
+			
+		}
+      
+      console.log(this.curruser);
+       	
     if(this.curruser != null && this.curruser.keys != null)
     {
     	 let keylistp = document.getElementById("keylstp");
@@ -69,6 +82,7 @@ export class KeyComponent implements OnInit
   			list.innerHTML = keysp[i].id + ": " + keysp[i].desc + "<br> Type: " + keysp[i].type + "<br> Material: " + keysp[i].material + "<br> Qty: " + keysp[i].quantity + "<br> Public: " + keysp[i].pub ;
   			list.value = keysp[i].id;
   			
+  			list.style.backgroundColor = "pink"
   			this.eventManager.addEventListener(list, 'click', this.showInfop);
   			this.eventManager.addEventListener(list, 'mouseenter', ()=> list.style.backgroundColor = "red");
   			this.eventManager.addEventListener(list, 'mouseleave', ()=> list.style.backgroundColor = "pink");
@@ -76,6 +90,10 @@ export class KeyComponent implements OnInit
   			keylistp.appendChild(list);
   		}
     }
+       	
+      });
+    
+
     				
     this.http.get<any>("/keyims/keyserv").
   	subscribe((data : Array<any>) =>{
@@ -93,7 +111,7 @@ export class KeyComponent implements OnInit
 
   			list.innerHTML = this.keys[i].id + ": " + this.keys[i].desc + "<br> Type: " + this.keys[i].type + "<br> Material: " + this.keys[i].material + "<br> Qty: " + this.keys[i].quantity + "<br> Public: " + this.keys[i].pub ;
   			list.value = this.keys[i].id;
-  			
+  			list.style.backgroundColor = "lightblue"
   			this.eventManager.addEventListener(list, 'click', this.showInfo);
   			this.eventManager.addEventListener(list, 'mouseenter', ()=> list.style.backgroundColor = "blue");
   			this.eventManager.addEventListener(list, 'mouseleave', ()=> list.style.backgroundColor = "lightblue");
@@ -127,7 +145,8 @@ export class KeyComponent implements OnInit
   		(<HTMLInputElement>document.getElementById("keypub")).value = "";
   		(<HTMLInputElement>document.getElementById("keytype")).value = "";
   		(<HTMLButtonElement>document.getElementById("del")).disabled = true;
-  		let keyimg = (<HTMLImageElement>document.getElementById("imgdisp")).src = "";	
+  		(<HTMLImageElement>document.getElementById("imgdisp")).src = "";
+  		(<HTMLInputElement>document.getElementById("keyimg")).value = "";	
   }
   
   	showInfo(e)

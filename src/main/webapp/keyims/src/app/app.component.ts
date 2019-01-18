@@ -8,4 +8,9 @@ import { KeyComponent } from './key/key.component';
 })
 export class AppComponent {
   title = 'KeyIMS';
+  
+  logout()
+  {
+  	console.log("how did you click this?");
+  }
 }

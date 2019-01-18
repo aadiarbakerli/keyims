@@ -8,25 +8,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.revature.beans.User;
 import com.revature.services.UserService;
 
 @Controller
-@RequestMapping(value="/login")
 public class LoginController 
 {
 	@Autowired
 	private UserService us;
-	
-	@RequestMapping(method=RequestMethod.GET)
-	public String goLogin(HttpSession session) 
+	@RequestMapping(value="/login", method=RequestMethod.GET)
+	public String goLogin(HttpSession session) throws Exception
 	{
-		System.out.println("GET");
-		return "index.html";
+
+			return "index.html";
 	}
 	
-	@RequestMapping(method=RequestMethod.POST)
+	@RequestMapping(value="/logincheck", method=RequestMethod.GET)
+	@ResponseBody
+	public User checkLog(HttpSession sess)
+	{
+		System.out.println("GET");
+		
+		User u = (User)sess.getAttribute("user");
+
+		if(u != null)
+		{
+			u = us.login(u.getEmail(), u.getPswd());
+			return u;
+		}
+		else
+			return null;
+	}
+	
+	@RequestMapping(value="/login", method=RequestMethod.POST)
 	@ResponseBody
 	public User login(@RequestBody User u, HttpSession session) 
 	{
@@ -44,7 +58,7 @@ public class LoginController
 		}
 	}
 	
-	@RequestMapping(method=RequestMethod.DELETE)
+	@RequestMapping(value="/login", method=RequestMethod.DELETE)
 	public void logout(HttpSession session){
 		session.invalidate();
 	}
