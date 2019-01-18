@@ -4,13 +4,17 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.beans.User;
 import com.revature.services.UserService;
 
-@Controller
+@RestController
 @RequestMapping(value="/login")
 public class LoginController 
 {
@@ -18,27 +22,36 @@ public class LoginController
 	private UserService us;
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public String goLogin(HttpSession sess) 
+	public String goLogin(HttpSession session) 
 	{
-		if (sess.getAttribute("user") != null)
-			return "redirect:home";
-		return "index.html";
-//		return "static/login.html";
+		System.out.println("GET");
+		return "redirect:key.component.html";
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public String login(String username, String password, HttpSession session) 
+	@ResponseBody
+	public User login(@RequestBody User u, HttpSession session) 
 	{
-		User u = us.login(username, password);
-		if (u == null) 
+		User sessUser = (User) session.getAttribute("user");
+		if (sessUser == null) 
 		{
-			return "redirect:login";
+			sessUser = us.login(u.getEmail(), u.getPswd());
+			System.out.println("username: "+u.getEmail()+" &pass: "+u.getPswd());
+			//sessUser = us.getUsers().get(0);
+			session.setAttribute("user",sessUser);
+			System.out.println(session.getAttribute("user"));
+			return sessUser;
 		}
 		else
 		{
-			session.setAttribute("user", u);
-			return "redirect:home";
+			System.out.println("null");
+			return sessUser;
 		}
+	}
+	
+	@RequestMapping(method=RequestMethod.DELETE)
+	public void logout(HttpSession session){
+		session.invalidate();
 	}
 
 }

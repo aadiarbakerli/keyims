@@ -16,7 +16,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Userinfo")
+@Table(name="userInfo")
 public class User
 {
 	@Id
@@ -26,7 +26,7 @@ public class User
 	private String name;
 	private String email;
 	private String pswd;
-	private int level;
+	private int lvl;
 	@ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinTable(name="userkey",
 	joinColumns=@JoinColumn(name="userid"),
@@ -71,11 +71,11 @@ public class User
 	}
 
 	public int getLevel() {
-		return level;
+		return lvl;
 	}
 
 	public void setLevel(int level) {
-		this.level = level;
+		this.lvl = level;
 	}
 	
 	public List<Key> getKeys() {
@@ -91,7 +91,7 @@ public class User
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + level;
+		result = prime * result + lvl;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((pswd == null) ? 0 : pswd.hashCode());
 		return result;
@@ -111,7 +111,7 @@ public class User
 				return false;
 		} else if (!email.equals(other.email))
 			return false;
-		if (level != other.level)
+		if (lvl != other.lvl)
 			return false;
 		if (name == null) {
 			if (other.name != null)
@@ -128,7 +128,7 @@ public class User
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", email=" + email + ", pswd=" + pswd + ", level=" + level + "]";
+		return "User [id=" + id + ", name=" + name + ", email=" + email + ", pswd=" + pswd + ", level=" + lvl + "]";
 	}
 	
 	
