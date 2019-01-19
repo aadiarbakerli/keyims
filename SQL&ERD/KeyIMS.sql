@@ -110,4 +110,7 @@ insert into userKey (userId, keyId) values (1,1);
 insert into userKey (userId, keyId) values (1,5);
 insert into userKey (userId, keyId) values (2,3);
 
+insert into message (id, sender, receiver, content) values (1, 2, 1, 'test');
+insert into message (id, sender, receiver, content) values (2, 2, 1, 'this is the second test');
+
 commit;

@@ -1,9 +1,24 @@
-<h2>Message</h2>
+<h2>Inbox</h2>
+<br>
+<div>
+    <table id = "inbox" class="table">
+        <tr>
+            <th>From</th>
+            <th>Message</th>
+        </tr>
+    </table>
+</div>
+<br>
+<button id = "getMsg" (click) = "getMsg()">check inbox</button>
+<br>
+
+<br>
+<h2>Send a Message</h2>
 <br>
 <div id = "msg">
     Sending to:
-    <input type = "text" id = "send"> <br><br>
+    <input type = "text" id = "send" [(ngModel)] = "sendTo"> <br><br>
     Message:<br>
-    <input type = "text" id = "message"> <br><br>
-    <button id = "send" >Send</button>
+    <input type = "text" id = "message" [(ngModel)] = "detail" (keyup.enter)="sendMsg()"> <br><br>
+    <button id = "send" (click)="sendMsg()">Send</button>
 </div>

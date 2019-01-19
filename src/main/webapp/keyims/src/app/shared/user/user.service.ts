@@ -51,6 +51,7 @@ export class UserService {
           })
       );
   }
+
   getUser(): User {
       return this.current;
   }
