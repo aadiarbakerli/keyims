@@ -16,7 +16,7 @@ export class KeyComponent implements OnInit
 	public keys : Array<any>;
 	public keylist: any;
 	public curruser: any;  
-	
+	public u : Array<any>;
   constructor(private http: HttpClient, private eventManager: EventManager, private userService: UserService, private router:Router)
   {
   
@@ -45,18 +45,60 @@ export class KeyComponent implements OnInit
 	}
   }
   
+transfer()
+{
+	let dial = (<HTMLDialogElement>document.getElementById("givedia"));
+	dial.style.display = "block";
+	
+	
+	 let usrlst = document.getElementById("usrlst");
+	 
+	 while(usrlst.hasChildNodes())
+	 	usrlst.removeChild(usrlst.childNodes[0]);
+	 
+	  setTimeout(()=> {this.http.get("/keyims/userserv").subscribe((users :Array<any>)=> {
+	    this.u = users;
+	    
+	   for(let i = 0; i < this.u.length; i++)
+	   {
+	   		let opt = document.createElement("option");
+	   		opt.innerHTML = this.u[i].id + ": " + this.u[i].name;
+	   		opt.value = this.u[i].id;
+	   		usrlst.appendChild(opt);
+	   }
+	   })}, 1000);
+}
 
+give()
+{
+	 let usrlst = (<HTMLSelectElement>document.getElementById("usrlst"));
+	 let uid = usrlst.options[usrlst.selectedIndex].value;
+	 let keyid = document.getElementById("keyid").innerHTML;
+	 
+	 this.http.post("/keyims/userserv", keyid + "&" + uid).subscribe(response => {console.log(response)});
+	 this.cancel();
+}
+
+cancel()
+{
+	let dial = (<HTMLDialogElement>document.getElementById("givedia"));
+	dial.style.display = "none";
+}
   
   getKey() : void
   {
   
   (<HTMLButtonElement>document.getElementById("getKey")).disabled = true;
     this.keylist = document.getElementById("keylst");
-    	while(this.keylist.hasChildNodes())	
+    
+    	while(this.keylist.hasChildNodes())
+    	{
    			this.keylist.removeChild(this.keylist.childNodes[0]);
+   		}
    
     this.http.get("/keyims/logincheck").subscribe(user=> {
        	this.curruser = user;
+       	document.getElementById("logout").innerHTML = JSON.stringify(user);
        	
        	if(this.curruser == null)
        	{
@@ -75,7 +117,7 @@ export class KeyComponent implements OnInit
     		keylistp.removeChild(keylistp.childNodes[0]);
     	 
     	 let keysp = this.curruser.keys;
-    	for(let i = 0; i < keysp.length; i++)
+    	setTimeout(()=>{for(let i = 0; i < keysp.length; i++)
   		{
   			let list = document.createElement("li");
 
@@ -89,13 +131,13 @@ export class KeyComponent implements OnInit
   			
   			keylistp.appendChild(list);
   		}
-    }
-       	
+    }, 1000);
+     }  	
       });
     
 
     				
-    this.http.get<any>("/keyims/keyserv").
+    setTimeout(()=>{this.http.get<any>("/keyims/keyserv").
   	subscribe((data : Array<any>) =>{
   		this.keys = data;
   			
@@ -120,7 +162,7 @@ export class KeyComponent implements OnInit
   		}
   		console.log("complete"); 
   		   (<HTMLButtonElement>document.getElementById("getKey")).disabled = false;	
-  	})
+  	})}, 1000);
   }
   delete()
   {
@@ -138,6 +180,10 @@ export class KeyComponent implements OnInit
   }
   clear()
   {
+  		this.keylist = document.getElementById("keylst");
+    	while(this.keylist.hasChildNodes())	
+   			this.keylist.removeChild(this.keylist.childNodes[0]);
+  
     	document.getElementById("keyid").innerHTML = "";
   		(<HTMLInputElement>document.getElementById("keymat")).value = "";
   		(<HTMLInputElement>document.getElementById("keydesc")).value = "";
@@ -147,6 +193,7 @@ export class KeyComponent implements OnInit
   		(<HTMLButtonElement>document.getElementById("del")).disabled = true;
   		(<HTMLImageElement>document.getElementById("imgdisp")).src = "";
   		(<HTMLInputElement>document.getElementById("keyimg")).value = "";	
+  		this.cancel();
   }
   
   	showInfo(e)
@@ -154,7 +201,10 @@ export class KeyComponent implements OnInit
   		this.curruser = JSON.parse(document.getElementById("logout").innerHTML);
   		console.log(this.curruser.lvl);
   		if(this.curruser != null && this.curruser.lvl >=1)
+  		{
   			(<HTMLButtonElement>document.getElementById("del")).disabled = false;
+  			(<HTMLButtonElement>document.getElementById("trans")).disabled = false;
+  		}
   	
 	  	let cheat = document.getElementById("cheat");
 	  	this.keys = JSON.parse(cheat.innerHTML);
@@ -202,7 +252,8 @@ export class KeyComponent implements OnInit
  		submit()
   	{  	
   		(<HTMLButtonElement>document.getElementById("sub")).disabled = true;
-  		(<HTMLButtonElement>document.getElementById("del")).disabled = true;			
+  		(<HTMLButtonElement>document.getElementById("del")).disabled = true;
+  		(<HTMLButtonElement>document.getElementById("trans")).disabled = true;			
   		let keyid = document.getElementById("keyid").innerHTML;
   		let keymat = (<HTMLInputElement>document.getElementById("keymat")).value;
   		let keydesc = (<HTMLInputElement>document.getElementById("keydesc")).value;
@@ -225,14 +276,16 @@ export class KeyComponent implements OnInit
   			f.append("keyid", keyid)
   			this.http.post("/keyims/file", f).subscribe((response)=> ((<HTMLButtonElement>document.getElementById("sub")).disabled = false), ()=>{(<HTMLButtonElement>document.getElementById("sub")).disabled = false;});
   			this.clear();
-  			this.getKey();
   		}
   		else
   			(<HTMLButtonElement>document.getElementById("sub")).disabled = false;
+  			(<HTMLButtonElement>document.getElementById("trans")).disabled = false;
   			 if(this.curruser != null && this.curruser.lvl >=1)
-  				(<HTMLButtonElement>document.getElementById("del")).disabled = false;  			
+  			 {
+  				(<HTMLButtonElement>document.getElementById("del")).disabled = false;
+  				(<HTMLButtonElement>document.getElementById("trans")).disabled = false; 
+  			}			
   			this.clear();
-  			this.getKey();
   			});
   		}
   		else
@@ -247,24 +300,25 @@ export class KeyComponent implements OnInit
   			f.append("file", keyimg );
   			f.append("keyid", keyid)
   			this.http.post("/keyims/file", f).subscribe((response)=> ((<HTMLButtonElement>document.getElementById("sub")).disabled = false), ()=>{(<HTMLButtonElement>document.getElementById("sub")).disabled = false;});
+
   			 this.clear();
-  			this.getKey();
   		}
   		else
+  		{
   		(<HTMLButtonElement>document.getElementById("sub")).disabled = false;
   		if(this.curruser != null && this.curruser.lvl >=1)
-  			(<HTMLButtonElement>document.getElementById("del")).disabled = false;
-  		  			  	
+  			(<HTMLButtonElement>document.getElementById("del")).disabled = false;		  	
   		  	this.clear();
-  			this.getKey();	
+  			}
   			  	});
   		} 		
   	}
   		
   showInfop(e) : void
-  	{		
+  	{	
 		this.curruser = JSON.parse(document.getElementById("logout").innerHTML);  
 		(<HTMLButtonElement>document.getElementById("del")).disabled = false;
+		(<HTMLButtonElement>document.getElementById("trans")).disabled = false;
 			
   		let keyid = document.getElementById("keyid");
   		let matpass = document.getElementById("matpass");
