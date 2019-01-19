@@ -39,6 +39,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
 /* harmony import */ var _key_key_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./key/key.component */ "./src/app/key/key.component.ts");
 /* harmony import */ var _msg_msg_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./msg/msg.component */ "./src/app/msg/msg.component.ts");
+/* harmony import */ var _createaccount_password_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./createaccount/password.component */ "./src/app/createaccount/password.component.ts");
+
 
 
 
@@ -57,6 +59,10 @@ var routes = [
     {
         path: 'key',
         component: _key_key_component__WEBPACK_IMPORTED_MODULE_4__["KeyComponent"]
+    },
+    {
+        path: 'passStr',
+        component: _createaccount_password_component__WEBPACK_IMPORTED_MODULE_6__["PasswordComponent"]
     }
 ];
 var AppRoutingModule = /** @class */ (function () {
@@ -93,7 +99,7 @@ module.exports = "button{\n\tcolor: \"red\";\n\tfont-weight: 400px;\n}\n\n/*# so
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<button routerLink=\"/msg\" routerLinkActive=\"active\">Msg</button> <button routerLink=\"/key\" routerLinkActive=\"active\">Keys </button> <button>User</button>\n<div style=\"text-align:center\">\n  <h1>\n    Welcome to {{ title }}!\n  </h1>\n<h2>\n\tThe IMS system for keys, by keys.\n</h2>\n</div>\n<div routerLink=\"/\" routerLinkActive=\"active\" ></div>\n<router-outlet></router-outlet>\n"
+module.exports = "<button routerLink=\"/msg\" routerLinkActive=\"active\">Msg</button> <button routerLink=\"/key\" routerLinkActive=\"active\">Keys </button> <button>User</button>\n<div style=\"text-align:center\">\n  <h1>\n    Welcome to {{ title }}!\n  </h1>\n<h2>\n\tThe IMS system for keys, by keys.\n</h2>\n</div>\n<div routerLink=\"/passStr\" routerLinkActive=\"active\"></div>\n<div routerLink=\"/\" routerLinkActive=\"active\" ></div>\n<router-outlet></router-outlet>\n"
 
 /***/ }),
 
@@ -148,11 +154,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
 /* harmony import */ var _key_key_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./key/key.component */ "./src/app/key/key.component.ts");
 /* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
-/* harmony import */ var _shared_url_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./shared/url.service */ "./src/app/shared/url.service.ts");
-/* harmony import */ var _shared_user_user_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./shared/user/user.service */ "./src/app/shared/user/user.service.ts");
-/* harmony import */ var _key_service_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./key-service.service */ "./src/app/key-service.service.ts");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var _msg_msg_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./msg/msg.component */ "./src/app/msg/msg.component.ts");
+/* harmony import */ var _createaccount_password_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./createaccount/password.component */ "./src/app/createaccount/password.component.ts");
+/* harmony import */ var _shared_url_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./shared/url.service */ "./src/app/shared/url.service.ts");
+/* harmony import */ var _shared_user_user_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./shared/user/user.service */ "./src/app/shared/user/user.service.ts");
+/* harmony import */ var _key_service_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./key-service.service */ "./src/app/key-service.service.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _msg_msg_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./msg/msg.component */ "./src/app/msg/msg.component.ts");
+
 
 
 
@@ -176,24 +184,107 @@ var AppModule = /** @class */ (function () {
                 _app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"],
                 _login_login_component__WEBPACK_IMPORTED_MODULE_8__["LoginComponent"],
                 _key_key_component__WEBPACK_IMPORTED_MODULE_7__["KeyComponent"],
-                _msg_msg_component__WEBPACK_IMPORTED_MODULE_13__["MsgComponent"]
+                _msg_msg_component__WEBPACK_IMPORTED_MODULE_14__["MsgComponent"],
+                _createaccount_password_component__WEBPACK_IMPORTED_MODULE_9__["PasswordComponent"]
             ],
             imports: [
                 _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"],
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
                 _app_routing_module__WEBPACK_IMPORTED_MODULE_4__["AppRoutingModule"],
-                _angular_common_http__WEBPACK_IMPORTED_MODULE_12__["HttpClientModule"],
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_13__["HttpClientModule"],
                 _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormsModule"]
             ],
             providers: [
-                _shared_url_service__WEBPACK_IMPORTED_MODULE_9__["UrlService"],
-                _shared_user_user_service__WEBPACK_IMPORTED_MODULE_10__["UserService"],
-                _key_service_service__WEBPACK_IMPORTED_MODULE_11__["KeyServiceService"]
+                _shared_url_service__WEBPACK_IMPORTED_MODULE_10__["UrlService"],
+                _shared_user_user_service__WEBPACK_IMPORTED_MODULE_11__["UserService"],
+                _key_service_service__WEBPACK_IMPORTED_MODULE_12__["KeyServiceService"]
             ],
-            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]]
+            bootstrap: [
+                _app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]
+            ]
         })
     ], AppModule);
     return AppModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/createaccount/password.component.css":
+/*!******************************************************!*\
+  !*** ./src/app/createaccount/password.component.css ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2NyZWF0ZWFjY291bnQvcGFzc3dvcmQuY29tcG9uZW50LmNzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/createaccount/password.component.html":
+/*!*******************************************************!*\
+  !*** ./src/app/createaccount/password.component.html ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div>\r\n    <label>Password: </label> <input type=\"text\" [(ngModel)]=\"password\"><br>\r\n    Score: {{ checkPassword() }}/5\r\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/createaccount/password.component.ts":
+/*!*****************************************************!*\
+  !*** ./src/app/createaccount/password.component.ts ***!
+  \*****************************************************/
+/*! exports provided: PasswordComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PasswordComponent", function() { return PasswordComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var zxcvbn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! zxcvbn */ "./node_modules/zxcvbn/lib/main.js");
+/* harmony import */ var zxcvbn__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(zxcvbn__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+var PasswordComponent = /** @class */ (function () {
+    function PasswordComponent() {
+    }
+    PasswordComponent.prototype.ngOnInit = function () {
+        // this.currentPassScore = 0;
+        this.passwordDOM = document.getElementById('passwordfield');
+        // todo change to whatever passwordfield is
+        console.log("init of pw checker");
+    };
+    PasswordComponent.prototype.addEvent = function () {
+        this.passwordDOM.addEventListener('onchange', this.checkPassword);
+        console.log("added event listener to pw");
+    };
+    PasswordComponent.prototype.checkPassword = function () {
+        // let currentPass = this.passwordDOM.innerHTML;
+        // let currentPass = this.password;
+        // if (currentPass.length >= 8){
+        if (this.password.length >= 8) {
+            // let result = zxcvbn(currentPass).score;
+            var result = zxcvbn__WEBPACK_IMPORTED_MODULE_2__(this.password).score;
+            console.log("pw score: " + result);
+            // this.currentPassScore = result;
+            return result;
+        }
+        return 0;
+    };
+    PasswordComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-pass',
+            template: __webpack_require__(/*! ./password.component.html */ "./src/app/createaccount/password.component.html"),
+            styles: [__webpack_require__(/*! ./password.component.css */ "./src/app/createaccount/password.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], PasswordComponent);
+    return PasswordComponent;
 }());
 
 
@@ -297,17 +388,6 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 
 /***/ }),
 
-/***/ "./src/app/login/login.component.html":
-/*!********************************************!*\
-  !*** ./src/app/login/login.component.html ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<ng-container *ngIf=\"!loggedUser; else display\">\n<div>\n    <h1>Login</h1>\n    <label>Email: </label> <input type=\"text\" [(ngModel)]=\"username\"><br>\n    <label>Password: </label> <input type=\"password\" [(ngModel)]=\"password\" (keyup.enter)=\"login()\"><br>\n    <button class=\"btn btn-primary\" (click)=\"login()\">Login</button>\n</div>\n</ng-container>\n\n<ng-template #display>\n<div>\n    <span id=\"welcome\">Welcome {{getUser().name}}</span> <br>\n    <br>\n    <!-- Edit button to route to key component? logout function works so was just test-->\n    <button class=\"btn btn-dasnger\" (click)=\"logout()\">Logout</button>\n</div>\n\n</ng-template>"
-
-/***/ }),
-
 /***/ "./src/app/login/login.component.ts":
 /*!******************************************!*\
   !*** ./src/app/login/login.component.ts ***!
@@ -358,7 +438,8 @@ var LoginComponent = /** @class */ (function () {
     LoginComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-login',
-            template: __webpack_require__(/*! ./login.component.html */ "./src/app/login/login.component.html"),
+            //   templateUrl: './login.component.html',
+            template: __webpack_require__(/*! ../createaccount/password.component.html */ "./src/app/createaccount/password.component.html"),
             styles: [__webpack_require__(/*! ./login.component.css */ "./src/app/login/login.component.css")]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_shared_user_user_service__WEBPACK_IMPORTED_MODULE_2__["UserService"]])

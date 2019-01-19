@@ -4,6 +4,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { KeyComponent } from './key/key.component';
 import { MsgComponent } from './msg/msg.component';
+import { PasswordComponent } from './createaccount/password.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'key',
     component: KeyComponent
+  },
+  {
+    path: 'passStr',
+    component: PasswordComponent
   }
 ];
 

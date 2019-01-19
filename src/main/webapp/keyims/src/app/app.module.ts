@@ -6,16 +6,14 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { KeyComponent } from './key/key.component';
 import { LoginComponent } from './login/login.component';
+import { PasswordComponent } from './createaccount/password.component'
 
 import { UrlService } from './shared/url.service';
 import { UserService} from './shared/user/user.service';
 
-// import { PasswordStrengthBarModule } from 'ng2-password-strength-bar';
 import { KeyServiceService } from './key-service.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MsgComponent } from './msg/msg.component';
-import { PasswordComponent } from './createaccount/password.component';
-import { PasswordStrengthBar } from './createaccount/passwordStrengthBar';
 
 
 @NgModule({
@@ -24,16 +22,14 @@ import { PasswordStrengthBar } from './createaccount/passwordStrengthBar';
     LoginComponent,
     KeyComponent,
     MsgComponent,
-    PasswordComponent, // tomod?
-    PasswordStrengthBar 
+    PasswordComponent
   ],
   imports: [
     RouterModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule,
-    // PasswordStrengthBarModule
+    FormsModule
   ],
   providers: [
       UrlService,
@@ -41,7 +37,11 @@ import { PasswordStrengthBar } from './createaccount/passwordStrengthBar';
       KeyServiceService
   ],
 
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent
+  ]
 })
 
-export class AppModule { }
+export class AppModule {
+
+}

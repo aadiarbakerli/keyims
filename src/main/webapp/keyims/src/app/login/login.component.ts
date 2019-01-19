@@ -5,10 +5,11 @@ import { User } from '../shared/user/user';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
+// templateUrl: '../createaccount/password.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
-    public loggedUser: User;
+export class LoginComponent implements OnInit { 
+    public loggedUser: User;    //why use this when everything calls userService.getUser();
     public username: string;
     public password: string;
 
