@@ -10,7 +10,13 @@ const routes: Routes = [
   {
     path: '',
     component: LoginComponent
+    // redirectTo: '/login',
+    // pathMatch: 'full'
   },
+  // {
+  //   path: 'login',
+  //   component: LoginComponent
+  // },
   {
     path: 'msg',
     component: MsgComponent
@@ -23,6 +29,7 @@ const routes: Routes = [
     path: 'passStr',
     component: PasswordComponent
   }
+  //{ path: '**', component: PageNotFound}
 ];
 
 @NgModule({

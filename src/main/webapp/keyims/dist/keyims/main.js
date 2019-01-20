@@ -61,7 +61,7 @@ var routes = [
         component: _key_key_component__WEBPACK_IMPORTED_MODULE_4__["KeyComponent"]
     },
     {
-        path: 'passStr',
+        path: '',
         component: _createaccount_password_component__WEBPACK_IMPORTED_MODULE_6__["PasswordComponent"]
     }
 ];
@@ -99,7 +99,7 @@ module.exports = "button{\n\tcolor: \"red\";\n\tfont-weight: 400px;\n}\n\n/*# so
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<button routerLink=\"/msg\" routerLinkActive=\"active\">Msg</button> <button routerLink=\"/key\" routerLinkActive=\"active\">Keys </button> <button>User</button>\n<div style=\"text-align:center\">\n  <h1>\n    Welcome to {{ title }}!\n  </h1>\n<h2>\n\tThe IMS system for keys, by keys.\n</h2>\n</div>\n<div routerLink=\"/passStr\" routerLinkActive=\"active\"></div>\n<div routerLink=\"/\" routerLinkActive=\"active\" ></div>\n<router-outlet></router-outlet>\n"
+module.exports = "<button routerLink=\"/msg\" routerLinkActive=\"active\">Msg</button> <button routerLink=\"/key\" routerLinkActive=\"active\">Keys </button> <button>User</button>\n<div style=\"text-align:center\">\n  <h1>\n    Welcome to {{ title }}!\n  </h1>\n<h2>\n\tThe IMS system for keys, by keys.\n</h2>\n</div>\n<br>\n<div routerLink=\"/passStr\" routerLinkActive=\"active\">checkpass</div>\n<br>\n<div routerLink=\"/\" routerLinkActive=\"active\" >login</div>\n<router-outlet></router-outlet>\n"
 
 /***/ }),
 
@@ -229,7 +229,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\r\n    <label>Password: </label> <input type=\"text\" [(ngModel)]=\"password\"><br>\r\n    Score: {{ checkPassword() }}/5\r\n</div>"
+module.exports = "<div>\r\n    <label>Password: </label> <input type=\"password\" [(ngModel)]=\"password\"><br>\r\n    Score: {{ checkPassword() }}/5\r\n</div>"
 
 /***/ }),
 
@@ -267,7 +267,7 @@ var PasswordComponent = /** @class */ (function () {
         // let currentPass = this.passwordDOM.innerHTML;
         // let currentPass = this.password;
         // if (currentPass.length >= 8){
-        if (this.password.length >= 8) {
+        if (this.password != null && this.password.length >= 8) {
             // let result = zxcvbn(currentPass).score;
             var result = zxcvbn__WEBPACK_IMPORTED_MODULE_2__(this.password).score;
             console.log("pw score: " + result);
@@ -388,6 +388,17 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 
 /***/ }),
 
+/***/ "./src/app/login/login.component.html":
+/*!********************************************!*\
+  !*** ./src/app/login/login.component.html ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<ng-container *ngIf=\"!loggedUser; else display\">\n<div>\n    <h1>Logintest</h1>\n    <label>Email: </label> <input type=\"text\" [(ngModel)]=\"username\"><br>\n    <label>Password: </label> <input type=\"password\" [(ngModel)]=\"password\" (keyup.enter)=\"login()\"><br>\n    <button class=\"btn btn-primary\" (click)=\"login()\">Login</button>\n</div>\n</ng-container>\n\n<ng-template #display>\n<div>\n    <span id=\"welcome\">Welcome {{getUser().name}}</span> <br>\n    <br>\n    <!-- Edit button to route to key component? logout function works so was just test-->\n    <button class=\"btn btn-dasnger\" (click)=\"logout()\">Logout</button>\n</div>\n\n</ng-template>"
+
+/***/ }),
+
 /***/ "./src/app/login/login.component.ts":
 /*!******************************************!*\
   !*** ./src/app/login/login.component.ts ***!
@@ -438,8 +449,7 @@ var LoginComponent = /** @class */ (function () {
     LoginComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-login',
-            //   templateUrl: './login.component.html',
-            template: __webpack_require__(/*! ../createaccount/password.component.html */ "./src/app/createaccount/password.component.html"),
+            template: __webpack_require__(/*! ./login.component.html */ "./src/app/login/login.component.html"),
             styles: [__webpack_require__(/*! ./login.component.css */ "./src/app/login/login.component.css")]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_shared_user_user_service__WEBPACK_IMPORTED_MODULE_2__["UserService"]])
