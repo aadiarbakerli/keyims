@@ -56,8 +56,8 @@ public class MessageController {
 		System.out.println(uT);
 		
 		if (uF != null && uT != null) {
-			m.setSender(uF);
-			m.setReceiver(uT);
+			m.setSender(uF.getId());
+			m.setReceiver(uT.getId());
 			m.setContent(content);
 			System.out.println(m);
 		

@@ -36,6 +36,7 @@ public class MessageHibernate implements MessageDao
 		{
 			s.save(k);
 			System.out.println("addMessage Commit");
+			System.out.println(k.toString());
 			s.flush();
 			t.commit();
 		}

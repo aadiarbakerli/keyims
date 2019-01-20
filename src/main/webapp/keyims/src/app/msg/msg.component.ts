@@ -24,6 +24,14 @@ export class MsgComponent implements OnInit {
 
   }
 
+  cancel(): void {
+      let dial = (<HTMLDialogElement>document.getElementById('msg'));
+      dial.style.display = 'none';
+
+      dial = (<HTMLDialogElement>document.getElementById('reply'));
+      dial.style.display = 'none';
+  }
+
   newMsg(): void {
       const dial = (<HTMLDialogElement>document.getElementById('msg'));
       dial.style.display = 'block';
@@ -59,26 +67,39 @@ export class MsgComponent implements OnInit {
             for (let i = 0; i < this.msgs.length; i++) {
                 console.log('i: ' + i);
                 console.log(this.msgs);
-              if (this.userService.getUser().id === this.msgs[i].receiver.id) {
+              if (this.userService.getUser().id === this.msgs[i].receiver) {
                   console.log(this.msgs[i]);
-                td = document.createElement('td');
-                td.innerHTML = this.msgs[i].sender.name;
-                tr.appendChild(td);
-                td = document.createElement('td');
-                td.innerHTML = this.msgs[i].content;
-                tr.appendChild(td);
+                this.http.get('/keyims/userserv').subscribe((users: Array<any>) => {
+                this.uList = users;
 
-                td = document.createElement('td');
-                const btn = document.createElement('button');
-                tr.appendChild(td);
-                td.appendChild(btn);
-                btn.innerHTML = 'Reply';
-                btn.id = 'view' + this.msglist.id;
-                btn.addEventListener('click', this.replyMsg);
+                for (let j = 0; j < this.uList.length; j++) {
+                    if (this.uList[j].id === this.msgs[i].sender) {
+                        const name = this.uList[j].name;
 
-                this.msglist.appendChild(tr);
-              }
+                        td = document.createElement('td');
+                        td.innerHTML = name;
+                        tr.appendChild(td);
+                        td = document.createElement('td');
+                        td.innerHTML = this.msgs[i].content;
+                        tr.appendChild(td);
+
+                        td = document.createElement('td');
+                        const btn = document.createElement('button');
+                        tr.appendChild(td);
+                        td.appendChild(btn);
+                        btn.innerHTML = 'Reply';
+                        btn.id = 'view' + this.msgs[i].sender;
+                        btn.addEventListener('click', this.replyMsg);
+
+                        this.msglist.appendChild(tr);
+                        const linebreak = document.createElement('br');
+                        this.msglist.appendChild(linebreak);
+                    }
+                }
+
+              });
             }
+        }
         }
       });
 
@@ -90,16 +111,28 @@ export class MsgComponent implements OnInit {
      this.sendFrom = this.userService.getUser();
      const usersL = (<HTMLSelectElement>document.getElementById('uList'));
      const uid = usersL.options[usersL.selectedIndex].value;
-     // sendTo needs to be a user
+
      console.log('sendFrom: ' + this.sendFrom.id + ' sendTo: ' + uid + ' detail: ' + this.detail);
      this.http.post('/keyims/msg', this.sendFrom.id + '&' + uid + '&' + this.detail).subscribe(
          msg => {
-             console.log(msg);
+
          });
+    const dial = (<HTMLDialogElement>document.getElementById('msg'));
+    dial.style.display = 'none';
   }
 
   replyMsg(): void {
       // reply msg
+      console.log('replyMsg');
+
+      const dial = (<HTMLDialogElement>document.getElementById('reply'));
+      dial.style.display = 'block';
+
+      const btn = event.target;
+      console.log(btn);
+
+
+
   }
   getUser(): User {
       // Get current user

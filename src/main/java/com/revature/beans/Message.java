@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -19,12 +21,12 @@ public class Message
 	@SequenceGenerator(name="msg_seq", sequenceName="msg_seq", allocationSize=1)
 	@GeneratedValue(generator="msg_seq", strategy=GenerationType.AUTO)	
 	private int id;
-	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+//	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinColumn(name="id")
-	private User sender;
-	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	private int sender;
+//	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	@JoinColumn(name="id")
-	private User receiver;
+	private int receiver;
 	private String content;
 	public int getId() {
 		return id;
@@ -32,16 +34,16 @@ public class Message
 	public void setId(int id) {
 		this.id = id;
 	}
-	public User getSender() {
+	public int getSender() {
 		return sender;
 	}
-	public void setSender(User sender) {
+	public void setSender(int sender) {
 		this.sender = sender;
 	}
-	public User getReceiver() {
+	public int getReceiver() {
 		return receiver;
 	}
-	public void setReceiver(User receiver) {
+	public void setReceiver(int receiver) {
 		this.receiver = receiver;
 	}
 	public String getContent() {
@@ -56,8 +58,8 @@ public class Message
 		int result = 1;
 		result = prime * result + ((content == null) ? 0 : content.hashCode());
 		result = prime * result + id;
-		result = prime * result + ((receiver == null) ? 0 : receiver.hashCode());
-		result = prime * result + ((sender == null) ? 0 : sender.hashCode());
+		result = prime * result + receiver;
+		result = prime * result + sender;
 		return result;
 	}
 	@Override
@@ -76,21 +78,15 @@ public class Message
 			return false;
 		if (id != other.id)
 			return false;
-		if (receiver == null) {
-			if (other.receiver != null)
-				return false;
-		} else if (!receiver.equals(other.receiver))
+		if (receiver != other.receiver)
 			return false;
-		if (sender == null) {
-			if (other.sender != null)
-				return false;
-		} else if (!sender.equals(other.sender))
+		if (sender != other.sender)
 			return false;
 		return true;
 	}
 	@Override
 	public String toString() {
-		return "Message [id=" + id + ", sender=" + sender.getName() + ", receiver=" + receiver.getName() + ", content=" + content + "]";
+		return "Message [id=" + id + ", sender=" + sender + ", receiver=" + receiver + ", content=" + content + "]";
 	}
 	
 	

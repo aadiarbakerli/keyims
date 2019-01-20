@@ -22,4 +22,12 @@
     Message:<br>
     <input type = "text" id = "message" [(ngModel)] = "detail" (keyup.enter)="sendMsg()"> <br><br>
     <button id = "send" (click)="sendMsg()">Send</button>
+    <button id = "cancel" (click)="cancel()">Cancel</button>
+</dialog>
+
+<dialog id = "reply">
+    Message:<br>
+    <input type = "text" id = "message" [(ngModel)] = "detail" (keyup.enter)="replyMsg()"> <br><br>
+    <button id = "send" (click)="replyMsg()">Send</button>
+    <button id = "cancel" (click)="cancel()">Cancel</button>
 </dialog>
