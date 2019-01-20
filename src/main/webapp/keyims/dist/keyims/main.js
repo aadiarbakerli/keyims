@@ -38,6 +38,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
 /* harmony import */ var _key_key_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./key/key.component */ "./src/app/key/key.component.ts");
+/* harmony import */ var _audit_audit_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./audit/audit.component */ "./src/app/audit/audit.component.ts");
+
 
 
 
@@ -51,6 +53,10 @@ var routes = [
     {
         path: 'key',
         component: _key_key_component__WEBPACK_IMPORTED_MODULE_4__["KeyComponent"]
+    },
+    {
+        path: 'audit',
+        component: _audit_audit_component__WEBPACK_IMPORTED_MODULE_5__["AuditComponent"]
     }
 ];
 var AppRoutingModule = /** @class */ (function () {
@@ -87,7 +93,7 @@ module.exports = "button{\n\tcolor: \"red\";\n\tfont-weight: 400px;\n}\n\n/*# so
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<button routerLink=\"/login\" routerLinkActive=\"active\">Home</button> <button routerLink=\"/key\" routerLinkActive=\"active\">Keys </button> <button>User</button><button hidden=\"true\" id=\"logout\" (click)=\"logout()\"></button>\n<div style=\"text-align:center\">\n  <h1>\n    Welcome to {{ title }}!\n  </h1>\n<h2>\n\tThe IMS system for keys, by keys\n</h2>\n</div>\n<router-outlet></router-outlet>\n"
+module.exports = "<button routerLink=\"/login\" routerLinkActive=\"active\">Home</button> <button routerLink=\"/key\" routerLinkActive=\"active\">Keys </button> <button>User</button><button hidden=\"true\" id=\"logout\" (click)=\"logout()\"></button>\n<button routerLink=\"/audit\" routerLinkActive=\"active\" hidden=true id=\"auditbutt\">Audits</button><button hidden=\"true\" id=\"out\" (click)=\"logout()\">Logout</button>\n<div style=\"text-align:center\">\n  <h1>\n    Welcome to {{ title }}!\n  </h1>\n<h2>\n\tThe IMS system for keys, by keys\n</h2>\n</div>\n<router-outlet></router-outlet>\n"
 
 /***/ }),
 
@@ -103,21 +109,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppComponent", function() { return AppComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_shared_user_user_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/shared/user/user.service */ "./src/app/shared/user/user.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
+
 
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent() {
+    function AppComponent(userService, router) {
+        this.userService = userService;
+        this.router = router;
         this.title = 'KeyIMS';
     }
     AppComponent.prototype.logout = function () {
-        console.log("how did you click this?");
+        var _this = this;
+        document.getElementById("auditbutt").hidden = true;
+        document.getElementById("out").hidden = true;
+        this.userService.logout().subscribe(function (data) { _this.router.navigate(['/login']); });
     };
     AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'app-root',
             template: __webpack_require__(/*! ./app.component.html */ "./src/app/app.component.html"),
             styles: [__webpack_require__(/*! ./app.component.css */ "./src/app/app.component.css")]
-        })
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [src_app_shared_user_user_service__WEBPACK_IMPORTED_MODULE_2__["UserService"], _angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -149,6 +165,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _shared_url_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./shared/url.service */ "./src/app/shared/url.service.ts");
 /* harmony import */ var _shared_user_user_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./shared/user/user.service */ "./src/app/shared/user/user.service.ts");
+/* harmony import */ var _audit_audit_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./audit/audit.component */ "./src/app/audit/audit.component.ts");
+
 
 
 
@@ -170,7 +188,8 @@ var AppModule = /** @class */ (function () {
             declarations: [
                 _app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"],
                 _login_login_component__WEBPACK_IMPORTED_MODULE_6__["LoginComponent"],
-                _key_key_component__WEBPACK_IMPORTED_MODULE_7__["KeyComponent"]
+                _key_key_component__WEBPACK_IMPORTED_MODULE_7__["KeyComponent"],
+                _audit_audit_component__WEBPACK_IMPORTED_MODULE_13__["AuditComponent"]
             ],
             imports: [
                 _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouterModule"],
@@ -188,6 +207,74 @@ var AppModule = /** @class */ (function () {
         })
     ], AppModule);
     return AppModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/audit/audit.component.css":
+/*!*******************************************!*\
+  !*** ./src/app/audit/audit.component.css ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2F1ZGl0L2F1ZGl0LmNvbXBvbmVudC5jc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/audit/audit.component.html":
+/*!********************************************!*\
+  !*** ./src/app/audit/audit.component.html ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<ul id=\"audits\">\n\n</ul>\n"
+
+/***/ }),
+
+/***/ "./src/app/audit/audit.component.ts":
+/*!******************************************!*\
+  !*** ./src/app/audit/audit.component.ts ***!
+  \******************************************/
+/*! exports provided: AuditComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuditComponent", function() { return AuditComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+
+
+
+var AuditComponent = /** @class */ (function () {
+    function AuditComponent(http) {
+        this.http = http;
+    }
+    AuditComponent.prototype.ngOnInit = function () {
+        var aud = document.getElementById("audits");
+        this.http.get("/keyims/auditserv").subscribe(function (audits) {
+            for (var i = 0; i < audits.length; i++) {
+                var list = document.createElement("li");
+                list.innerHTML = audits[i].id + ": From User " + audits[i].user + " || " + audits[i].event;
+                console.log(audits[i]);
+                aud.appendChild(list);
+            }
+        });
+    };
+    AuditComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-audit',
+            template: __webpack_require__(/*! ./audit.component.html */ "./src/app/audit/audit.component.html"),
+            styles: [__webpack_require__(/*! ./audit.component.css */ "./src/app/audit/audit.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
+    ], AuditComponent);
+    return AuditComponent;
 }());
 
 
@@ -627,7 +714,9 @@ var LoginComponent = /** @class */ (function () {
         this.userService.login(this.username, this.password).subscribe(function (user) {
             _this.loggedUser = user;
             document.getElementById("logout").innerHTML = JSON.stringify(user);
-            console.log(document.getElementById("logout"));
+            document.getElementById("out").hidden = false;
+            if (_this.loggedUser.lvl >= 1)
+                document.getElementById("auditbutt").hidden = false;
             console.log(user);
         });
     };

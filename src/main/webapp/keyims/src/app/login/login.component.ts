@@ -29,7 +29,13 @@ export class LoginComponent implements OnInit {
           user => {
               this.loggedUser = user;
           document.getElementById("logout").innerHTML = JSON.stringify(user);
-          console.log(document.getElementById("logout"));
+          
+          
+          (<HTMLButtonElement>document.getElementById("out")).hidden = false;
+          
+          if(this.loggedUser.lvl >= 1)
+          	(<HTMLButtonElement>document.getElementById("auditbutt")).hidden = false;
+          
             console.log(user);
           });
   }

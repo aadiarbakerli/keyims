@@ -11,12 +11,14 @@ import { FormsModule } from '@angular/forms';
 
 import { UrlService } from './shared/url.service';
 import { UserService} from './shared/user/user.service';
+import { AuditComponent } from './audit/audit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    KeyComponent
+    KeyComponent,
+    AuditComponent
   ],
   imports: [
   RouterModule,

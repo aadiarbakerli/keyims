@@ -1,9 +1,22 @@
-<beans xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd"><!-- enable annotations --><context:component-scan base-package="com.revature"/><!--
- enable annotation-based configuration of Spring MVC 
---><mvc:annotation-driven/>
-<!-- Set up our resources folder -->
-<mvc:resources location="/keyims" mapping="/**"/>
-<bean id="filterMultipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-<property name="maxUploadSize" value="100000000"/>
-</bean>
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:mvc="http://www.springframework.org/schema/mvc"
+        xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+                http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+        <!-- enable annotations -->
+        <context:component-scan base-package="com.revature"></context:component-scan>
+
+        <!-- enable annotation-based configuration of Spring MVC -->
+        <mvc:annotation-driven></mvc:annotation-driven>
+
+        <!-- Set up our resources folder -->
+        <mvc:resources location="/keyims/dist/keyims/" mapping="/**"></mvc:resources>
+        
+        <bean id="MultipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="100000000"/>
+		</bean>
 </beans>

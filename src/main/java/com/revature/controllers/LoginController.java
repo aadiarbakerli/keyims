@@ -59,7 +59,9 @@ public class LoginController
 	}
 	
 	@RequestMapping(value="/login", method=RequestMethod.DELETE)
-	public void logout(HttpSession session){
+	@ResponseBody
+	public void logout(HttpSession session)
+	{
 		session.invalidate();
 	}
 

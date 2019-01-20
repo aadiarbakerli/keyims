@@ -1,5 +1,6 @@
 package com.revature.controllers;
 
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -14,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.beans.Audit;
 import com.revature.beans.Key;
 import com.revature.beans.User;
+import com.revature.services.AuditService;
 import com.revature.services.KeyService;
 import com.revature.services.UserService;
 
@@ -27,6 +30,9 @@ public class KeyController
 	
 	@Autowired
 	private UserService us;
+	
+	@Autowired 
+	private AuditService as;
 	
 	ObjectMapper om = new ObjectMapper();
 	
@@ -58,11 +64,18 @@ public class KeyController
 	
 	@RequestMapping(value="/keyserv", method=RequestMethod.POST)
 	@ResponseBody
-	public String UpdateKey(@RequestBody String json) throws Exception
+	public String UpdateKey(@RequestBody String json, HttpSession sess) throws Exception
 	{
+		User u =  (User)sess.getAttribute("user");
 		Key k = om.readValue(json, Key.class);
 		
 		ks.editKey(k);
+		
+		Date d = new Date();
+		Audit a =new Audit();
+		a.setUser(u.getId());
+		a.setEvent(d.toString() + "=> Updated key " + k.getId());
+		as.addAudit(a);
 		
 		System.out.println(k.toString());
 		return "done";
@@ -79,8 +92,13 @@ public class KeyController
 		if(u != null)
 		{
 			u.getKeys().add(k);
-			
 			us.editUser(u);
+			
+			Date d = new Date();
+			Audit a =new Audit();
+			a.setUser(u.getId());
+			a.setEvent(d.toString() + "=> Added key " + k.getId());
+			as.addAudit(a);
 		}
 		
 		ks.addKey(k);
@@ -91,11 +109,17 @@ public class KeyController
 	
 	@RequestMapping(value="/keyserv/{id}", method=RequestMethod.DELETE)
 	@ResponseBody
-	public String DeleteKey(@PathVariable String id) throws Exception
+	public String DeleteKey(@PathVariable String id, HttpSession sess) throws Exception
 	{
-		System.out.println(id);
 		Key k = ks.getKey(Integer.parseInt(id));
-		System.out.println(k);
+		
+		User u =  (User)sess.getAttribute("user");
+		Date d = new Date();
+		Audit a =new Audit();
+		a.setUser(u.getId());
+		a.setEvent(d.toString() + "=> Deleted key " + k.getId());
+		as.addAudit(a);
+		
 		ks.deleteKey(k);
 		return "done";
 	}

@@ -1,13 +1,9 @@
 package com.revature.beans;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -19,9 +15,7 @@ public class Audit
 	@SequenceGenerator(name="audit_seq", sequenceName="audit_seq", allocationSize=1)
 	@GeneratedValue(generator="audit_seq", strategy=GenerationType.AUTO)	
 	private int id;
-	@OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JoinColumn(name="id")
-	private User user;
+	private int userid;
 	private String event;
 	
 	public Audit()
@@ -37,12 +31,12 @@ public class Audit
 		this.id = id;
 	}
 
-	public User getUser() {
-		return user;
+	public int getUser() {
+		return userid;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUser(int userid) {
+		this.userid = userid;
 	}
 
 	public String getEvent() {
@@ -59,7 +53,6 @@ public class Audit
 		int result = 1;
 		result = prime * result + ((event == null) ? 0 : event.hashCode());
 		result = prime * result + id;
-		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
 
@@ -79,17 +72,12 @@ public class Audit
 			return false;
 		if (id != other.id)
 			return false;
-		if (user == null) {
-			if (other.user != null)
-				return false;
-		} else if (!user.equals(other.user))
-			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Audit [id=" + id + ", user=" + user.getName() + ", event=" + event + "]";
+		return "Audit [id=" + id + ", userid=" + userid + ", event=" + event + "]";
 	}
 	
 	
