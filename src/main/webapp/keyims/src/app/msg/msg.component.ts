@@ -2,10 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { EventManager } from '@angular/platform-browser';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
-import { MessageService } from 'src/app/shared/message/message.service';
 import { UserService } from 'src/app/shared/user/user.service';
 import { User } from '../shared/user/user';
-import { Message } from '../shared/message/message';
 
 @Component({
   selector: 'app-msg',
@@ -14,15 +12,33 @@ import { Message } from '../shared/message/message';
 })
 export class MsgComponent implements OnInit {
     public msgs: Array<any>;
-    msglist: any;
-    public loggedMsg: Message;
+    public msglist: any;
+    public uList: Array<any>;
     public sendTo: User;
     public sendFrom: User;
     public detail: string;
 
-  constructor(private messageService: MessageService, private userService: UserService, private http: HttpClient) { }
+  constructor(private userService: UserService, private http: HttpClient) { }
 
   ngOnInit() {
+
+  }
+
+  newMsg(): void {
+      const dial = (<HTMLDialogElement>document.getElementById('msg'));
+      dial.style.display = 'block';
+
+      const usersL = document.getElementById('uList');
+      this.http.get('/keyims/userserv').subscribe((users: Array<any>) => {
+          this.uList = users;
+
+          for (let i = 0; i < this.uList.length; i++) {
+              const opt = document.createElement('option');
+              opt.innerHTML = this.uList[i].id + ': ' + this.uList[i].name;
+              opt.value = this.uList[i].id;
+              usersL.appendChild(opt);
+            }
+        });
 
   }
 
@@ -58,7 +74,7 @@ export class MsgComponent implements OnInit {
                 td.appendChild(btn);
                 btn.innerHTML = 'Reply';
                 btn.id = 'view' + this.msglist.id;
-                btn.addEventListener('click', this.sendMsg);
+                btn.addEventListener('click', this.replyMsg);
 
                 this.msglist.appendChild(tr);
               }
@@ -72,15 +88,19 @@ export class MsgComponent implements OnInit {
      // send msg
      console.log('sendMsg');
      this.sendFrom = this.userService.getUser();
+     const usersL = (<HTMLSelectElement>document.getElementById('uList'));
+     const uid = usersL.options[usersL.selectedIndex].value;
      // sendTo needs to be a user
-     console.log('sendFrom: ' + this.sendFrom + ' sendTo: ' + this.sendTo + ' detail: ' + this.detail);
-     this.messageService.sendMsg(this.sendFrom, this.sendTo, this.detail).subscribe(
+     console.log('sendFrom: ' + this.sendFrom.id + ' sendTo: ' + uid + ' detail: ' + this.detail);
+     this.http.post('/keyims/msg', this.sendFrom.id + '&' + uid + '&' + this.detail).subscribe(
          msg => {
-             this.loggedMsg = msg;
-             console.log(this.loggedMsg);
+             console.log(msg);
          });
   }
 
+  replyMsg(): void {
+      // reply msg
+  }
   getUser(): User {
       // Get current user
       return this.userService.getUser();

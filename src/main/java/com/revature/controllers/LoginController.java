@@ -57,16 +57,5 @@ public class LoginController
 		session.invalidate();
 	}
 	
-	@RequestMapping(method=RequestMethod.PUT)
-	public List<User> GetUser(HttpSession session) 
-	{
-		// get a list of users
-		System.out.println("login GET");
-		List<User> list;
-		
-		list = us.getUsers();
-		
-		return list;
-	}
 
 }

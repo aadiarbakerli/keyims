@@ -35,6 +35,9 @@ public class MessageHibernate implements MessageDao
 		try
 		{
 			s.save(k);
+			System.out.println("addMessage Commit");
+			s.flush();
+			t.commit();
 		}
 		catch(HibernateException e)
 		{
@@ -44,7 +47,6 @@ public class MessageHibernate implements MessageDao
 		{
 			s.close();
 		}
-		t.commit();
 	}
 
 	@Override

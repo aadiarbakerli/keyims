@@ -13,12 +13,13 @@
 <br>
 
 <br>
-<h2>Send a Message</h2>
+<button id = "Compose" (click) = "newMsg()">Send a Message</button>
 <br>
-<div id = "msg">
-    Sending to:
-    <input type = "text" id = "send" [(ngModel)] = "sendTo"> <br><br>
+<dialog id = "msg">
+    Sending to: <select id="uList">
+	</select><br>
+    <!-- <input type = "text" id = "send" [(ngModel)] = "sendTo"> --><br><br>
     Message:<br>
     <input type = "text" id = "message" [(ngModel)] = "detail" (keyup.enter)="sendMsg()"> <br><br>
     <button id = "send" (click)="sendMsg()">Send</button>
-</div>
+</dialog>
