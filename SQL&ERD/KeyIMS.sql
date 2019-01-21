@@ -98,10 +98,19 @@ end delete_key;
 
 insert into userInfo(id,name,email,pswd,lvl) values (1,'Bob Marley','bob@marley.com','pass',0);
 insert into userInfo(id,name,email,pswd,lvl) values (2,'Admin','bob@admin.com','pass',1);
+insert into userInfo(id,name,email,pswd,lvl) values (3,'Alice Hu','uwu@uwu.com','pass',0);
+insert into userInfo(id,name,email,pswd,lvl) values (4,'Shui Xen Chan','one@one.com','pass',0);
 
 insert into accessKey (id,keyType,keyDesc,material,pubKey,image,quantity) values (1,'House Key','Key to Adam house','Bronze','1',null,1);
 insert into accessKey (id,keyType,keyDesc,material,pubKey,image,quantity) values (2,'House Key','Key to Colin house','Rice','0',null,1);
 insert into accessKey (id,keyType,keyDesc,material,pubKey,image,quantity) values (3,'Password','Facebook','Digital','0','password',1);
 insert into accessKey (id,keyType,keyDesc,material,pubKey,image,quantity) values (4,'Locker Key','Key to a locker','Silver','0',null,1);
+
+insert into userKey (userId, keyId) values (1,1);
+insert into userKey (userId, keyId) values (1,5);
+insert into userKey (userId, keyId) values (2,3);
+
+insert into message (id, sender, receiver, content) values (1, 2, 1, 'test');
+insert into message (id, sender, receiver, content) values (2, 2, 1, 'this is the second test');
 
 commit;

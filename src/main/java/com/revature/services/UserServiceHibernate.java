@@ -50,4 +50,9 @@ public class UserServiceHibernate implements UserService{
 		return users.getUsers();
 	}
 
+	@Override
+	public User getUser(int id) {
+		return users.getUser(id);
+	}
+
 }

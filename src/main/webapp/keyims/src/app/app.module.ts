@@ -14,13 +14,15 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { KeyServiceService } from './key-service.service';
 import { HttpClientModule } from '@angular/common/http';
+import { MsgComponent } from './msg/msg.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    KeyComponent
+    KeyComponent,
+    MsgComponent
   ],
   imports: [
     RouterModule,

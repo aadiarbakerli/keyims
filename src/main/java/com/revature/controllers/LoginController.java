@@ -1,5 +1,7 @@
 package com.revature.controllers;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +26,9 @@ public class LoginController
 	@RequestMapping(method=RequestMethod.GET)
 	public String goLogin(HttpSession session) 
 	{
-		System.out.println("GET");
-		return "redirect:key.component.html";
+		System.out.println("login GET");
+		
+		return "You didnt start go to keyims/index.html";
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
@@ -53,5 +56,6 @@ public class LoginController
 	public void logout(HttpSession session){
 		session.invalidate();
 	}
+	
 
 }
