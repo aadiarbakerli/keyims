@@ -12,12 +12,25 @@ import { UserService} from './shared/user/user.service';
 import { KeyServiceService } from './key-service.service';
 import { HttpClientModule } from '@angular/common/http';
 
+<<<<<<< HEAD
+=======
+import { KeyServiceService } from './key-service.service';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { UrlService } from './shared/url.service';
+import { UserService} from './shared/user/user.service';
+import { AuditComponent } from './audit/audit.component';
+import { MsgComponent } from './msg/msg.component';
+
+>>>>>>> ccc69752cc8daf3ce3507846ca7efbdeec4b74a4
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    KeyComponent
+    KeyComponent,
+    AuditComponent
+    MsgComponent
   ],
   imports: [
     RouterModule,
@@ -31,5 +44,6 @@ import { HttpClientModule } from '@angular/common/http';
       UserService,
       KeyServiceService
   ],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

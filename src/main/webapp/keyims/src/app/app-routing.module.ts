@@ -3,6 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { KeyComponent } from './key/key.component';
+import { AuditComponent } from './audit/audit.component';
+import { MsgComponent } from './msg/msg.component';
+
 
 const routes: Routes = [
   {
@@ -10,8 +13,16 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'key',
-    component: KeyComponent
+  	path: 'key', 
+	component: KeyComponent
+  },
+  {
+  	path: 'audit',
+  	component: AuditComponent
+  },
+  {
+    path: 'msg',
+    component: MsgComponent
   }
 ];
 
