@@ -3,6 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { KeyComponent } from './key/key.component';
+import { UserComponent } from './user/user.component';
+import { CreateuserComponent } from './createuser/createuser.component';
 
 const routes: Routes = [
   {
@@ -12,6 +14,14 @@ const routes: Routes = [
   {
     path: 'key',
     component: KeyComponent
+  },
+  {
+    path: 'user',
+    component: UserComponent
+  },
+  {
+    path: 'createuser',
+    component: CreateuserComponent
   }
 ];
 

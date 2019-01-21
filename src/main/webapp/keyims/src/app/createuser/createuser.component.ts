@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { User } from '../shared/user/user';
 
 @Component({
   selector: 'app-createuser',
@@ -7,9 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateuserComponent implements OnInit {
 
-  constructor() { }
+  ngOnInit() {}
 
-  ngOnInit() {
+  registerUser(form: NgForm) {
+    console.log(form.value);
+    
   }
-
 }

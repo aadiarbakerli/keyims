@@ -7,18 +7,20 @@ import { AppComponent } from './app.component';
 import { KeyComponent } from './key/key.component';
 import { LoginComponent } from './login/login.component';
 
-import { UrlService } from './shared/url.service';
 import { UserService} from './shared/user/user.service';
-
 import { KeyServiceService } from './key-service.service';
 import { HttpClientModule } from '@angular/common/http';
+import { UserComponent } from './user/user.component';
+import { CreateuserComponent } from './createuser/createuser.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    KeyComponent
+    KeyComponent,
+    UserComponent,
+    CreateuserComponent
   ],
   imports: [
     RouterModule,
@@ -28,11 +30,8 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule
   ],
   providers: [
-      UrlService,
       UserService,
       KeyServiceService
   ],
-
-  bootstrap: [AppComponent]
 })
 export class AppModule { }
