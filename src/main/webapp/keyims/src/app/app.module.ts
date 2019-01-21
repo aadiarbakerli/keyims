@@ -9,6 +9,8 @@ import { LoginComponent } from './login/login.component';
 
 import { UrlService } from './shared/url.service';
 import { UserService} from './shared/user/user.service';
+import { KeyServiceService } from './key-service.service';
+import { HttpClientModule } from '@angular/common/http';
 
 import { KeyServiceService } from './key-service.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -34,7 +36,5 @@ import { MsgComponent } from './msg/msg.component';
       UserService,
       KeyServiceService
   ],
-
-  bootstrap: [AppComponent]
 })
 export class AppModule { }
