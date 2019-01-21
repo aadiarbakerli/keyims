@@ -557,7 +557,7 @@ if(false) {}
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\ThinkPad\Downloads\keyims-master (1)\keyims-master\src\main\webapp\keyims\src\styles.css */"./src/styles.css");
+module.exports = __webpack_require__(/*! C:\Users\ThinkPad\Documents\GitRepos\keyims\src\main\webapp\keyims\src\styles.css */"./src/styles.css");
 
 
 /***/ })

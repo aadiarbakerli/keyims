@@ -38,9 +38,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _login_login_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./login/login.component */ "./src/app/login/login.component.ts");
 /* harmony import */ var _key_key_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./key/key.component */ "./src/app/key/key.component.ts");
-/* harmony import */ var _user_user_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./user/user.component */ "./src/app/user/user.component.ts");
-/* harmony import */ var _createuser_createuser_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./createuser/createuser.component */ "./src/app/createuser/createuser.component.ts");
-
+/* harmony import */ var _createuser_createuser_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./createuser/createuser.component */ "./src/app/createuser/createuser.component.ts");
 
 
 
@@ -56,13 +54,13 @@ var routes = [
         path: 'key',
         component: _key_key_component__WEBPACK_IMPORTED_MODULE_4__["KeyComponent"]
     },
-    {
-        path: 'user',
-        component: _user_user_component__WEBPACK_IMPORTED_MODULE_5__["UserComponent"]
-    },
+    // {
+    //   path: 'user',
+    //   component: UserComponent
+    // },
     {
         path: 'createuser',
-        component: _createuser_createuser_component__WEBPACK_IMPORTED_MODULE_6__["CreateuserComponent"]
+        component: _createuser_createuser_component__WEBPACK_IMPORTED_MODULE_5__["CreateuserComponent"]
     }
 ];
 var AppRoutingModule = /** @class */ (function () {
@@ -99,7 +97,7 @@ module.exports = "button{\n\tcolor: \"red\";\n\tfont-weight: 400px;\n}\n\n/*# so
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<button routerLink=\"/login\" routerLinkActive=\"active\">Home</button> \n<button routerLink=\"/key\" routerLinkActive=\"active\">Keys </button> \n<button routerLink=\"/user\" routerLinkActive=\"active\">User</button>\n<button routerLink=\"/createuser\" routerLinkActive=\"active\">Create User</button>\n\n\n\n\n<div style=\"text-align:center\">\n  <h1>\n    Welcome to {{ title }}!\n  </h1>\n<h2>\n\tThe IMS system for keys, by keys\n</h2>\n</div>\n<router-outlet></router-outlet>\n"
+module.exports = "<button routerLink=\"/login\" routerLinkActive=\"active\">Home</button> \n<button routerLink=\"/key\" routerLinkActive=\"active\">Keys </button> \n<button routerLink=\"/createuser\" routerLinkActive=\"active\">Create User</button>\n\n\n\n\n<div style=\"text-align:center\">\n  <h1>\n    Welcome to {{ title }}!\n  </h1>\n<h2>\n\tThe IMS system for keys, by keys\n</h2>\n</div>\n<router-outlet></router-outlet>\n"
 
 /***/ }),
 
@@ -460,7 +458,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ng-container *ngIf=\"!loggedUser; else display\">\n<div>\n    <h1>Login</h1>\n    <label>Email: </label> <input type=\"text\" [(ngModel)]=\"username\"><br>\n    <label>Password: </label> <input type=\"password\" [(ngModel)]=\"password\" (keyup.enter)=\"login()\"><br>\n    <button class=\"btn btn-primary\" (click)=\"login()\">Login</button>\n</div>\n</ng-container>\n\n<ng-template #display>\n<div>\n    <span id=\"welcome\">Welcome {{getUser().name}}</span> <br>\n    <button class=\"btn btn-dasnger\" (click)=\"logout()\">Logout</button>\n</div>\n\n</ng-template>\n\n"
+module.exports = "<ng-container *ngIf=\"!loggedUser; else display\">\n<div>\n    <h1>Login</h1>\n    <label>Email: </label> <input type=\"text\" [(ngModel)]=\"username\"><br>\n    <label>Password: </label> <input type=\"password\" [(ngModel)]=\"password\" (keyup.enter)=\"login()\"><br>\n    <button class=\"btn btn-primary\" (click)=\"login()\">Login</button>\n</div>\n</ng-container>\n\n<ng-template #display>\n<div>\n    <span id=\"welcome\">Welcome {{getUser().name}}</span> <br>\n    <button class=\"btn btn-danger\" (click)=\"logout()\">Logout</button>\n</div>\n\n</ng-template>\n\n"
 
 /***/ }),
 
@@ -660,7 +658,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\n  user works!\n  <ul id=\"user\">\n\n  </ul>\n</p>\n"
+module.exports = ""
 
 /***/ }),
 
@@ -676,98 +674,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserComponent", function() { return UserComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm5/platform-browser.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-
-
 
 
 var UserComponent = /** @class */ (function () {
-    function UserComponent(http, eventManager) {
-        this.http = http;
-        this.eventManager = eventManager;
+    function UserComponent() {
     }
     UserComponent.prototype.ngOnInit = function () {
-    };
-    UserComponent.prototype.getKey = function () {
-        var _this = this;
-        this.user = document.getElementById("user");
-        while (this.user.hasChildNodes())
-            this.user.removeChild(this.user.childNodes[0]);
-        this.http.get("/keyims/userserv").
-            subscribe(function (data) {
-            _this.user = data;
-            var cheat = document.createElement("p");
-            cheat.id = "cheat";
-            cheat.style.display = "none";
-            cheat.innerHTML = JSON.stringify(_this.user);
-            _this.user.appendChild(cheat);
-            var _loop_1 = function (i) {
-                var list = document.createElement("li");
-                list.innerHTML = _this.user[i].id + ": " + _this.user.FirstName + "<br> Type: " + _this.user.name + "<br> Material: " + _this.user[i].material + "<br> Qty: " + _this.user[i].quantity + "<br> Public: " + _this.user[i].pub;
-                list.value = _this.user[i].id;
-                _this.eventManager.addEventListener(list, 'click', _this.showInfo);
-                _this.eventManager.addEventListener(list, 'mouseenter', function () { return list.style.backgroundColor = "blue"; });
-                _this.eventManager.addEventListener(list, 'mouseleave', function () { return list.style.backgroundColor = "lightblue"; });
-                _this.user.appendChild(list);
-            };
-            for (var i = 0; i < _this.user.length; i++) {
-                _loop_1(i);
-            }
-            console.log("complete");
-        });
-    };
-    UserComponent.prototype.clear = function () {
-        document.getElementById("keyid").innerHTML = "";
-        document.getElementById("keymat").value = "";
-        document.getElementById("keydesc").value = "";
-        document.getElementById("keyqty").value = "";
-        document.getElementById("keypub").value = "";
-        document.getElementById("keytype").value = "";
-    };
-    UserComponent.prototype.showInfo = function (e) {
-        var cheat = document.getElementById("cheat");
-        this.user = JSON.parse(cheat.innerHTML);
-        console.log(cheat);
-        console.log(this.user);
-        var keyid = document.getElementById("keyid");
-        var keymat = document.getElementById("keymat");
-        var keydesc = document.getElementById("keydesc");
-        var keyqty = document.getElementById("keyqty");
-        var keypub = document.getElementById("keypub");
-        var keytype = document.getElementById("keytype");
-        var key = this.user[0];
-        for (var x = 0; x < this.user.length; x++)
-            if (this.user[x].id == e.target.value)
-                key = this.user[x];
-        console.log(key);
-        keyid.innerHTML = e.target.value;
-        keymat.value = key.material;
-        keydesc.value = key.desc;
-        keyqty.value = key.quantity;
-        keytype.value = key.type;
-        if (key.pub == "true" || key.pub == "on")
-            keypub.checked = true;
-        else
-            keypub.checked = false;
-    };
-    UserComponent.prototype.submit = function () {
-        var keyid = document.getElementById("keyid").innerHTML;
-        var keymat = document.getElementById("keymat").value;
-        var keydesc = document.getElementById("keydesc").value;
-        var keyqty = document.getElementById("keyqty").value;
-        var keypub = document.getElementById("keypub").options[document.getElementById("keypub").selectedIndex].value;
-        var keytype = document.getElementById("keytype").value;
-        if (keyid != "") {
-            console.log("Posting...");
-            this.http.post("/keyims/keyserv", '{ "id": "' + keyid + '", "type": "' + keytype + '", "desc": "' + keydesc + '", "material": "' + keymat + '", "pub": "' + keypub + '", "image": "null", "quantity": "' + keyqty + '" }').
-                subscribe(function (data) { console.log(data); });
-        }
-        else {
-            console.log("Pootis...");
-            this.http.put("/keyims/keyserv", '{ "id": "' + 0 + '", "type": "' + keytype + '", "desc": "' + keydesc + '", "material": "' + keymat + '", "pub": "' + keypub + '", "image": "null", "quantity": "' + keyqty + '" }').
-                subscribe(function (data) { console.log(data); });
-        }
     };
     UserComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -775,7 +687,7 @@ var UserComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./user.component.html */ "./src/app/user/user.component.html"),
             styles: [__webpack_require__(/*! ./user.component.css */ "./src/app/user/user.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"], _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["EventManager"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
     ], UserComponent);
     return UserComponent;
 }());
@@ -845,7 +757,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\ThinkPad\Downloads\keyims-master (1)\keyims-master\src\main\webapp\keyims\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\Users\ThinkPad\Documents\GitRepos\keyims\src\main\webapp\keyims\src\main.ts */"./src/main.ts");
 
 
 /***/ })

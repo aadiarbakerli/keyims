@@ -15,10 +15,10 @@ const routes: Routes = [
     path: 'key',
     component: KeyComponent
   },
-  {
-    path: 'user',
-    component: UserComponent
-  },
+  // {
+  //   path: 'user',
+  //   component: UserComponent
+  // },
   {
     path: 'createuser',
     component: CreateuserComponent
