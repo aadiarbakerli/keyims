@@ -22,7 +22,7 @@ button{
   animation-name: spinner;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
-  animation-duration: 3s;
+  animation-duration: 5s;
   transform-style: preserve-3d;
   text-align:center;
 }

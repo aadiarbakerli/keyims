@@ -7,6 +7,7 @@
 	height: 65%;
 	border-style: double;
 	border-width: 5px;
+	padding-left: 25px;
 }
 
 #keyslist{
@@ -23,9 +24,43 @@ dialog{
 	right: 20;
 }
 
+@keyframes list{
+	from { right: -20%;}
+	to {right: 0%;}
+}
+
+@keyframes butt{
+	from {padding: 15px;}
+	to {padding: 0px;}
+}
+
+button{
+	animation-name: butt;
+animation-duration: 1s;
+	padding: 0px;
+}
 
 li{
+	animation-name: list;
+animation-duration: 1s;
+
+position: relative;
+
 	width: 50%;
 	background-color: mintcream;
 }
 
+input{
+animation-name: list;
+animation-duration: 1s;
+
+position: relative;
+
+}
+
+select{
+animation-name: list;
+animation-duration: 1s;
+
+position: relative;
+}

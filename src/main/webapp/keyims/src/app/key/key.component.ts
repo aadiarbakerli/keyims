@@ -188,6 +188,11 @@ cancel()
   		this.keylist = document.getElementById("keylst");
     	while(this.keylist.hasChildNodes())	
    			this.keylist.removeChild(this.keylist.childNodes[0]);
+   			
+   	    let keylistp = document.getElementById("keylstp");
+
+    	while(keylistp.hasChildNodes())
+    		keylistp.removeChild(keylistp.childNodes[0]);
   
     	document.getElementById("keyid").innerHTML = "";
   		(<HTMLInputElement>document.getElementById("keymat")).value = "";
