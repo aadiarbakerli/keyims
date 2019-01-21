@@ -2,16 +2,24 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { KeyComponent } from './key/key.component';
-import { KeyServiceService } from './key-service.service';
-import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { AppComponent } from './app.component';
+import { KeyComponent } from './key/key.component';
+import { LoginComponent } from './login/login.component';
 
 import { UrlService } from './shared/url.service';
 import { UserService} from './shared/user/user.service';
+import { KeyServiceService } from './key-service.service';
+import { HttpClientModule } from '@angular/common/http';
+
+import { KeyServiceService } from './key-service.service';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { UrlService } from './shared/url.service';
+import { UserService} from './shared/user/user.service';
 import { AuditComponent } from './audit/audit.component';
+import { MsgComponent } from './msg/msg.component';
+
 
 @NgModule({
   declarations: [
@@ -19,9 +27,10 @@ import { AuditComponent } from './audit/audit.component';
     LoginComponent,
     KeyComponent,
     AuditComponent
+    MsgComponent
   ],
   imports: [
-  RouterModule,
+    RouterModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,

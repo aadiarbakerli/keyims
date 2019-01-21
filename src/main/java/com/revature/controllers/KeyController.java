@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.beans.Audit;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.beans.Key;
 import com.revature.beans.User;
 import com.revature.services.AuditService;
@@ -23,6 +25,7 @@ import com.revature.services.KeyService;
 import com.revature.services.UserService;
 
 @Controller
+@RequestMapping(value="/keyserv")
 public class KeyController
 {
 	@Autowired
@@ -41,10 +44,10 @@ public class KeyController
 	{
 		return "index.html";
 	}
-	
+
 	@RequestMapping(value="/keyserv", method=RequestMethod.GET)
 	@ResponseBody
-	public List<Key> getKeys(HttpSession sess)
+	public List<Key> getKeys()
 	{
 		List<Key> k = ks.getKeys();
 		User u =  (User)sess.getAttribute("user");
@@ -61,7 +64,7 @@ public class KeyController
 		}
 		return k;
 	}
-	
+
 	@RequestMapping(value="/keyserv", method=RequestMethod.POST)
 	@ResponseBody
 	public String UpdateKey(@RequestBody String json, HttpSession sess) throws Exception
@@ -106,7 +109,7 @@ public class KeyController
 		System.out.println(k.toString());
 		return "done";
 	}
-	
+
 	@RequestMapping(value="/keyserv/{id}", method=RequestMethod.DELETE)
 	@ResponseBody
 	public String DeleteKey(@PathVariable String id, HttpSession sess) throws Exception
@@ -123,4 +126,6 @@ public class KeyController
 		ks.deleteKey(k);
 		return "done";
 	}
+
 }
+

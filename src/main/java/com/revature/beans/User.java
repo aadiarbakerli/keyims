@@ -16,7 +16,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Userinfo")
+@Table(name="userInfo")
 public class User
 {
 	@Id
@@ -70,12 +70,14 @@ public class User
 		this.pswd = pswd;
 	}
 
+
 	public int getlvl() {
 		return lvl;
 	}
 
 	public void setlvl(int lvl) {
 		this.lvl = lvl;
+
 	}
 	
 	public List<Key> getKeys() {
@@ -129,6 +131,7 @@ public class User
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", email=" + email + ", pswd=" + pswd + ", lvl=" + lvl + "]";
+
 	}
 	
 	
