@@ -1,0 +1,65 @@
+#msg {
+    border: 2px solid black;
+    background-color: white;
+    width: 275px;
+    padding: 20px;
+}
+
+#inbox {
+    background-color: white;
+    border: 2px solid black;
+    /* border-collapse: collapse; */
+}
+
+#msgList {
+    background-color: white;
+}
+
+#taste {
+    background-color: #9068be;
+}
+
+th {
+    color: #6ed3cf;
+}
+
+#head {
+    -webkit-animation: rotate-bl 2s cubic-bezier(0.455, 0.030, 0.515, 0.955) 1s infinite both;
+        animation: rotate-bl 2s cubic-bezier(0.455, 0.030, 0.515, 0.955) 1s infinite both;
+}
+
+@-webkit-keyframes rotate-bl {
+
+  0% {
+        -webkit-transform: rotate(0);
+            transform: rotate(0);
+        -webkit-transform-origin: bottom left;
+            transform-origin: bottom left;
+  }
+
+  100% {
+        -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        -webkit-transform-origin: bottom left;
+            transform-origin: bottom left;
+  }
+
+}
+
+@keyframes rotate-bl {
+
+  0% {
+        -webkit-transform: rotate(0);
+            transform: rotate(0);
+        -webkit-transform-origin: bottom left;
+            transform-origin: bottom left;
+  }
+
+  100% {
+        -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        -webkit-transform-origin: bottom left;
+            transform-origin: bottom left;
+  }
+
+}

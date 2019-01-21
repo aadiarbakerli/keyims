@@ -1,23 +1,15 @@
 <ng-container *ngIf="!loggedUser; else display">
-<<<<<<< HEAD
 <h1 id = "hi">Login</h1>
 <div id = "login">
     <label id = "email">Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> <input type="text" [(ngModel)]="username"><br>
     <label id = "pswd">Password: </label> <input type="password" [(ngModel)]="password" (keyup.enter)="login()"><br>
-=======
-<div>
-    <h1>Login</h1>
-    <label>Email: </label> <input type="text" [(ngModel)]="username"><br>
-    <label>Password: </label> <input type="password" [(ngModel)]="password" (keyup.enter)="login()"><br>
->>>>>>> 02f04f45a5ed3b82466a03f6ea23fb4798812807
     <button class="btn btn-primary" (click)="login()">Login</button>
 </div>
 </ng-container>
 
 <ng-template #display>
 <div>
-    <span id="welcome">Welcome {{getUser().name}}</span> <br>
-
+    <span id="logged"><h3 id = "welcome">Welcome {{getUser().name}}</h3></span> <br>
     <br>
     <!-- Edit button to route to key component? logout function works so was just test-->
     <button class="btn btn-dasnger" (click)="logout()">Logout</button>
