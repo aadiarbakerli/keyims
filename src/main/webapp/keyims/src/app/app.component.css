@@ -2,3 +2,35 @@ button{
 	color: "red";
 	font-weight: 400px;
 }
+
+#rainbow {
+    -webkit-animation: color-change 1s infinite;
+    animation: color-change 1s infinite;
+}
+
+@-webkit-keyframes color-change {
+        10% { color: red; }
+        25% { color: orange; }
+        40% { color: yellow; }
+        55% { color: green; }
+        70% { color: blue; }
+        85% { color: indigo; }
+        100% { color: violet; }
+}
+
+#spin {
+  animation-name: spinner;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-duration: 3s;
+  transform-style: preserve-3d;
+  text-align:center;
+}
+@keyframes spinner {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(-360deg);
+  }
+}
