@@ -2,3 +2,15 @@
 body{
 	background-color: "lightblue";
 }
+
+.doge {
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+}
+
+.fire {
+    position: fixed;
+    right: 0px;
+    top: 50%;
+}
