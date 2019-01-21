@@ -1,4 +1,5 @@
 #keydet{
+	background-image: linear-gradient(white, lightblue);
 	position: fixed;
 	right: 20px;
 	bottom: 100px;
@@ -9,6 +10,7 @@
 }
 
 #keyslist{
+	background-image: linear-gradient(white, lightblue);
 	width: 40%;
 	border-style: double;
 	border-width: 5px;
@@ -19,5 +21,11 @@ dialog{
 	position: fixed;
 	bottom: 0;
 	right: 20;
+}
+
+
+li{
+	width: 50%;
+	background-color: mintcream;
 }
 

@@ -16,6 +16,7 @@ export class AppComponent
    constructor(private userService: UserService, private router:Router) { }
   logout()
   {
+  	document.getElementById("logout").innerHTML = "";
   	(<HTMLButtonElement>document.getElementById("auditbutt")).hidden = true;
   	(<HTMLButtonElement>document.getElementById("out")).hidden = true;
       this.userService.logout().subscribe(data =>{this.router.navigate(['/login']);});

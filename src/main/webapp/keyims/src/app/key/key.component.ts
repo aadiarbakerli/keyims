@@ -124,7 +124,8 @@ cancel()
 
   			list.innerHTML = keysp[i].id + ": " + keysp[i].desc + "<br> Type: " + keysp[i].type + "<br> Material: " + keysp[i].material + "<br> Qty: " + keysp[i].quantity + "<br> Public: " + keysp[i].pub ;
   			list.value = keysp[i].id;
-  			
+  			list.style.width = "80%";
+  			list.style.border = "thick solid #0000FF";
   			list.style.backgroundColor = "pink"
   			this.eventManager.addEventListener(list, 'click', this.showInfop);
   			this.eventManager.addEventListener(list, 'mouseenter', ()=> list.style.backgroundColor = "red");
@@ -154,6 +155,8 @@ cancel()
 
   			list.innerHTML = this.keys[i].id + ": " + this.keys[i].desc + "<br> Type: " + this.keys[i].type + "<br> Material: " + this.keys[i].material + "<br> Qty: " + this.keys[i].quantity + "<br> Public: " + this.keys[i].pub ;
   			list.value = this.keys[i].id;
+  			list.style.width = "80%";
+  			list.style.border = "thick solid #0000FF";
   			list.style.backgroundColor = "lightblue"
   			this.eventManager.addEventListener(list, 'click', this.showInfo);
   			this.eventManager.addEventListener(list, 'mouseenter', ()=> list.style.backgroundColor = "blue");
