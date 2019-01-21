@@ -1,15 +1,23 @@
 #login {
 	border: 2px solid black;
 	padding: 25px;
-    background-color: purple;
+    background-color: #9068be;
     height: 50%;
-    width: 30%;
+    width: 20%;
 }
 
 input[type=text], input[type=password] {
-	border: 2px solid black;
+	border: 1px solid black;
 }
 
 label {
-    color: white;
+    color: #6ed3cf;
+}
+
+#hi {
+    color: #f6f5f3;
+}
+
+#welcome {
+    color: #00303F;
 }

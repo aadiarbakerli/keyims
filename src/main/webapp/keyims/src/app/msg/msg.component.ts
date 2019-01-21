@@ -91,7 +91,7 @@ export class MsgComponent implements OnInit {
                         td.innerHTML = name;
                         tr.appendChild(td);
                         td = document.createElement('td');
-                        td.innerHTML = this.msgs[i].content;
+                        td.innerHTML = ' | ' + this.msgs[i].content;
                         tr.appendChild(td);
 
                         td = document.createElement('td');
