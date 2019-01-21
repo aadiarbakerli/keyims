@@ -7,11 +7,11 @@ import { AppComponent } from './app.component';
 import { KeyComponent } from './key/key.component';
 import { LoginComponent } from './login/login.component';
 
-import { UrlService } from './shared/url.service';
-import { UserService} from './shared/user/user.service';
-
 import { KeyServiceService } from './key-service.service';
 import { HttpClientModule } from '@angular/common/http';
+import { UrlService } from './shared/url.service';
+import { UserService} from './shared/user/user.service';
+import { AuditComponent } from './audit/audit.component';
 import { MsgComponent } from './msg/msg.component';
 
 
@@ -20,6 +20,7 @@ import { MsgComponent } from './msg/msg.component';
     AppComponent,
     LoginComponent,
     KeyComponent,
+    AuditComponent,
     MsgComponent
   ],
   imports: [
@@ -34,7 +35,6 @@ import { MsgComponent } from './msg/msg.component';
       UserService,
       KeyServiceService
   ],
-
   bootstrap: [AppComponent]
 })
 export class AppModule { }
