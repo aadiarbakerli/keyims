@@ -26,5 +26,14 @@ Image: <input type="file" id="keyimg"><br>
 <button id="sub" (click)="submit()">Submit</button>
 <button id="clr" (click)="clear()">Clear</button>
 <button disabled="true" id="del" (click)="delete()">Delete</button>
+<button disabled="true" id="trans" (click)="transfer()">Give Access...</button>
 </div>
+
+<dialog id="givedia">
+	Who do you want to give access to this key to?<br>
+	<select id="usrlst">
+	</select><br>
+	<button id="givebutt" (click)="give()">Give</button>
+	<button id="cancel" (click)="cancel()">Cancel</button>
+</dialog>
 

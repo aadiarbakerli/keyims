@@ -35,6 +35,8 @@ public class AuditHibernate implements AuditDao
 		try
 		{
 			s.save(k);
+			s.flush();
+			t.commit();
 		}
 		catch(HibernateException e)
 		{
@@ -44,7 +46,6 @@ public class AuditHibernate implements AuditDao
 		{
 			s.close();
 		}
-		t.commit();
 	}
 
 	@Override
@@ -65,6 +66,8 @@ public class AuditHibernate implements AuditDao
 		try
 		{
 			s.update(k);
+			s.flush();
+			t.commit();
 		}
 		catch(HibernateException e)
 		{
@@ -74,7 +77,6 @@ public class AuditHibernate implements AuditDao
 		{
 			s.close();
 		}
-		t.commit();
 		
 	}
 
@@ -87,6 +89,8 @@ public class AuditHibernate implements AuditDao
 		try
 		{
 			s.delete(k);
+			s.flush();
+			t.commit();
 		}
 		catch(HibernateException e)
 		{
@@ -96,7 +100,6 @@ public class AuditHibernate implements AuditDao
 		{
 			s.close();
 		}
-		t.commit();
 		
 	}
 }

@@ -93,7 +93,6 @@ public class UserHibernate implements UserDao
 		{
 			s.close();
 		}
-		t.commit();
 		
 	}
 
@@ -106,6 +105,8 @@ public class UserHibernate implements UserDao
 		try
 		{
 			s.delete(u);
+			s.flush();
+			t.commit();
 		}
 		catch(HibernateException e)
 		{
@@ -115,7 +116,6 @@ public class UserHibernate implements UserDao
 		{
 			s.close();
 		}
-		t.commit();
 		
 	}
 

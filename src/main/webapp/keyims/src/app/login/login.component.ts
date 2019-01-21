@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/shared/user/user.service';
 import { User } from '../shared/user/user';
+import {Router} from "@angular/router"
 
 @Component({
   selector: 'app-login',
@@ -11,14 +12,13 @@ export class LoginComponent implements OnInit {
     public loggedUser: User;
     public username: string;
     public password: string;
-
-  constructor(private userService: UserService) { }
-
+  constructor(private userService: UserService, private router:Router) { }
   ngOnInit() {
       this.userService.login(null, null).subscribe( user => {
           this.loggedUser = user;
-          console.log('ngOnInit');
-          console.log(user);
+          console.log(this.loggedUser);
+		  if(user != null)
+		  	this.router.navigate(['/key']);
       });
   }
   login(): void {
@@ -26,9 +26,13 @@ export class LoginComponent implements OnInit {
       this.userService.login(this.username, this.password).subscribe(
           user => {
               this.loggedUser = user;
-              console.log(this.loggedUser);
-              console.log('login');
-              console.log(user);
+          document.getElementById("logout").innerHTML = JSON.stringify(user);        
+          (<HTMLButtonElement>document.getElementById("out")).hidden = false;
+          if(this.loggedUser.lvl >= 1)
+          	(<HTMLButtonElement>document.getElementById("auditbutt")).hidden = false;
+          
+            console.log(user);
+
           });
   }
   logout(): void {

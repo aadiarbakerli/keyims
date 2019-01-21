@@ -1,7 +1,7 @@
 <ng-container *ngIf="!loggedUser; else display">
-<h1 id = "hi">Login</h1>
-<div id = "login">
-    <label>Email:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label> <input type="text" [(ngModel)]="username"><br>
+<div>
+    <h1>Login</h1>
+    <label>Email: </label> <input type="text" [(ngModel)]="username"><br>
     <label>Password: </label> <input type="password" [(ngModel)]="password" (keyup.enter)="login()"><br>
     <button class="btn btn-primary" (click)="login()">Login</button>
 </div>
@@ -9,11 +9,11 @@
 
 <ng-template #display>
 <div>
-    <span id="logged"><h3 id = "welcome">Welcome {{getUser().name}}</h3></span> <br>
+    <span id="welcome">Welcome {{getUser().name}}</span> <br>
+
     <br>
     <!-- Edit button to route to key component? logout function works so was just test-->
     <button class="btn btn-dasnger" (click)="logout()">Logout</button>
 </div>
 
 </ng-template>
-
