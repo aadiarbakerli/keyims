@@ -1,0 +1,15 @@
+#login {
+	border: 2px solid black;
+	padding: 25px;
+    background-color: purple;
+    height: 50%;
+    width: 30%;
+}
+
+input[type=text], input[type=password] {
+	border: 2px solid black;
+}
+
+label {
+    color: white;
+}

@@ -66,11 +66,33 @@ public class MessageController {
 		
 	}
 	
-	@RequestMapping(method=RequestMethod.PUT)
+	@RequestMapping(method=RequestMethod.DELETE)
 	@ResponseBody
-	public void editMessage(@RequestBody String json) throws Exception {
-		Message m = om.readValue(json, Message.class);
+	public void deleteMessage(@RequestBody String input) throws Exception {
+		System.out.println(input);
 		
-		ms.editMessage(m);
+		String[] split = input.split("&");
+		
+		String uFrom = split[0];
+		String uTo = split[1];
+		String content = split[2];
+		
+		Message m = new Message();
+		
+		System.out.println("from: " + uFrom + " To: " + uTo + " Content: " + content);
+		
+		int uF = Integer.parseInt(uFrom);
+		int uT = Integer.parseInt(uTo);
+		
+		System.out.println(uF);
+		System.out.println(uT);
+		
+		m.setSender(uF);
+		m.setReceiver(uT);
+		m.setContent(content);
+		System.out.println(m);
+		
+		ms.deleteMessage(m);
+	
 	}
 }

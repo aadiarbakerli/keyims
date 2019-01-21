@@ -5,6 +5,7 @@
         <tr>
             <th>From</th>
             <th>Message</th>
+            <th>Options</th>
         </tr>
     </table>
 </div>
@@ -28,6 +29,6 @@
 <dialog id = "reply">
     Message:<br>
     <input type = "text" id = "message" [(ngModel)] = "detail" (keyup.enter)="replyMsg()"> <br><br>
-    <button id = "send" (click)="replyMsg()">Send</button>
+    <button id = "send">Send</button>
     <button id = "cancel" (click)="cancel()">Cancel</button>
 </dialog>

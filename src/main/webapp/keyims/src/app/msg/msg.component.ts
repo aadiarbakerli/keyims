@@ -17,11 +17,22 @@ export class MsgComponent implements OnInit {
     public sendTo: User;
     public sendFrom: User;
     public detail: string;
+    public pubB: any;
 
   constructor(private userService: UserService, private http: HttpClient) { }
 
   ngOnInit() {
 
+  }
+
+  reply(): void {
+      const dial = (<HTMLDialogElement>document.getElementById('reply'));
+      dial.style.display = 'block';
+
+      const btnId = (event.target as Element).id;
+      console.log(btnId);
+
+      this.pubB = btnId;
   }
 
   cancel(): void {
@@ -59,9 +70,6 @@ export class MsgComponent implements OnInit {
           this.msgs = data;
 
           if (data) {
-
-            const tr = document.createElement('tr');
-            let td;
             console.log('msgs length: ' + this.msgs.length);
 
             for (let i = 0; i < this.msgs.length; i++) {
@@ -76,6 +84,9 @@ export class MsgComponent implements OnInit {
                     if (this.uList[j].id === this.msgs[i].sender) {
                         const name = this.uList[j].name;
 
+                        const tr = document.createElement('tr');
+                        let td;
+
                         td = document.createElement('td');
                         td.innerHTML = name;
                         tr.appendChild(td);
@@ -88,12 +99,14 @@ export class MsgComponent implements OnInit {
                         tr.appendChild(td);
                         td.appendChild(btn);
                         btn.innerHTML = 'Reply';
-                        btn.id = 'view' + this.msgs[i].sender;
-                        btn.addEventListener('click', this.replyMsg);
+                        btn.id = this.msgs[i].id;
+                        btn.addEventListener('click', this.sendMsg);
+                        // this.sendMsg until i figure out how this.reply works
+
+                        const linebreak = document.createElement('br');
+                        tr.appendChild(linebreak);
 
                         this.msglist.appendChild(tr);
-                        const linebreak = document.createElement('br');
-                        this.msglist.appendChild(linebreak);
                     }
                 }
 
@@ -124,15 +137,24 @@ export class MsgComponent implements OnInit {
   replyMsg(): void {
       // reply msg
       console.log('replyMsg');
+      console.log(this.pubB);
 
+      this.http.get<any>('/keyims/msg').subscribe((data: Array<any>) => {
+          this.msgs = data;
+
+          for (let i = 0; i < this.msgs.length; i++) {
+              if (this.pubB === this.msgs[i].id) {
+                  this.sendTo = this.msgs[i].sender;
+                  this.sendFrom = this.getUser();
+                  console.log('sendFrom: ' + this.sendFrom.id + ' sendTo: ' + this.sendTo + ' detail: ' + this.detail);
+
+                  this.http.post('/keyims/msg', this.sendFrom.id + '&' + this.sendTo + '&' + this.detail).subscribe(
+                      msg => {});
+          }
+        }
+      });
       const dial = (<HTMLDialogElement>document.getElementById('reply'));
-      dial.style.display = 'block';
-
-      const btn = event.target;
-      console.log(btn);
-
-
-
+      dial.style.display = 'none';
   }
   getUser(): User {
       // Get current user
