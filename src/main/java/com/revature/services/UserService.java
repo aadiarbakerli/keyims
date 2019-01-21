@@ -12,5 +12,4 @@ public interface UserService
 	public void deleteUser(User u);
 	public void addUser(User u);
 	public ArrayList<User> getUsers();
-	public User getUser(int id);
 }

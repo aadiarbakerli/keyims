@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.beans.Audit;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.beans.Key;
 import com.revature.beans.User;
 import com.revature.services.AuditService;
@@ -25,7 +24,6 @@ import com.revature.services.KeyService;
 import com.revature.services.UserService;
 
 @Controller
-@RequestMapping(value="/keyserv")
 public class KeyController
 {
 	@Autowired
@@ -47,7 +45,7 @@ public class KeyController
 
 	@RequestMapping(value="/keyserv", method=RequestMethod.GET)
 	@ResponseBody
-	public List<Key> getKeys()
+	public List<Key> getKeys(HttpSession sess)
 	{
 		List<Key> k = ks.getKeys();
 		User u =  (User)sess.getAttribute("user");

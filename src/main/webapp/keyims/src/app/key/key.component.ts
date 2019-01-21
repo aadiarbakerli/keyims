@@ -168,7 +168,8 @@ cancel()
   delete()
   {
   		(<HTMLButtonElement>document.getElementById("sub")).disabled = true;
-  		(<HTMLButtonElement>document.getElementById("del")).disabled = true;			
+  		(<HTMLButtonElement>document.getElementById("del")).disabled = true;		
+  		(<HTMLButtonElement>document.getElementById("trans")).disabled = true;			
   		let keyid = document.getElementById("keyid").innerHTML;
   
   	  	console.log("Deleting..");

@@ -44,9 +44,5 @@ public class KeyServiceHibernate implements KeyService
 		
 		return kd.getKey(i);
 	}
+}
 
-<<<<<<< HEAD
-}
-=======
-}
->>>>>>> 5163ec0cfe69f412c11acc45058cc29e4865e6a8
