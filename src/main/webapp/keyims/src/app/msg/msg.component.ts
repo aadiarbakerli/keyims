@@ -100,7 +100,7 @@ export class MsgComponent implements OnInit {
                         td.appendChild(btn);
                         btn.innerHTML = 'Reply';
                         btn.id = this.msgs[i].id;
-                        btn.addEventListener('click', this.sendMsg);
+                        btn.addEventListener('click', this.newMsg);
                         // this.sendMsg until i figure out how this.reply works
 
                         const linebreak = document.createElement('br');
