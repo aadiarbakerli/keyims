@@ -1,4 +1,4 @@
-<h2 id = "head">Inbox</h2>
+<h2>Inbox</h2>
 <br>
 <div>
     <table id = "inbox" class="table">
@@ -21,7 +21,7 @@
 	</select><br>
     <!-- <input type = "text" id = "send" [(ngModel)] = "sendTo"> --><br><br>
     Message:<br>
-    <textarea rows="10" cols="30" [(ngModel)] = "detail" (keyup.enter)="sendMsg()"> </textarea> <br><br>
+    <input type = "text" id = "message" [(ngModel)] = "detail" (keyup.enter)="sendMsg()"> <br><br>
     <button id = "send" (click)="sendMsg()">Send</button>
     <button id = "cancel" (click)="cancel()">Cancel</button>
 </dialog>
