@@ -70,12 +70,14 @@ public class User
 		this.pswd = pswd;
 	}
 
-	public int getLevel() {
+
+	public int getlvl() {
 		return lvl;
 	}
 
-	public void setLevel(int level) {
-		this.lvl = level;
+	public void setlvl(int lvl) {
+		this.lvl = lvl;
+
 	}
 	
 	public List<Key> getKeys() {
@@ -128,7 +130,8 @@ public class User
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", email=" + email + ", pswd=" + pswd + ", level=" + lvl + "]";
+		return "User [id=" + id + ", name=" + name + ", email=" + email + ", pswd=" + pswd + ", lvl=" + lvl + "]";
+
 	}
 	
 	
