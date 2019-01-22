@@ -42,6 +42,24 @@ export class UserService {
           }));
       }
   }
+  
+   createUser(name: string, pswd: string, email: string): Observable<User> {
+    const body = `{"name": "${name}", "email": "${email}", "pswd": "${pswd}"}`;
+    console.log("log body" + body);
+    return this.http.post(this.appUrl + '/createuser', body, 
+        {headers: this.headers, withCredentials: false}).pipe(map(resp => {
+            const user: User = resp as User;
+            console.log("piped user: " + user)
+            if (user) {
+                this.current = user;
+                console.log('userservice createuser');
+                console.log(this.current);
+            }
+            console.log("user: " + user)
+            return user;
+    }));
+  }
+  
   logout(): Observable<Object> {
       return this.http.delete(this.appUrl, { withCredentials: true}).pipe(
           map(success => {

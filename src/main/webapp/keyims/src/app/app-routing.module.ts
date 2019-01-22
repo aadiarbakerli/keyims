@@ -5,7 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { KeyComponent } from './key/key.component';
 import { AuditComponent } from './audit/audit.component';
 import { MsgComponent } from './msg/msg.component';
-
+import { CreateuserComponent } from './createuser/createuser.component';
 
 const routes: Routes = [
   {
@@ -23,6 +23,10 @@ const routes: Routes = [
   {
     path: 'msg',
     component: MsgComponent
+  },
+  {
+    path: 'createuser',
+    component: CreateuserComponent
   }
 ];
 

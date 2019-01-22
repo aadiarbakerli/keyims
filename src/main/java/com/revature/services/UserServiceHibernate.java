@@ -38,9 +38,10 @@ public class UserServiceHibernate implements UserService{
 	}
 
 	@Override
-	public void addUser(User u) 
+	public User addUser(User u) 
 	{
 		users.addUser(u);
+		return u;
 		
 	}
 
@@ -53,6 +54,9 @@ public class UserServiceHibernate implements UserService{
 	@Override
 	public User getUser(int id) {
 		return users.getUser(id);
+	}
+		public User getUser(String user) {
+		return users.getUser(user);
 	}
 
 }

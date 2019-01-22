@@ -1,0 +1,31 @@
+<ng-container *ngIf="!loggedUser">
+<h3 class = "h3 text-center">KeyIMS Account Application Form</h3>
+<form #signupForm = "ngForm" (ngSubmit) = "onSubmit()" #createForm="ngForm">
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail">Email</label>
+      <input name = "email" type="text" class="form-control" id="inputEmail" placeholder="Email" [(ngModel)]='email' required>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword">Password</label>
+      <input name = "password" type="password" class="form-control" id="inputPassword" placeholder="Password" [(ngModel)]='pswd' required>
+			Score: {{ checkPassword() }}/4
+    </div>
+  </div>
+  <div class="form-row">
+  	<div class="form-group col-md-6">
+    	<label for="inputFirstName">First Name</label>
+    	<input name = "firstName" type="text" class="form-control" id="inputFirstName" placeholder="First Name" [(ngModel)]='firstName' required>
+  	</div>
+  	<div class="form-group col-md-6">
+    	<label for="inputLastName">Last Name</label>
+    	<input name = "lastName" type="text" clas	s="form-control" id="inputLastName" placeholder="Last Name" [(ngModel)]='lastName' required>
+  	</div>
+  
+	</div>
+	<div class = text-center>
+		<button id = "submit" type="submit" [disabled]="buttonDisabled || !createForm.form.valid"  class="btn btn-secondary">Apply for Account</button>
+	</div>
+
+</form>
+</ng-container>

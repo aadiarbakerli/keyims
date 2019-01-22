@@ -13,6 +13,7 @@ import { UrlService } from './shared/url.service';
 import { UserService} from './shared/user/user.service';
 import { AuditComponent } from './audit/audit.component';
 import { MsgComponent } from './msg/msg.component';
+import { CreateuserComponent } from './createuser/createuser.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { MsgComponent } from './msg/msg.component';
     LoginComponent,
     KeyComponent,
     AuditComponent,
-    MsgComponent
+    MsgComponent,
+    CreateuserComponent
   ],
   imports: [
     RouterModule,

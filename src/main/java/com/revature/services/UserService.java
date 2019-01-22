@@ -10,6 +10,7 @@ public interface UserService
 	public User getUser(int id);
 	public void editUser(User u);
 	public void deleteUser(User u);
-	public void addUser(User u);
+	public User addUser(User u);
 	public ArrayList<User> getUsers();
+	public User getUser(String user);
 }
