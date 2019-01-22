@@ -16,18 +16,6 @@ export class LoginComponent implements OnInit {
   constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
-     if (document.getElementById('logout').innerHTML.length > 10) {
-          this.router.navigate(['/key']);
-     }
-
-      this.userService.login(null, null).subscribe( user => {
-          this.loggedUser = user;
-          console.log(this.loggedUser);
-
-          if (user != null) {
-              this.router.navigate(['/key']);
-          }
-      });
   }
   login(): void {
       console.log(this.username + ' ' + this.password);
