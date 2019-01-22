@@ -4,5 +4,4 @@ export class User {
     email: string;
     pswd: string;
     lvl: number;
-    key: string[];
 }

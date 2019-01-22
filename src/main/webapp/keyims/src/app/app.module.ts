@@ -6,11 +6,11 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { KeyComponent } from './key/key.component';
 import { LoginComponent } from './login/login.component';
-import { PasswordComponent } from './createaccount/password.component'
 
 import { UrlService } from './shared/url.service';
 import { UserService} from './shared/user/user.service';
 
+import { CreateuserComponent } from './createuser/createuser.component';
 import { KeyServiceService } from './key-service.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MsgComponent } from './msg/msg.component';
@@ -22,7 +22,7 @@ import { MsgComponent } from './msg/msg.component';
     LoginComponent,
     KeyComponent,
     MsgComponent,
-    PasswordComponent
+    CreateuserComponent
   ],
   imports: [
     RouterModule,
@@ -37,11 +37,6 @@ import { MsgComponent } from './msg/msg.component';
       KeyServiceService
   ],
 
-  bootstrap: [
-    AppComponent
-  ]
+  bootstrap: [AppComponent]
 })
-
-export class AppModule {
-
-}
+export class AppModule { }

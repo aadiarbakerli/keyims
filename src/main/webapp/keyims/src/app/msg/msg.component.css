@@ -5,7 +5,15 @@
     padding: 20px;
 }
 
+#inbox {
+    background-color: white;
+}
+
 #message {
     width: 250px;
     height: 200px;
+}
+
+#msgList {
+    background-color: white;
 }

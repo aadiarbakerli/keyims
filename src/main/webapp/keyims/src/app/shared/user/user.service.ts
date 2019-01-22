@@ -10,8 +10,9 @@ import { UrlService } from '../url.service';
 @Injectable({
   providedIn: 'root'
 })
+//create user folder, shared/user/user.service.ts, app-routing.module.ts, app.component.html 
 export class UserService {
-    private appUrl = this.urlSource.getURL() + '/login';
+    private appUrl = this.urlSource.getURL();
     private headers = new HttpHeaders({'Content-Type': 'application/json'});
     public current: User;
 
@@ -21,7 +22,7 @@ export class UserService {
       if (username && password) {
           const body = `{"email": "${username}", "pswd": "${password}"}`;
           console.log(body);
-          return this.http.post(this.appUrl, body, {headers: this.headers, withCredentials: true})
+          return this.http.post(this.appUrl + '/login', body, {headers: this.headers, withCredentials: true})
             .pipe(map(resp => {
               const user: User = resp as User;
               if (user) {
@@ -32,11 +33,10 @@ export class UserService {
               return user;
           }));
       } else { // check if logged in
-          return this.http.get(this.appUrl, {withCredentials: true})
+          return this.http.get(this.appUrl + '/login', {withCredentials: true})
             .pipe(map(resp => {
               const user: User = resp as User;
               if (user) {
-                  console.log('userservice else');
                 this.current = user;
               }
               return user;
@@ -44,13 +44,32 @@ export class UserService {
       }
   }
   logout(): Observable<Object> {
-      return this.http.delete(this.appUrl, { withCredentials: true}).pipe(
+      return this.http.delete(this.appUrl + '/login', { withCredentials: true}).pipe(
           map(success => {
               this.current = null;
               return success;
           })
       );
   }
+
+  createUser(name: string, pswd: string, email: string): Observable<User> {
+    const body = `{"name": "${name}", "email": "${email}", "pswd": "${pswd}"}`;
+    console.log("log body" + body);
+    return this.http.post(this.appUrl + '/createuser', body, 
+        {headers: this.headers, withCredentials: false}).pipe(map(resp => {
+            const user: User = resp as User;
+            console.log("piped user: " + user)
+            if (user) {
+                this.current = user;
+                console.log('userservice createuser');
+                console.log(this.current);
+            }
+            console.log("user: " + user)
+            return user;
+    }));
+  }
+
+
   getUser(): User {
       return this.current;
   }

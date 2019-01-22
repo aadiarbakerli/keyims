@@ -1,6 +1,6 @@
 <ng-container *ngIf="!loggedUser; else display">
 <div>
-    <h1>Logintest</h1>
+    <h1>Login</h1>
     <label>Email: </label> <input type="text" [(ngModel)]="username"><br>
     <label>Password: </label> <input type="password" [(ngModel)]="password" (keyup.enter)="login()"><br>
     <button class="btn btn-primary" (click)="login()">Login</button>

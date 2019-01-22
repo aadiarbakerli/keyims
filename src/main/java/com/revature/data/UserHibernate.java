@@ -41,14 +41,17 @@ public class UserHibernate implements UserDao
 	}
 
 	@Override
-	public void addUser(User u) 
+	public User addUser(User u) 
 	{
+		System.out.println("user hibernate adding : " + u);
 		Session s = hu.getSession();
 		Transaction t = s.beginTransaction();
 		
 		try
 		{
 			s.save(u);
+			System.out.println("User saved: " + u);
+			t.commit();
 		}
 		catch(HibernateException e)
 		{
@@ -58,7 +61,7 @@ public class UserHibernate implements UserDao
 		{
 			s.close();
 		}
-		t.commit();
+		return u;
 	}
 
 	@Override
@@ -113,6 +116,17 @@ public class UserHibernate implements UserDao
 		}
 		t.commit();
 		
+	}
+
+	@Override
+	public User getUser(String email) {
+		Session s = hu.getSession();
+		String query = "from com.revature.beans.User where email=:username";
+		Query<User> q = s.createQuery(query, User.class);
+		q.setParameter("username", email);
+		User u = q.uniqueResult();
+		s.close();	
+		return u;
 	}
 
 }

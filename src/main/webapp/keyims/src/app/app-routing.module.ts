@@ -3,33 +3,26 @@ import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { KeyComponent } from './key/key.component';
+import { CreateuserComponent } from './createuser/createuser.component';
 import { MsgComponent } from './msg/msg.component';
-import { PasswordComponent } from './createaccount/password.component';
 
 const routes: Routes = [
-  {
-    path: '',
+  { 
+    path: 'login',
     component: LoginComponent
-    // redirectTo: '/login',
-    // pathMatch: 'full'
-  },
-  // {
-  //   path: 'login',
-  //   component: LoginComponent
-  // },
-  {
-    path: 'msg',
-    component: MsgComponent
   },
   {
     path: 'key',
     component: KeyComponent
   },
   {
-    path: 'passStr',
-    component: PasswordComponent
-  }
-  //{ path: '**', component: PageNotFound}
+    path: 'msg',
+    component: MsgComponent
+  },
+  {
+    path: 'createuser',
+    component: CreateuserComponent
+  },
 ];
 
 @NgModule({

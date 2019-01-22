@@ -38,9 +38,9 @@ public class UserServiceHibernate implements UserService{
 	}
 
 	@Override
-	public void addUser(User u) 
+	public User addUser(User u) 
 	{
-		users.addUser(u);
+		return users.addUser(u);
 		
 	}
 
@@ -48,6 +48,17 @@ public class UserServiceHibernate implements UserService{
 	public ArrayList<User> getUsers() 
 	{
 		return users.getUsers();
+	}
+
+	@Override
+	public User getUser(int id) {
+		return users.getUser(id);
+	}
+
+	// TODO Auto-generated method stub
+	@Override
+	public User getUser(String user) {
+		return users.getUser(user);
 	}
 
 }

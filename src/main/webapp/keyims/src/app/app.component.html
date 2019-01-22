@@ -1,4 +1,7 @@
-<button routerLink="/msg" routerLinkActive="active">Msg</button> <button routerLink="/key" routerLinkActive="active">Keys </button> <button>User</button>
+<button routerLink="/createuser" id = "create" routerLinkActive="active">Create Account</button> 
+<button routerLink="/msg" routerLinkActive="active">Inbox</button> 
+<button routerLink="/key" routerLinkActive="active">Keys </button> 
+<button>User</button>
 <div style="text-align:center">
   <h1>
     Welcome to {{ title }}!
@@ -7,10 +10,5 @@
 	The IMS system for keys, by keys.
 </h2>
 </div>
-<br>
-<!-- <div routerLink="/passStr" routerLinkActive="active">checkpass</div> -->
-<app-pass>Password Strength Checker</app-pass>
-<br>
 <div routerLink="/" routerLinkActive="active" ></div>
-<!-- <app-login></app-login> -->
-<router-outlet></router-outlet> 
+<router-outlet></router-outlet>

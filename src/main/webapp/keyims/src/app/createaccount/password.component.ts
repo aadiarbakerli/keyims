@@ -14,7 +14,7 @@ export class PasswordComponent implements OnInit {
   public password: string;
 
   constructor() {
-
+    
   }
 
   ngOnInit() {
